@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "866793150120",
+    "project_id": "kilo-a719c",
+    "storage_bucket": "kilo-a719c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:866793150120:android:b6bf641527b432c7c8949d",
+        "android_client_info": {
+          "package_name": "com.example.kilo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "866793150120-8iv14mu49b2k7a815jhdm9844nj2erpv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBt9XxWQKAhvlLWxT4_W-dtQc4oGVWTR6Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "866793150120-8iv14mu49b2k7a815jhdm9844nj2erpv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
