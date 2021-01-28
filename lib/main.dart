@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
-
 import 'bloc/login/login_bloc.dart';
 import 'navigate.dart';
 import 'screens/home.dart';
@@ -68,15 +67,15 @@ class _KiloState extends State<Kilo> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Container(
-          color: Colors.white,
+          color: Colors.black,
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset("scobo_logo.png", height: 100),
+                Image.asset("KILO.png", height: 100),
                 Padding(
                   padding: const EdgeInsets.only(top:30),
-                  child: Text("SCOBO", style: TextStyle(fontSize: 25, color: Colors.blue[600], fontWeight: FontWeight.bold))
+                  child: Text("KILO", style: TextStyle(fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold))
                 )
               ],
             ),
