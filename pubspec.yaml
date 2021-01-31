@@ -28,6 +28,7 @@ dev_dependencies:
   shared_preferences:
   intro_slider:
   rxdart:
+  page_transition:
 
 flutter_icons:
   android: true
@@ -40,6 +41,15 @@ flutter:
   assets:
     - KILO_Logo.jpg
     - KILO.png
+    - activity.png
+    - activity_intro.jpg
+    - tracing.png
+    - tracing_intro.jpg
+    - trainer.png
+    - trainer_intro.jpg
+    - wallet.png
+    - wallet_intro.jpg
+    - login.jpg
 
   # To add assets to your application, add an assets section, like this:
   # assets:

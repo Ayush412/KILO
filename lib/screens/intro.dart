@@ -1,8 +1,8 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:kilo/navigate.dart';
 import 'package:kilo/screens/login.dart';
 import 'package:kilo/sharedpref.dart';
@@ -18,45 +18,61 @@ class _IntroState extends State<Intro> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     slides.add(
       new Slide(
-        title: "TELL SCOBO WHAT TO DO",
+        title: "ACTIVITY TRACKING",
+        description: "KILO will track and log your workouts as well as calories burnt",
         backgroundColor: Colors.black,
-        description: "Give direction instructions to SCOBO and track its movements",
-        styleTitle: TextStyle(color: Colors.orange[400], fontSize: 28, fontWeight: FontWeight.bold),
-        styleDescription: TextStyle(color: Colors.orange[200], fontSize: 20),
-        pathImage: "KILO.png",
-        heightImage: 300
+        styleTitle: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+        styleDescription: TextStyle(color: Colors.orange[300], fontSize: 20),
+        pathImage: "activity.png",
+        heightImage: 160,
+        backgroundImage: "activity_intro.jpg"
       )
     );
     slides.add(
       new Slide(
-        title: "CHECK SCOBO'S STATUS",
+        title: "PERSONAL TRAINER",
+        description: "Get personalized workout routines based on your BMI and goals",
         backgroundColor: Colors.black,
-        description: "Get updates on SCOBO's connectivity and availability",
-        styleTitle: TextStyle(color: Colors.orange[400], fontSize: 28, fontWeight: FontWeight.bold),
-        styleDescription: TextStyle(color: Colors.orange[200], fontSize: 20),
-        pathImage: "KILO.png",
-        heightImage: 300
+        styleTitle: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+        styleDescription: TextStyle(color: Colors.orange[300], fontSize: 20),
+        pathImage: "trainer.png",
+        heightImage: 160,
+        backgroundImage: "trainer_intro.jpg"
       )
     );
     slides.add(
       new Slide(
+        title: "E-WALLET",
+        description: "Pay for membership fees and other in-store products",
         backgroundColor: Colors.black,
-        description: "The SCOBO team thanks all healthcare workers for their service",
-        styleTitle: TextStyle(color: Colors.orange[400], fontSize: 28, fontWeight: FontWeight.bold),
-        styleDescription: TextStyle(color: Colors.orange[200], fontSize: 20),
-        pathImage: "KILO.png",
-        heightImage: 300
+        styleTitle: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+        styleDescription: TextStyle(color: Colors.orange[300], fontSize: 20),
+        pathImage: "wallet.png",
+        heightImage: 160,
+        backgroundImage: "wallet_intro.jpg"
+      )
+    );
+    slides.add(
+      new Slide(
+        title: "CONTACT TRACING",
+        description: "Get notified of unwell members in your vicinity at the gym",
+        backgroundColor: Colors.black,
+        styleTitle: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+        styleDescription: TextStyle(color: Colors.orange[300], fontSize: 20),
+        pathImage: "tracing.png",
+        heightImage: 160,
+        backgroundImage: "tracing_intro.jpg",
+        backgroundOpacity: 0.6
       )
     );
   }
 
   void onDonePress(){
     //sharedPreference.openApp();
-    //navigate(context, Login());
+    navigate(context, Login(), PageTransitionType.fade);
   }
 
   @override
@@ -70,7 +86,7 @@ class _IntroState extends State<Intro> {
         slides: slides,
         styleNameDoneBtn: TextStyle(color: Colors.orange[400], fontWeight: FontWeight.bold, fontSize: 20),
         styleNamePrevBtn: TextStyle(color: Colors.orange[400], fontWeight: FontWeight.bold, fontSize: 20),
-        colorDot: Colors.blue[100],
+        colorDot: Colors.white,
         colorActiveDot: Colors.orange[400],
         onDonePress: onDonePress,
       ),

@@ -62,7 +62,6 @@ class LoginBloc with ValidateCredentials implements BaseBloc{
     else{
       userMap.putIfAbsent('emailID', () => emailID);
       userMap = tempMap;
-      fbm.subscribeToTopic(userMap['ID']);
     }
   }
 
