@@ -30,6 +30,8 @@ dev_dependencies:
   rxdart:
   page_transition:
   google_sign_in:
+  flutter_spinkit:
+  connectivity:
 
 flutter_icons:
   android: true
