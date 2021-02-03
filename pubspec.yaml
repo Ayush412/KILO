@@ -29,6 +29,7 @@ dev_dependencies:
   intro_slider:
   rxdart:
   page_transition:
+  google_sign_in:
 
 flutter_icons:
   android: true
@@ -50,6 +51,7 @@ flutter:
     - wallet.png
     - wallet_intro.jpg
     - login.jpg
+    - google.jpg
 
   # To add assets to your application, add an assets section, like this:
   # assets:

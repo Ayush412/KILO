@@ -5,12 +5,15 @@ import 'login_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginBloc with ValidateCredentials implements BaseBloc{
 
   String emailID;
   String pass;
+  User _user;
   FirebaseAuth _auth = FirebaseAuth.instance;
+  GoogleSignIn _googleSignIn = GoogleSignIn();
   FirebaseMessaging fbm = FirebaseMessaging();
   Map<dynamic, dynamic> userMap = Map<String, dynamic>();
 
@@ -46,6 +49,25 @@ class LoginBloc with ValidateCredentials implements BaseBloc{
       await getUserData(emailID);
       return true;
     }
+  }
+
+  googleLogin() async{
+    GoogleSignInAccount googleSignInAccount = await _googleSignIn.signIn();
+    GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
+    AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleSignInAuthentication.accessToken,
+      idToken: googleSignInAuthentication.idToken,
+    );
+    UserCredential userCredential = await _auth.signInWithCredential(credential);
+    _user = userCredential.user;
+    assert(!_user.isAnonymous);
+    print("Name: ${_user.displayName}, Email: ${_user.email}");
+    await getUserData(_user.email);
+  }
+
+  googleLogout() async{
+    await _googleSignIn.signOut();
+    print('signed out');
   }
 
   getData() async{

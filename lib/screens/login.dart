@@ -38,6 +38,12 @@ class _LoginState extends State<Login> {
     }
     bloc.loadingStatusIn.add(false);
   }
+
+  Future googleLogin() async{
+    bloc.loadingStatusIn.add(true);
+    await loginBloc.googleLogin();
+    bloc.loadingStatusIn.add(false);
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -71,17 +77,56 @@ class _LoginState extends State<Login> {
                           padding: const EdgeInsets.only(top:10, bottom: 50),
                           child: Text("KILO", style: TextStyle(color: Colors.white, fontSize: 26, fontWeight: FontWeight.bold),),
                         ),
-                        Container(
-                          width: 300,
-                          padding: EdgeInsets.all(10.0),
-                            child: textField(loginBloc.emailCheck, loginBloc.emailChanged, 'Email', 'Email', Icon(Icons.person), TextInputType.emailAddress, false)
-                        ),
                         Padding(
-                          padding: const EdgeInsets.only(top:10),
+                          padding: const EdgeInsets.all(10),
                           child: Container(
-                                      width: 300,
-                                      padding: EdgeInsets.all(10.0),
-                          child: textField(loginBloc.passCheck, loginBloc.passChanged, 'Password', 'Password', Icon(Icons.lock), TextInputType.text, true)
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.3),
+                              borderRadius: BorderRadius.all(Radius.circular(15))
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children:[
+                                Text('Login', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24),),
+                                Container(
+                                  width: screenSize(300, context),
+                                  padding: EdgeInsets.all(5.0),
+                                  child: textField(loginBloc.emailCheck, loginBloc.emailChanged, 'Email', 'Email', Icon(Icons.person), TextInputType.emailAddress, false)
+                                ),
+                                Container(
+                                  width: screenSize(300, context),
+                                  padding: EdgeInsets.all(5.0),
+                                  child: textField(loginBloc.passCheck, loginBloc.passChanged, 'Password', 'Password', Icon(Icons.lock), TextInputType.text, true)
+                                ),
+                                RaisedButton(
+                                  onPressed: () => googleLogin(),
+                                  color: Colors.black,
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                                  child: Container(
+                                    width: screenSize(200, context),
+                                    height: screenSize(35, context),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Container(
+                                          height: screenSize(25, context),
+                                          width: screenSize(25, context),
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              image: AssetImage('google.jpg'),
+                                              fit: BoxFit.cover
+                                            ),
+                                            shape: BoxShape.circle
+                                          ),
+                                        ),
+                                        Text("Sign in with Google", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 17),)
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              ]
+                            )
                           ),
                         ),
                         Padding(
@@ -89,10 +134,11 @@ class _LoginState extends State<Login> {
                           child: StreamBuilder(
                             stream: loginBloc.credentialsCheck,
                             builder: (context, snap) => RaisedButton(
-                              onPressed: snap.hasData? (){checklogin();} : () => scaffoldKey.currentState.showSnackBar(showSnack('Check all fields', Colors.black, Colors.orange[400])),
+                              onPressed: ()=> loginBloc.googleLogout(),
+                              //onPressed: snap.hasData? (){checklogin();} : () => scaffoldKey.currentState.showSnackBar(showSnack('Check all fields', Colors.black, Colors.orange[400])),
                               textColor: Colors.white,
                               color: Colors.orange[400],
-                              shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
                               child: Container(
                                 width: 250,
                                 height: 55,

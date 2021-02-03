@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'login.dart';
+import 'package:kilo/bloc/login/login_bloc.dart';
+import 'package:kilo/navigate.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -8,8 +11,10 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+      ),
     );
   }
 }
