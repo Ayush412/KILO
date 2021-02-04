@@ -32,6 +32,9 @@ dev_dependencies:
   google_sign_in:
   flutter_spinkit:
   connectivity:
+  colorful_safe_area:
+  percent_indicator:
+  font_awesome_flutter:
 
 flutter_icons:
   android: true

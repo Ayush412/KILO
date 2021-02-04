@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:kilo/bloc/bloc.dart';
 import 'package:kilo/bloc/login/login_bloc.dart';
+import 'package:kilo/bloc/register/register_bloc.dart';
 import 'package:kilo/navigate.dart';
+import 'package:kilo/repository/user_register_repo.dart';
 import 'package:kilo/sharedpref.dart';
+import 'package:kilo/widgets/underline_text.dart';
 import 'package:kilo/widgets/progress_indicator.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:kilo/screensize.dart';
@@ -25,14 +28,15 @@ class _LoginState extends State<Login> {
   static final controller = PageController(initialPage: 0);
   double page;
 
-   Future checklogin() async{
-    bool hasUser = true;
+  Future checkLogin() async{
+    dynamic hasUser = true;
     var conn = await (Connectivity().checkConnectivity());
     if(conn == ConnectivityResult.none)
        scaffoldKey.currentState.showSnackBar(showSnack('No internet connection!', Colors.white, Colors.red[700]));
     else{
       bloc.loadingStatusIn.add(true);
       hasUser = await loginBloc.checkLogin();
+      bloc.loadingStatusIn.add(false);
       if(!hasUser)
         scaffoldKey.currentState.showSnackBar(showSnack('User not found.', Colors.black, Colors.orange[400]));
       else{
@@ -43,17 +47,44 @@ class _LoginState extends State<Login> {
         else
           navigate(context, UserDetails(), PageTransitionType.rightToLeft);
       }
+    }
+  }
+
+  Future checkNewLogin() async{
+    bool user;
+    var conn = await (Connectivity().checkConnectivity());
+    if(conn == ConnectivityResult.none)
+       scaffoldKey.currentState.showSnackBar(showSnack('No internet connection!', Colors.white, Colors.red[700]));
+    else{
+      bloc.loadingStatusIn.add(true);
+      user = await registerBloc.createLogin();
+      if(user){
+        showDialogBox(context, 'Verification', 'An email has been sent to you. Please verify your email address.', 1);
+      }
+      else
+        scaffoldKey.currentState.showSnackBar(showSnack('User already exists', Colors.black, Colors.orange[400]));
       bloc.loadingStatusIn.add(false);
     }
   }
 
   Future googleLogin() async{
-    await loginBloc.googleLogin();
+    var conn = await (Connectivity().checkConnectivity());
+    if(conn == ConnectivityResult.none)
+       scaffoldKey.currentState.showSnackBar(showSnack('No internet connection!', Colors.white, Colors.red[700]));
+    else{
+      await userRegisterRepo.googleLogin();
+      bloc.loadingStatusIn.add(false);
+      if(loginBloc.userMap!=null){
+        //sharedPreference.saveData(loginBloc.emailID);
+        navigate(context, HomeScreen(), PageTransitionType.fade);
+      }
+      else
+        navigate(context, UserDetails(), PageTransitionType.rightToLeftWithFade);
+    }
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     bloc.loadingStatusIn.add(false);
     page=0;
@@ -128,12 +159,12 @@ class _LoginState extends State<Login> {
                                     Container(
                                       width: screenSize(300, context),
                                       padding: EdgeInsets.all(5.0),
-                                      child: textField(loginBloc.emailCheck, loginBloc.emailChanged, 'Email', 'Email', Icon(Icons.person), TextInputType.emailAddress, false)
+                                      child: textField(loginBloc.emailCheck, loginBloc.emailChanged, 'Email', null, TextInputType.emailAddress, false, false)
                                     ),
                                     Container(
                                       width: screenSize(300, context),
                                       padding: EdgeInsets.all(5.0),
-                                      child: textField(loginBloc.passCheck, loginBloc.passChanged, 'Password', 'Password', Icon(Icons.lock), TextInputType.text, true)
+                                      child: textField(loginBloc.passCheck, loginBloc.passChanged, 'Password', null, TextInputType.text, true, false)
                                     ),
                                     RaisedButton(
                                       onPressed: () => googleLogin(),
@@ -179,7 +210,7 @@ class _LoginState extends State<Login> {
                                     return StreamBuilder(
                                       stream: loginBloc.credentialsCheck,
                                       builder: (context, snap) => RaisedButton(
-                                        onPressed: snap.hasData? (){checklogin();} : () => scaffoldKey.currentState.showSnackBar(showSnack('Check all fields', Colors.black, Colors.orange[400])),
+                                        onPressed: snap.hasData? (){checkLogin();} : () => scaffoldKey.currentState.showSnackBar(showSnack('Check all fields', Colors.black, Colors.orange[400])),
                                         textColor: Colors.white,
                                         color: Colors.orange[400],
                                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
@@ -209,14 +240,7 @@ class _LoginState extends State<Login> {
                                 },
                                 child: Container(height:50,
                                   child: Center(
-                                    child: Text('Create account', 
-                                      style: TextStyle(
-                                        fontSize: 18.0, 
-                                        color: Colors.orange[400], 
-                                        fontWeight: FontWeight.w400, 
-                                        decoration: TextDecoration.underline
-                                      )
-                                    )
+                                    child: underlineText('Create Account', 18)
                                   )
                                 )
                               ),
@@ -224,9 +248,68 @@ class _LoginState extends State<Login> {
                           ]),
                         )
                       ),
-                      Column(
-                        children: [
-                        ],
+                      SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top:80),
+                              child: Container(
+                                          width: 300,
+                                          padding: EdgeInsets.all(10.0),
+                              child: textField(registerBloc.emailCheck, registerBloc.emailChanged, 'Email', null, TextInputType.emailAddress ,false, false)
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top:30),
+                              child: Container(
+                                          width: 300,
+                                          padding: EdgeInsets.all(10.0),
+                              child: textField(registerBloc.pass1Check, registerBloc.pass1Changed, 'Password', null, TextInputType.text, true, false)
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top:30),
+                              child: Container(
+                                          width: 300,
+                                          padding: EdgeInsets.all(10.0),
+                              child: textField(registerBloc.pass2Check, registerBloc.pass2Changed, 'Re-type password', null, TextInputType.text, true, false)
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 50),
+                              child: StreamBuilder(
+                                stream: bloc.loadingStatusOut,
+                                builder: (context, index){
+                                  if(index.hasData && index.data==true)
+                                    return SizedBox(
+                                      height: screenSize(42.5, context),
+                                      child: progressIndicator(context)
+                                    );
+                                  else if(!index.hasData || index.data==false)
+                                    return StreamBuilder(
+                                      stream: registerBloc.credentialsCheck,
+                                      builder: (context, snap) => RaisedButton(
+                                        onPressed: snap.hasData? (){checkNewLogin();} : () => scaffoldKey.currentState.showSnackBar(showSnack('Check all fields', Colors.black, Colors.orange[400])),
+                                        textColor: Colors.white,
+                                        color: Colors.orange[400],
+                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+                                        child: Container(
+                                          width: screenSize(250, context),
+                                          height: screenSize(40, context),
+                                          decoration: const BoxDecoration(
+                                          borderRadius: BorderRadius.all(Radius.circular(80.0))
+                                          ),
+                                          child: Center(
+                                            child: const Text('REGISTER', style: TextStyle(fontSize: 20, color: Colors.white)),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                }
+                              ),
+                            ),
+                          ],
+                        ),
                       )
                     ]
                   ),

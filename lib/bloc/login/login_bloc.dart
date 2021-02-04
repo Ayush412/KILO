@@ -1,11 +1,10 @@
 import 'dart:async';
+import 'package:kilo/repository/user_register_repo.dart';
 import 'package:rxdart/rxdart.dart';
 import '../bloc.dart';
 import 'login_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginBloc with ValidateCredentials implements BaseBloc{
 
@@ -13,7 +12,6 @@ class LoginBloc with ValidateCredentials implements BaseBloc{
   String pass;
   User _user;
   FirebaseAuth _auth = FirebaseAuth.instance;
-  GoogleSignIn _googleSignIn = GoogleSignIn();
   FirebaseMessaging fbm = FirebaseMessaging();
   Map<dynamic, dynamic> userMap = Map<String, dynamic>();
 
@@ -38,55 +36,8 @@ class LoginBloc with ValidateCredentials implements BaseBloc{
   Stream<bool> get loadingStatusOut => _loadingController.stream;
 
   checkLogin() async{
-    var user;
-    try{
-      user = await _auth.signInWithEmailAndPassword(email: emailID, password: pass);
-    }catch(e){print('Not found.');}
-    if (user==null){
-      return false;
-    }
-    else{
-      await getUserData(emailID);
-      return true;
-    }
+    return await userRegisterRepo.checkLogin(emailID, pass);
   }
-
-  googleLogin() async{
-    GoogleSignInAccount googleSignInAccount = await _googleSignIn.signIn();
-    GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
-    AuthCredential credential = GoogleAuthProvider.credential(
-      accessToken: googleSignInAuthentication.accessToken,
-      idToken: googleSignInAuthentication.idToken,
-    );
-    UserCredential userCredential = await _auth.signInWithCredential(credential);
-    _user = userCredential.user;
-    assert(!_user.isAnonymous);
-    print("Name: ${_user.displayName}, Email: ${_user.email}");
-    await getUserData(_user.email);
-  }
-
-  googleLogout() async{
-    await _googleSignIn.signOut();
-    print('signed out');
-  }
-
-  getData() async{
-    await getUserData(emailID);
-  }
-
-  getUserData(String emailID) async{
-    Map<String, dynamic> tempMap = Map<String, dynamic>();
-    await FirebaseFirestore.instance.collection('users').doc(emailID).get().then((DocumentSnapshot snapshot){
-      tempMap = snapshot.data();
-    });
-    if(tempMap==null)
-      userMap=null;
-    else{
-      userMap.putIfAbsent('emailID', () => emailID);
-      userMap = tempMap;
-    }
-  }
-
   @override
   void dispose() {
     _emailController.close();

@@ -14,6 +14,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        appBar: AppBar(title: Text('Home Screen...'),),
       ),
     );
   }

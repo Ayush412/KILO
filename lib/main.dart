@@ -1,9 +1,10 @@
 import 'dart:async';
+import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:kilo/repository/user_data_repo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:flutter/material.dart';
-import 'bloc/login/login_bloc.dart';
 import 'navigate.dart';
 import 'screens/home.dart';
 import 'screens/intro.dart';
@@ -48,7 +49,6 @@ class _KiloState extends State<Kilo> {
     email = prefs.getString('email');
     open = prefs.getBool('open');
     if(email==null){
-      print('no email');
       if(open==null || open==false)
         navigate(context, Intro(), PageTransitionType.fade);
       else{
@@ -57,7 +57,7 @@ class _KiloState extends State<Kilo> {
     }
     else{
       print(email);
-      await loginBloc.getUserData(email);
+      await userDataRepo.getUserData(email);
       navigate(context, HomeScreen(), PageTransitionType.fade);
     }
   }
