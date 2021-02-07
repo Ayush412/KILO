@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:kilo/bloc/login/login_bloc.dart';
+import 'package:kilo/sharedpref.dart';
 
 class UserDataRepo{
   
@@ -30,7 +31,7 @@ class UserDataRepo{
       'BMI Status': map['BMI Status'],
       'Admin': 0,
     });
-    //sharedPreference.saveData(loginBloc.emailID);
+    sharedPreference.saveData(loginBloc.emailID);
   }
 
   updateUserData(Map map) async{

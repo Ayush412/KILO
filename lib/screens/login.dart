@@ -41,7 +41,7 @@ class _LoginState extends State<Login> {
         scaffoldKey.currentState.showSnackBar(showSnack('User not found.', Colors.black, Colors.orange[400]));
       else{
         if(loginBloc.userMap!=null){
-          //sharedPreference.saveData(loginBloc.emailID);
+          sharedPreference.saveData(loginBloc.emailID);
           navigate(context, HomeScreen(), PageTransitionType.rightToLeftWithFade);
         }
         else
@@ -75,7 +75,7 @@ class _LoginState extends State<Login> {
       await userRegisterRepo.googleLogin();
       bloc.loadingStatusIn.add(false);
       if(loginBloc.userMap!=null){
-        //sharedPreference.saveData(loginBloc.emailID);
+        sharedPreference.saveData(loginBloc.emailID);
         navigate(context, HomeScreen(), PageTransitionType.fade);
       }
       else
