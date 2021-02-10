@@ -36,6 +36,7 @@ dev_dependencies:
   percent_indicator:
   font_awesome_flutter:
   persistent_bottom_nav_bar:
+  height_slider:
 
 flutter_icons:
   android: true

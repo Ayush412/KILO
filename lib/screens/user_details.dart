@@ -13,7 +13,7 @@ import 'package:kilo/widgets/textfield.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:kilo/bloc/user_details/user_details_bloc.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-
+import 'package:height_slider/height_slider.dart';
 import 'home.dart';
 
 class UserDetails extends StatefulWidget {
@@ -42,6 +42,7 @@ class _UserDetailsState extends State<UserDetails> {
     // TODO: implement initState
     super.initState();
     userDetailsBloc.bmiIn.add(null);
+    userDetailsBloc.heightIn.add(165);
   }
 
   @override
@@ -82,9 +83,32 @@ class _UserDetailsState extends State<UserDetails> {
                             padding: const EdgeInsets.only(left: 50, right: 50, top: 50),
                             child: textField(userDetailsBloc.weightCheck, userDetailsBloc.weightChanged, 'Weight (kg)', Icon(FontAwesomeIcons.weight), TextInputType.number, false, true),
                           ),
-                          Padding(
+                          /*Padding(
                             padding: const EdgeInsets.only(left: 50, right: 50, top: 50),
                             child: textField(userDetailsBloc.heightCheck, userDetailsBloc.heightChanged, 'Height (cm)', Icon(FontAwesomeIcons.ruler), TextInputType.number, false, true),
+                          ),*/
+                          Padding(
+                            padding: const EdgeInsets.only(top: 40),
+                            child: Text("Height:", style: TextStyle(color: Colors.grey, fontSize: 26, fontWeight: FontWeight.w600),),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 15, right: 15),
+                            child: StreamBuilder<Object>(
+                              stream: userDetailsBloc.heightOut,
+                              builder: (context, height) {
+                                return Container(
+                                  height: 400,
+                                  child: HeightSlider(
+                                    height: height.data,
+                                    currentHeightTextColor: Colors.green[400],
+                                    sliderCircleColor: Colors.green[400],
+                                    primaryColor: Colors.green[400],
+                                    numberLineColor: Colors.orange[400],
+                                    onChange: (value) => userDetailsBloc.heightIn.add(value),
+                                  ),
+                                );
+                              }
+                            )
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 80),

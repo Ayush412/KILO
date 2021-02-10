@@ -23,18 +23,6 @@ mixin ValidateDetails{
     }
   );
 
-  var heightValidator = StreamTransformer<String , String>.fromHandlers(
-    handleData: (height, sink){
-      if(height=='' || height==null)
-        sink.addError("Required");
-      else
-        sink.add(height);
-      userDetailsBloc.height = height;
-      userDetailsBloc.getBMI();
-    }
-  );
-
-
   var weightValidator = StreamTransformer<String , String>.fromHandlers(
     handleData: (weight, sink){
       if(weight=='' || weight==null)

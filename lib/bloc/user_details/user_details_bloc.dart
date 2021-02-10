@@ -11,12 +11,11 @@ class UserDetailsBloc with ValidateDetails implements BaseBloc{
 
   String name;
   String age;
-  String height;
   String weight;
   Color color;
   double bmi;
   String bmiStatus;
-  int h;
+  int height;
   int w;
   Map<dynamic, dynamic> userMap = Map<dynamic, dynamic>();
 
@@ -24,14 +23,17 @@ class UserDetailsBloc with ValidateDetails implements BaseBloc{
     nameController.stream.listen((event) {name=event;});
     ageController.stream.listen((event) {age=event;});
     weightController.stream.listen((event) {weight=event;});
-    heightController.stream.listen((event) {height=event;});
+    heightOut.listen((event) {
+      height = event;
+      getBMI();
+    });
   }
   
   //CONTROLLERS
   BehaviorSubject<String> nameController = BehaviorSubject();
   BehaviorSubject<String> ageController = BehaviorSubject();
   BehaviorSubject<String> weightController = BehaviorSubject();
-  BehaviorSubject<String> heightController = BehaviorSubject();
+  BehaviorSubject<int> heightController = BehaviorSubject();
   BehaviorSubject<double> bmiController = BehaviorSubject();
   BehaviorSubject<String> bmiStatusController = BehaviorSubject();
 
@@ -39,7 +41,7 @@ class UserDetailsBloc with ValidateDetails implements BaseBloc{
   Function(String) get nameChanged => nameController.sink.add;
   Function(String) get ageChanged => ageController.sink.add;
   Function(String) get weightChanged => weightController.sink.add;
-  Function(String) get heightChanged => heightController.sink.add;
+  Sink<int> get heightIn => heightController.sink;
   Sink<double> get bmiIn => bmiController.sink;
   Sink<String> get bmiStatusIn => bmiStatusController.sink;
 
@@ -47,10 +49,10 @@ class UserDetailsBloc with ValidateDetails implements BaseBloc{
   Stream<String> get nameCheck => nameController.stream.transform(nameValidator);
   Stream<String> get ageCheck => ageController.stream.transform(ageValidator);
   Stream<String> get weightCheck => weightController.stream.transform(weightValidator);
-  Stream<String> get heightCheck => heightController.stream.transform(heightValidator);
+  Stream<int> get heightOut => heightController.stream;
   Stream<double> get bmiOut => bmiController.stream;
   Stream<String> get bmiStatusOut => bmiStatusController.stream;
-  Stream<bool> get credentialsCheck => Rx.combineLatest4(nameCheck, ageCheck, weightCheck, heightCheck, (a, b, c, d) => true);
+  Stream<bool> get credentialsCheck => Rx.combineLatest3(nameCheck, ageCheck, weightCheck, (a, b, c) => true);
 
   calculateBMI(){
     getBMI();
@@ -59,12 +61,11 @@ class UserDetailsBloc with ValidateDetails implements BaseBloc{
   }
 
   getBMI(){
-    if(weight=='' || weight==null || height=='' || height==null){}
+    if(weight=='' || weight==null ){}
     else{
-      h = int.parse(height);
       w = int.parse(weight);
-      if(h>0 && w>0){
-        bmi = (w/(h*h))*10000;
+      if(height>0 && w>0){
+        bmi = (w/(height*height))*10000;
         bmi = num.parse(bmi.toStringAsFixed(1));
       }
       if (bmi >= 25.0 && bmi < 29.9){
@@ -88,7 +89,7 @@ class UserDetailsBloc with ValidateDetails implements BaseBloc{
   }
 
   saveUserData() async{
-    Map map = {"Name":name, "Age": age, "Weight": weight, "BMI": bmi, "BMI Status": bmiStatus};
+    Map map = {"Name":name, "Age": age, "Weight": weight, "Height":height, "BMI": bmi, "BMI Status": bmiStatus};
     await userDataRepo.saveUserData(map);
   }
 
@@ -96,6 +97,7 @@ class UserDetailsBloc with ValidateDetails implements BaseBloc{
     Map map = {
       "Age": age==null? loginBloc.userMap['Age'] : age, 
       "Weight": weight==null? loginBloc.userMap['Weight'] : weight,
+      "Height": height==null? loginBloc.userMap['Height'] : height,
       "BMI": bmi==null? loginBloc.userMap['BMI'] : bmi,
       "BMI Status": bmiStatus==null? loginBloc.userMap['BMI Status'] : bmiStatus,
     };

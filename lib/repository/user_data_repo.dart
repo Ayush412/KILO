@@ -27,6 +27,7 @@ class UserDataRepo{
       'Name': map['Name'],
       'Age': map['Age'],
       'Weight': map['Weight'],
+      'Height': map['Height'],
       'BMI': map['BMI'],
       'BMI Status': map['BMI Status'],
       'Admin': 0,
@@ -38,6 +39,7 @@ class UserDataRepo{
     await FirebaseFirestore.instance.collection('users').doc(loginBloc.userMap['emailID']).update({
       'Age': map['Age'],
       'Weight': map['Weight'],
+      'Height': map['Height'],
       'BMI': map['BMI'],
       'BMI Status': map['BMI Status']
     });
