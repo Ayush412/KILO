@@ -83,16 +83,12 @@ class _UserDetailsState extends State<UserDetails> {
                             padding: const EdgeInsets.only(left: 50, right: 50, top: 50),
                             child: textField(userDetailsBloc.weightCheck, userDetailsBloc.weightChanged, 'Weight (kg)', Icon(FontAwesomeIcons.weight), TextInputType.number, false, true),
                           ),
-                          /*Padding(
-                            padding: const EdgeInsets.only(left: 50, right: 50, top: 50),
-                            child: textField(userDetailsBloc.heightCheck, userDetailsBloc.heightChanged, 'Height (cm)', Icon(FontAwesomeIcons.ruler), TextInputType.number, false, true),
-                          ),*/
                           Padding(
                             padding: const EdgeInsets.only(top: 40),
                             child: Text("Height:", style: TextStyle(color: Colors.grey, fontSize: 26, fontWeight: FontWeight.w600),),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 15, right: 15),
+                            padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
                             child: StreamBuilder<Object>(
                               stream: userDetailsBloc.heightOut,
                               builder: (context, height) {
@@ -100,6 +96,7 @@ class _UserDetailsState extends State<UserDetails> {
                                   height: 400,
                                   child: HeightSlider(
                                     height: height.data,
+                                    maxHeight: 200,
                                     currentHeightTextColor: Colors.green[400],
                                     sliderCircleColor: Colors.green[400],
                                     primaryColor: Colors.green[400],
