@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:kilo/navigate.dart';
 import 'package:kilo/screens/login.dart';
 import 'package:kilo/sharedpref.dart';
@@ -71,8 +71,8 @@ class _IntroState extends State<Intro> {
   }
 
   void onDonePress(){
-    //sharedPreference.openApp();
-    navigate(context, Login(), PageTransitionType.fade);
+    sharedPreference.openApp();
+    navigate(context, Login(), PageTransitionAnimation.slideRight, false);
   }
 
   @override

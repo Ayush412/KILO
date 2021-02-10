@@ -14,6 +14,7 @@ import 'package:kilo/widgets/show_snack.dart';
 import 'package:kilo/widgets/textfield.dart';
 import 'user_details.dart';
 import 'package:connectivity/connectivity.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'home.dart';
 
 class Login extends StatefulWidget {
@@ -42,10 +43,10 @@ class _LoginState extends State<Login> {
       else{
         if(loginBloc.userMap!=null){
           sharedPreference.saveData(loginBloc.emailID);
-          navigate(context, HomeScreen(), PageTransitionType.rightToLeftWithFade);
+          navigate(context, HomeScreen(), PageTransitionAnimation.slideRight, true);
         }
         else
-          navigate(context, UserDetails(), PageTransitionType.rightToLeft);
+          navigate(context, UserDetails(), PageTransitionAnimation.slideRight, false);
       }
     }
   }
@@ -76,10 +77,10 @@ class _LoginState extends State<Login> {
       bloc.loadingStatusIn.add(false);
       if(loginBloc.userMap!=null){
         sharedPreference.saveData(loginBloc.emailID);
-        navigate(context, HomeScreen(), PageTransitionType.fade);
+        navigate(context, HomeScreen(), PageTransitionAnimation.slideRight, true);
       }
       else
-        navigate(context, UserDetails(), PageTransitionType.rightToLeftWithFade);
+        navigate(context, UserDetails(), PageTransitionAnimation.slideRight, false);
     }
   }
 

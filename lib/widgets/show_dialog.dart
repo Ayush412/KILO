@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:kilo/navigate.dart';
 import 'package:flutter/material.dart';
+import 'package:kilo/repository/user_register_repo.dart';
 import 'package:kilo/screens/login.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -18,7 +19,7 @@ showDialogBox(BuildContext context, String title, String content, dynamic confir
             onPressed: confirm==null? 
               () => exit(0) : 
               confirm =='login'?
-                () => navigate(context, Login(), PageTransitionType.leftToRightWithFade):
+                () => userRegisterRepo.logOut(context) :
                 () => confirm
           ),
         FlatButton(child: Text(confirm==1? 'Ok' : 'Cancel'), onPressed: () => Navigator.pop(c, false))

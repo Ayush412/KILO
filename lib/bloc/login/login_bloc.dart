@@ -38,6 +38,7 @@ class LoginBloc with ValidateCredentials implements BaseBloc{
   checkLogin() async{
     return await userRegisterRepo.checkLogin(emailID, pass);
   }
+  
   @override
   void dispose() {
     _emailController.close();

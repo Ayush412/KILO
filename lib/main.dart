@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:flutter/services.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:kilo/repository/user_data_repo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:flutter/material.dart';
 import 'navigate.dart';
 import 'screens/home.dart';
@@ -50,15 +50,15 @@ class _KiloState extends State<Kilo> {
     open = prefs.getBool('open');
     if(email==null){
       if(open==null || open==false)
-        navigate(context, Intro(), PageTransitionType.fade);
+        navigate(context, Intro(), PageTransitionAnimation.fade, false);
       else{
-        navigate(context, Login(), PageTransitionType.fade);
+        navigate(context, Login(), PageTransitionAnimation.fade, false);
       }
     }
     else{
       print(email);
       await userDataRepo.getUserData(email);
-      navigate(context, HomeScreen(), PageTransitionType.fade);
+      navigate(context, HomeScreen(), PageTransitionAnimation.fade, true);
     }
   }
 

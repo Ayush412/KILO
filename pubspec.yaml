@@ -35,6 +35,7 @@ dev_dependencies:
   colorful_safe_area:
   percent_indicator:
   font_awesome_flutter:
+  persistent_bottom_nav_bar:
 
 flutter_icons:
   android: true

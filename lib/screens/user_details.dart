@@ -4,12 +4,13 @@ import 'package:kilo/navigate.dart';
 import 'package:kilo/widgets/progress_indicator.dart';
 import 'package:kilo/widgets/show_snack.dart';
 import '../screensize.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:kilo/widgets/show_dialog.dart';
 import 'package:kilo/widgets/underline_text.dart';
 import 'package:kilo/widgets/textfield.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:kilo/bloc/user_details/user_details_bloc.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
@@ -25,10 +26,15 @@ class _UserDetailsState extends State<UserDetails> {
   final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
 
   checkData() async{
-    bloc.loadingStatusIn.add(true);
-    await userDetailsBloc.saveUserData();
-    bloc.loadingStatusIn.add(false);
-    navigate(context, HomeScreen(), PageTransitionType.fade);
+     var conn = await (Connectivity().checkConnectivity());
+    if(conn == ConnectivityResult.none)
+       scaffoldKey.currentState.showSnackBar(showSnack('No internet connection!', Colors.white, Colors.red[700]));
+    else{
+      bloc.loadingStatusIn.add(true);
+      await userDetailsBloc.saveUserData();
+      bloc.loadingStatusIn.add(false);
+      navigate(context, HomeScreen(), PageTransitionAnimation.fade, true);
+    }
   }
 
   @override
