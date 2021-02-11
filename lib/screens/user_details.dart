@@ -69,7 +69,7 @@ class _UserDetailsState extends State<UserDetails> {
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(top:30, bottom: 30),
-                            child: underlineText('Personal Details', 24)
+                            child: underlineText('Personal Details', 24, Colors.white)
                           ),
                           Padding(
                             padding: const EdgeInsets.only(left: 50, right: 50, top: 50),

@@ -16,11 +16,11 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[850],
       appBar: AppBar(
-        title: underlineText('My Profile', 21), 
+        title: underlineText('My Profile', 21, Colors.black), 
         centerTitle: true,
         backgroundColor: Colors.transparent,
+        elevation: 0,
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -29,6 +29,8 @@ class _ProfileState extends State<Profile> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: RaisedButton(
+                  color: Colors.white,
+                  elevation: 1,
                   onPressed: () => logOut(),
                   child: Text("Logout")
                 ),

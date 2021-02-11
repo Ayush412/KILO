@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-underlineText(String text, double size){
+underlineText(String text, double size, Color color){
   return Text(
     text,
     style: TextStyle(
       shadows: [Shadow(
-        color: Colors.white,
+        color: color,
         offset: Offset(0,-10)
       )],
       color: Colors.transparent, 

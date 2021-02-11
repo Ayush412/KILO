@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kilo/screens/dashboard.dart';
+import 'package:kilo/screens/feed.dart';
 import 'package:kilo/screens/profile.dart';
 import 'package:kilo/widgets/show_dialog.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -19,22 +20,29 @@ class _HomeScreenState extends State<HomeScreen> {
   List<PersistentBottomNavBarItem> navbarItems(){
     return [
       PersistentBottomNavBarItem(
+        icon: Icon(Icons.share_rounded),
+        title: ("Feed"),
+        activeColor: Colors.orange[400],
+        inactiveColor: Colors.grey[600],
+      ),
+      PersistentBottomNavBarItem(
         icon: Icon(Icons.home),
         title: ("Dashboard"),
         activeColor: Colors.orange[400],
-        inactiveColor: Colors.grey[800],
+        inactiveColor: Colors.grey[600],
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.person),
         title: ("Profile"),
         activeColor: Colors.orange[400],
-        inactiveColor: Colors.grey[800],
+        inactiveColor: Colors.grey[600],
       ),
     ];
   }
 
   List<Widget> screens(){
     return [
+      Feed(),
       Dahsboard(),
       Profile()
     ];
@@ -62,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
             duration: Duration(milliseconds: 200),
             curve: Curves.ease,
           ),
-          navBarStyle: NavBarStyle.style9,
+          navBarStyle: NavBarStyle.style14,
         ) 
       ),
     );

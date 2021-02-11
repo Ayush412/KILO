@@ -241,7 +241,7 @@ class _LoginState extends State<Login> {
                                 },
                                 child: Container(height:50,
                                   child: Center(
-                                    child: underlineText('Create Account', 18)
+                                    child: underlineText('Create Account', 18, Colors.white)
                                   )
                                 )
                               ),
