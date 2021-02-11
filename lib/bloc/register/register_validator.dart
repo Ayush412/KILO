@@ -1,15 +1,18 @@
 import 'dart:async';
 import 'register_bloc.dart';
+import 'package:email_validator/email_validator.dart';
 
 mixin ValidateCredentials{
 
   var emailValidator = StreamTransformer<String, String>.fromHandlers(
     handleData: (email, sink){
-      if (email.contains("@") && email.contains("."))
-        sink.add(email);
-      else
-        sink.addError("Invalid email");
-      registerBloc.emailID = email;
+
+    final bool isValid = EmailValidator.validate(email);
+    if (!isValid)
+      sink.addError("Invalid email");
+    else
+      sink.add(email);
+    registerBloc.emailID = email;
     }
   );
 

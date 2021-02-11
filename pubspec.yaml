@@ -37,6 +37,8 @@ dev_dependencies:
   font_awesome_flutter:
   persistent_bottom_nav_bar:
   height_slider:
+  email_validator: '^1.0.5'
+
 
 flutter_icons:
   android: true
