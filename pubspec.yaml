@@ -37,6 +37,8 @@ dev_dependencies:
   font_awesome_flutter:
   persistent_bottom_nav_bar:
   height_slider:
+  email_validator:
+  liquid_pull_to_refresh:
 
 flutter_icons:
   android: true

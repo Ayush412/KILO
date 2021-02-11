@@ -4,8 +4,6 @@ import 'package:kilo/screens/feed.dart';
 import 'package:kilo/screens/profile.dart';
 import 'package:kilo/widgets/show_dialog.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-import 'package:colorful_safe_area/colorful_safe_area.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -15,7 +13,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
 
   final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
-  PersistentTabController controller = PersistentTabController(initialIndex: 0);
+  PersistentTabController controller = PersistentTabController(initialIndex: 1);
 
   List<PersistentBottomNavBarItem> navbarItems(){
     return [
