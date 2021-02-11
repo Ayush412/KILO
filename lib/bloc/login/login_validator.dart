@@ -5,7 +5,7 @@ mixin ValidateCredentials{
 
   var emailValidator = StreamTransformer<String, String>.fromHandlers(
     handleData: (email, sink){
-      if (!email.contains("@") && !email.contains(".") || email=='')
+      if (!email.contains("@") && !email.contains("."))
       sink.addError("Invalid email");
       else
         sink.add(email);
