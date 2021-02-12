@@ -19,7 +19,10 @@ class UserDataRepo{
     else{
       myMap.putIfAbsent('emailID', () => emailID);
       loginBloc.userMap = myMap;
-      loginBloc.liked = myMap['Liked'];
+      if(myMap['Liked'] == null)
+        loginBloc.liked = [];
+      else
+        loginBloc.liked = myMap['Liked'];
     }
   }
 
