@@ -14,12 +14,11 @@ class UserDataRepo{
     if(myMap==null){
       print('no data');
       loginBloc.userMap=null;
-      loginBloc.liked=[];
     }
     else{
+      print('yes data');
       myMap.putIfAbsent('emailID', () => emailID);
       loginBloc.userMap = myMap;
-      loginBloc.liked = myMap['Liked'];
     }
   }
 
@@ -32,7 +31,6 @@ class UserDataRepo{
       'BMI': map['BMI'],
       'BMI Status': map['BMI Status'],
       'Admin': 0,
-      'Liked': []
     });
     sharedPreference.saveData(loginBloc.emailID);
   }

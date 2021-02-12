@@ -36,7 +36,6 @@ class UserDetailsBloc with ValidateDetails implements BaseBloc{
   BehaviorSubject<int> heightController = BehaviorSubject();
   BehaviorSubject<double> bmiController = BehaviorSubject();
   BehaviorSubject<String> bmiStatusController = BehaviorSubject();
-  BehaviorSubject<List> likedController = BehaviorSubject();
 
   //SINKS
   Function(String) get nameChanged => nameController.sink.add;
@@ -45,7 +44,6 @@ class UserDetailsBloc with ValidateDetails implements BaseBloc{
   Sink<int> get heightIn => heightController.sink;
   Sink<double> get bmiIn => bmiController.sink;
   Sink<String> get bmiStatusIn => bmiStatusController.sink;
-  Sink<List> get likedIn => likedController.sink;
 
   //STREAMS
   Stream<String> get nameCheck => nameController.stream.transform(nameValidator);
@@ -54,7 +52,6 @@ class UserDetailsBloc with ValidateDetails implements BaseBloc{
   Stream<int> get heightOut => heightController.stream;
   Stream<double> get bmiOut => bmiController.stream;
   Stream<String> get bmiStatusOut => bmiStatusController.stream;
-  Stream<List> get likedOut => likedController.stream;
   Stream<bool> get credentialsCheck => Rx.combineLatest3(nameCheck, ageCheck, weightCheck, (a, b, c) => true);
 
   calculateBMI(){
@@ -115,7 +112,6 @@ class UserDetailsBloc with ValidateDetails implements BaseBloc{
     heightController.close();
     bmiController.close();
     bmiStatusController.close();
-    likedController.close();
   }
 }
 

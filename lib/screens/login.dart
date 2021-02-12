@@ -7,6 +7,7 @@ import 'package:kilo/repository/user_register_repo.dart';
 import 'package:kilo/sharedpref.dart';
 import 'package:kilo/widgets/underline_text.dart';
 import 'package:kilo/widgets/progress_indicator.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:kilo/screensize.dart';
 import 'package:kilo/widgets/show_dialog.dart';
 import 'package:kilo/widgets/show_snack.dart';
