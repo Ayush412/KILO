@@ -14,6 +14,7 @@ class LoginBloc with ValidateCredentials implements BaseBloc{
   FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseMessaging fbm = FirebaseMessaging();
   Map<dynamic, dynamic> userMap = Map<String, dynamic>();
+  List<dynamic> liked = List<dynamic>();
 
   //CONTROLLERS
   BehaviorSubject<String> _emailController = BehaviorSubject();
