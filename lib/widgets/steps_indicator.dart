@@ -10,7 +10,7 @@ stepsIndicator(BuildContext context){
         radius: 160,
         backgroundWidth: 8,
         lineWidth: 8,
-        percent: steps.data[0]/10000,
+        percent: (steps.data[0]>=steps.data[1]) ? 1 : steps.data[0]/steps.data[1],
         animationDuration: 1500,
         backgroundColor: Colors.grey,
         progressColor: Colors.orange[400],
