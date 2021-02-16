@@ -84,7 +84,7 @@ class _KiloState extends State<Kilo> {
       }
     }
     else{
-      print(email);
+      loginBloc.emailID = email;
       await userDataRepo.getUserData(email);
       navigate(context, HomeScreen(), PageTransitionAnimation.fade, true);
     }
