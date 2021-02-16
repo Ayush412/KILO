@@ -1383,4 +1383,3 @@ class ImageCardWithBasicFooter extends StatelessWidget {
     );
   }
 }
-

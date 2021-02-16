@@ -38,7 +38,9 @@ dev_dependencies:
   persistent_bottom_nav_bar:
   height_slider:
   email_validator:
-  liquid_pull_to_refresh:
+  pedometer:
+  activity_recognition_flutter:
+  date_format:
 
 
 flutter_icons:
@@ -62,6 +64,7 @@ flutter:
     - wallet_intro.jpg
     - login.jpg
     - google.jpg
+    - shoe.png
     - image001.jpg
     - image002.jpg
     - image003.jpg

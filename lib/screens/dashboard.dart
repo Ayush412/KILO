@@ -1,12 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:kilo/bloc/activity_bloc.dart';
+import 'package:kilo/bloc/login/login_bloc.dart';
+import 'package:kilo/widgets/steps_indicator.dart';
 import 'package:kilo/widgets/underline_text.dart';
+import 'package:kilo/repository/activity_repo.dart';
 
-class Dahsboard extends StatefulWidget {
+class Dashboard extends StatefulWidget {
   @override
-  _DahsboardState createState() => _DahsboardState();
+  _DashboardState createState() => _DashboardState();
 }
 
-class _DahsboardState extends State<Dahsboard> {
+class _DashboardState extends State<Dashboard> {
+
+  @override
+  void initState() {
+    super.initState();
+    print([loginBloc.steps, loginBloc.userMap['Steps Goal']]);
+    activityBloc.stepsIn.add([loginBloc.steps, loginBloc.userMap['Steps Goal']]);
+    activityRepo.initialiseSteps();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +33,7 @@ class _DahsboardState extends State<Dahsboard> {
         child: Center(
           child: Column(
             children: [
-              
+              stepsIndicator(context)
             ],
           ),
         ),

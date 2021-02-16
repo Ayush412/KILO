@@ -48,19 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   List<Widget> screens() {
-    return [Feed(), Dahsboard(), Programs(), Profile()];
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () => showDialogBox(context, 'Exit App?', '', null),
-      child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          home: PersistentTabView(
-            context,
             controller: controller,
-            confineInSafeArea: true,
             resizeToAvoidBottomInset: true,
             hideNavigationBarWhenKeyboardShows: true,
             items: navbarItems(),

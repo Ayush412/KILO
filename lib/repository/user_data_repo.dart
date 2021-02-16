@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:kilo/bloc/login/login_bloc.dart';
+import 'package:date_format/date_format.dart';
 import 'package:kilo/sharedpref.dart';
 
 class UserDataRepo{
@@ -35,7 +36,9 @@ class UserDataRepo{
       'BMI': map['BMI'],
       'BMI Status': map['BMI Status'],
       'Admin': 0,
-      'Liked': []
+      'Liked': [],
+      'Steps Goal': 10000,
+      'Steps': {formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd]) : 0}
     });
     sharedPreference.saveData(loginBloc.emailID);
   }
@@ -46,9 +49,22 @@ class UserDataRepo{
       'Weight': map['Weight'],
       'Height': map['Height'],
       'BMI': map['BMI'],
-      'BMI Status': map['BMI Status']
+      'BMI Status': map['BMI Status'],
+      'Steps Goal': map['Steps Goal']
     });
     await getUserData(loginBloc.userMap['emailID']);
+  }
+
+  saveUserSteps(String date, int steps) async{
+    Map<String, dynamic> map = Map<String, dynamic>();
+    try{
+      DocumentSnapshot ds = await FirebaseFirestore.instance.collection('users').doc(loginBloc.userMap['emailID']).get();
+      map = ds.data()['Steps'];
+      map[date]=steps;
+      await FirebaseFirestore.instance.collection('users').doc(loginBloc.userMap['emailID']).update({
+        'Steps' : map
+      });
+    }catch(e){}
   }
 
 }
