@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/services.dart';
 import 'package:kilo/navigate.dart';
 import 'package:flutter/material.dart';
 import 'package:kilo/repository/user_register_repo.dart';
@@ -17,7 +18,7 @@ showDialogBox(BuildContext context, String title, String content, dynamic confir
           Container() : 
           FlatButton(child: Text('Confirm'),
             onPressed: confirm==null? 
-              () => exit(0) : 
+              () => SystemNavigator.pop() : 
               confirm =='login'?
                 () => userRegisterRepo.logOut(context) :
                 () => confirm

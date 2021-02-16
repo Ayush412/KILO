@@ -1,9 +1,12 @@
 import 'dart:async';
+import 'package:kilo/bloc/login/login_bloc.dart';
+import 'package:kilo/sharedpref.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:kilo/repository/user_data_repo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
+import 'package:date_format/date_format.dart';
 import 'navigate.dart';
 import 'screens/home.dart';
 import 'screens/intro.dart';
@@ -33,6 +36,10 @@ class _KiloState extends State<Kilo> {
   String email;
   bool open;
   Timer timer;
+  int steps;
+  DateTime date = DateTime.now();
+  String stepsDate;
+  
 
   @override
   void initState() {
@@ -43,10 +50,32 @@ class _KiloState extends State<Kilo> {
     });
   }
 
+  saveUserSteps() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    steps = prefs.getInt('steps');
+    stepsDate = prefs.getString('stepsDate');
+    userDataRepo.saveUserSteps(stepsDate, steps);
+  }
+
   Future afterSplash() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    
+    //Uncomment bottom lines on re-install!! (only once)
+    await sharedPreference.saveStepsDate();
+    await sharedPreference.saveSteps(0);
+
     email = prefs.getString('email');
     open = prefs.getBool('open');
+    steps = prefs.getInt('steps');
+    loginBloc.steps = prefs.getInt('steps');
+    stepsDate = prefs.getString('stepsDate');
+    DateTime stpDate = DateTime.parse(stepsDate);
+    if(date.difference(stpDate).inDays>0){
+      sharedPreference.resetSteps();
+      sharedPreference.saveStepsDate();
+      userDataRepo.saveUserSteps(formatDate(date, [yyyy, '-', mm, '-', dd]), 0);
+    }
+    userDataRepo.saveUserSteps(stepsDate, steps);
     if(email==null){
       if(open==null || open==false)
         navigate(context, Intro(), PageTransitionAnimation.fade, false);
