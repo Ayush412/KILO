@@ -42,6 +42,7 @@ dev_dependencies:
   activity_recognition_flutter:
   date_format:
 
+
 flutter_icons:
   android: true
   ios: true
