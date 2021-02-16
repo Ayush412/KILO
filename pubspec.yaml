@@ -38,7 +38,9 @@ dev_dependencies:
   persistent_bottom_nav_bar:
   height_slider:
   email_validator:
-  liquid_pull_to_refresh:
+  pedometer:
+  activity_recognition_flutter:
+  date_format:
 
 flutter_icons:
   android: true
@@ -61,6 +63,22 @@ flutter:
     - wallet_intro.jpg
     - login.jpg
     - google.jpg
+    - shoe.png
+    - image001.jpg
+    - image002.jpg
+    - image003.jpg
+    - image004.jpg
+    - image005.jpg
+    - image006.jpg
+    - image007.jpg
+    - image008.jpg
+    - image009.jpg
+    - image010.jpg
+    - image011.jpg
+    - image012.jpg
+    - image013.jpg
+    - image014.jpeg
+    - image015.jpg
 
   # To add assets to your application, add an assets section, like this:
   # assets:

@@ -12,7 +12,6 @@ import 'package:kilo/widgets/progress_indicator.dart';
 import 'package:kilo/widgets/underline_text.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
 class Feed extends StatefulWidget {
   @override
@@ -22,7 +21,6 @@ class Feed extends StatefulWidget {
 class _FeedState extends State<Feed> {
 
   ScrollController controller = ScrollController();
-  final GlobalKey<LiquidPullToRefreshState> refreshIndicatorKey = GlobalKey<LiquidPullToRefreshState>();
 
   onRefresh() async{
     bloc.loadingStatusIn.add(true);
