@@ -16,21 +16,23 @@ class LikesRepo{
     loginBloc.liked.add(docId);
     print(loginBloc.liked);
     userDetailsBloc.likedIn.add(loginBloc.liked);
-    await FirebaseFirestore.instance.collection('posts').doc(docId).update({'Likes': FieldValue.increment(1)});
-    updataUserLikedList();
+    await FirebaseFirestore.instance.collection('posts').doc(docId).update({
+      'Likes': FieldValue.increment(1)
+    });
+    await FirebaseFirestore.instance.collection('users').doc(loginBloc.emailID).update({
+      'Liked': loginBloc.liked
+    });
   }
 
   removeLike(String docId) async{
     loginBloc.liked.remove(docId);
     print(loginBloc.liked);
     userDetailsBloc.likedIn.add(loginBloc.liked);
-    await FirebaseFirestore.instance.collection('posts').doc(docId).update({'Likes': FieldValue.increment(-1)});
-    updataUserLikedList();
-  }
-
-  updataUserLikedList() async{
+    await FirebaseFirestore.instance.collection('posts').doc(docId).update({
+      'Likes': FieldValue.increment(-1),
+    });
     await FirebaseFirestore.instance.collection('users').doc(loginBloc.emailID).update({
-      'Liked' : loginBloc.liked
+      'Liked': loginBloc.liked
     });
   }
   

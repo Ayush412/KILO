@@ -44,7 +44,7 @@ class UserDataRepo{
   }
 
   updateUserData(Map map) async{
-    await FirebaseFirestore.instance.collection('users').doc(loginBloc.userMap['emailID']).update({
+    await FirebaseFirestore.instance.collection('users').doc(loginBloc.emailID).update({
       'Age': map['Age'],
       'Weight': map['Weight'],
       'Height': map['Height'],
@@ -52,19 +52,17 @@ class UserDataRepo{
       'BMI Status': map['BMI Status'],
       'Steps Goal': map['Steps Goal']
     });
-    await getUserData(loginBloc.userMap['emailID']);
+    await getUserData(loginBloc.emailID);
   }
 
   saveUserSteps(String date, int steps) async{
     Map<String, dynamic> map = Map<String, dynamic>();
-    try{
-      DocumentSnapshot ds = await FirebaseFirestore.instance.collection('users').doc(loginBloc.userMap['emailID']).get();
-      map = ds.data()['Steps'];
-      map[date]=steps;
-      await FirebaseFirestore.instance.collection('users').doc(loginBloc.userMap['emailID']).update({
-        'Steps' : map
-      });
-    }catch(e){}
+    DocumentSnapshot ds = await FirebaseFirestore.instance.collection('users').doc(loginBloc.emailID).get();
+    map = ds.data()['Steps'];
+    map[date] = steps;
+    await FirebaseFirestore.instance.collection('users').doc(loginBloc.emailID).update({
+      'Steps' : map
+    });
   }
 
 }

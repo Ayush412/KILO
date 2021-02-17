@@ -45,7 +45,7 @@ class _KiloState extends State<Kilo> {
   void initState() {
     super.initState();
     Firebase.initializeApp();
-    timer = new Timer(const Duration(seconds: 2), () {
+    timer = new Timer(const Duration(seconds: 3), () {
       afterSplash();
     });
   }
@@ -61,10 +61,10 @@ class _KiloState extends State<Kilo> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     
     //Uncomment bottom lines on re-install!! (only once)
-    await sharedPreference.saveStepsDate();
-    await sharedPreference.saveSteps(0);
+    // await sharedPreference.saveStepsDate();
+    // await sharedPreference.saveSteps(0);
 
-    email = prefs.getString('email');
+    loginBloc.emailID = email = prefs.getString('email');
     open = prefs.getBool('open');
     steps = prefs.getInt('steps');
     loginBloc.steps = prefs.getInt('steps');
@@ -84,7 +84,7 @@ class _KiloState extends State<Kilo> {
       }
     }
     else{
-      print(email);
+      loginBloc.emailID = email;
       await userDataRepo.getUserData(email);
       navigate(context, HomeScreen(), PageTransitionAnimation.fade, true);
     }

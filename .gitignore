@@ -39,3 +39,7 @@ app.*.symbols
 
 # Obfuscation related
 app.*.map.json
+.VSCodeCounter/2021-02-15_21-05-59/details.md
+.VSCodeCounter/2021-02-15_21-05-59/results.csv
+.VSCodeCounter/2021-02-15_21-05-59/results.md
+.VSCodeCounter/2021-02-15_21-05-59/results.txt
