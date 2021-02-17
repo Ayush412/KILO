@@ -61,7 +61,6 @@ class _KiloState extends State<Kilo> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     loginBloc.emailID = email = prefs.getString('email');
     open = prefs.getBool('open');
-    userDataRepo.saveUserSteps(stepsDate, steps);
     if(email==null){
       await sharedPreference.saveStepsDate();
       await sharedPreference.saveSteps(0);
