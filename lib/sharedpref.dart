@@ -29,6 +29,10 @@ class SharedPreference{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('stepsDate', date);
   }
+  setGFitAccess(bool val) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('GFit', val);
+  }
 }
 
 final sharedPreference = SharedPreference();

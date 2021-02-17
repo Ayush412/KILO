@@ -41,6 +41,7 @@ dev_dependencies:
   pedometer:
   activity_recognition_flutter:
   date_format:
+  health:
 
 
 flutter_icons:
