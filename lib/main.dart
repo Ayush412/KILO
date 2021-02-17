@@ -59,24 +59,12 @@ class _KiloState extends State<Kilo> {
 
   Future afterSplash() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    
-    //Uncomment bottom lines on re-install!! (only once)
-    // await sharedPreference.saveStepsDate();
-    // await sharedPreference.saveSteps(0);
-
     loginBloc.emailID = email = prefs.getString('email');
     open = prefs.getBool('open');
-    steps = prefs.getInt('steps');
-    loginBloc.steps = prefs.getInt('steps');
-    stepsDate = prefs.getString('stepsDate');
-    DateTime stpDate = DateTime.parse(stepsDate);
-    if(date.difference(stpDate).inDays>0){
-      sharedPreference.resetSteps();
-      sharedPreference.saveStepsDate();
-      userDataRepo.saveUserSteps(formatDate(date, [yyyy, '-', mm, '-', dd]), 0);
-    }
     userDataRepo.saveUserSteps(stepsDate, steps);
     if(email==null){
+      await sharedPreference.saveStepsDate();
+      await sharedPreference.saveSteps(0);
       if(open==null || open==false)
         navigate(context, Intro(), PageTransitionAnimation.fade, false);
       else{
@@ -84,7 +72,16 @@ class _KiloState extends State<Kilo> {
       }
     }
     else{
-      loginBloc.emailID = email;
+      steps = prefs.getInt('steps');
+      loginBloc.steps = prefs.getInt('steps');
+      stepsDate = prefs.getString('stepsDate');
+      DateTime stpDate = DateTime.parse(stepsDate);
+      if(date.difference(stpDate).inDays>0){
+        sharedPreference.resetSteps();
+        sharedPreference.saveStepsDate();
+        userDataRepo.saveUserSteps(formatDate(date, [yyyy, '-', mm, '-', dd]), 0);
+      }
+      userDataRepo.saveUserSteps(stepsDate, steps);
       await userDataRepo.getUserData(email);
       navigate(context, HomeScreen(), PageTransitionAnimation.fade, true);
     }
