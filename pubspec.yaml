@@ -81,6 +81,35 @@ flutter:
     - image013.jpg
     - image014.jpeg
     - image015.jpg
+    - sit_ups.gif
+    - crunches.gif
+    - bent_legraise.gif
+    - bodyweight_squat.gif
+    - burpees.gif
+    - duck_walk.gif
+    - dumbbell_bulgarian_goblet_split_squat.gif
+    - high_knees.gif
+    - jump_squats.gif
+    - jumping_jacks.gif
+    - jumping_lunges.gif
+    - knee_elbow_kicks.gif
+    - lunges.gif
+    - mountain_climber.gif
+    - plank.gif
+    - running_on_the_spot.gif
+    - russian_twist.gif
+    - side_plank.gif
+    - skipping.gif
+    - spider_walk.gif
+    - squat.gif
+    - superman.gif
+    - twisting_hip_raise.gif
+    - wall_sit.jpg
+
+
+
+
+
 
   # To add assets to your application, add an assets section, like this:
   # assets:
