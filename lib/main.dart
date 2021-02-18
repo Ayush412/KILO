@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:kilo/bloc/login/login_bloc.dart';
+import 'package:kilo/repository/activity_repo.dart';
 import 'package:kilo/sharedpref.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -61,9 +62,13 @@ class _KiloState extends State<Kilo> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     loginBloc.emailID = email = prefs.getString('email');
     open = prefs.getBool('open');
+    activityRepo.lastSavedSteps = prefs.getInt('steps') != null ? prefs.getInt('steps') : 0;
+    activityRepo.lastSavedDay = prefs.getString('stepsDate') != null ? DateTime.parse(prefs.getString('stepsDate')) : DateTime.now();
     if(email==null){
+      await sharedPreference.resetSteps();
       await sharedPreference.saveStepsDate();
-      await sharedPreference.saveSteps(0);
+      loginBloc.steps = prefs.getInt('steps');
+      print("Steps ${loginBloc.steps}");
       if(open==null || open==false)
         navigate(context, Intro(), PageTransitionAnimation.fade, false);
       else{
@@ -72,15 +77,15 @@ class _KiloState extends State<Kilo> {
     }
     else{
       steps = prefs.getInt('steps');
-      loginBloc.steps = prefs.getInt('steps');
       stepsDate = prefs.getString('stepsDate');
       DateTime stpDate = DateTime.parse(stepsDate);
       if(date.difference(stpDate).inDays>0){
-        sharedPreference.resetSteps();
-        sharedPreference.saveStepsDate();
+        await sharedPreference.saveStepsDate();
         userDataRepo.saveUserSteps(formatDate(date, [yyyy, '-', mm, '-', dd]), 0);
       }
-      userDataRepo.saveUserSteps(stepsDate, steps);
+      else
+        userDataRepo.saveUserSteps(stepsDate, steps);
+      loginBloc.steps = prefs.getInt('steps');
       await userDataRepo.getUserData(email);
       navigate(context, HomeScreen(), PageTransitionAnimation.fade, true);
     }

@@ -17,7 +17,6 @@ class Exercise1 {
 
 /*class Exercise2 {
   final String title, time, difficult, image;
-
   Exercise2({
     @required this.title,
     @required this.time,
@@ -25,10 +24,8 @@ class Exercise1 {
     @required this.image,
   });
 }
-
 class Exercise3 {
   final String title, time, difficult, image;
-
   Exercise3({
     @required this.title,
     @required this.time,
