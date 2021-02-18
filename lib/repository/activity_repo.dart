@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:kilo/bloc/login/login_bloc.dart';
 import 'package:kilo/sharedpref.dart';
 import 'package:kilo/bloc/activity_bloc.dart';
@@ -8,7 +7,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ActivityRepo{
 
-  int steps;
+  int todaySteps;
+  int lastSavedSteps;
+  DateTime lastSavedDay;
   Stream<StepCount> stepsStream;
   DateTime startDate = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, 0,0,0);
   DateTime endDate = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, 23,59,59);
@@ -30,9 +31,21 @@ class ActivityRepo{
     stepsStream.listen(onStepCount).onError(onStepCountError);
   }
   onStepCount(StepCount event){
-    steps = event.steps;
-    activityBloc.stepsIn.add([steps, loginBloc.userMap['Steps Goal']]);
-    sharedPreference.saveSteps(steps);
+    if(event.steps < lastSavedSteps){
+      lastSavedSteps = 0;
+      sharedPreference.resetSteps();
+    }
+    if(DateTime.now().difference(lastSavedDay).inDays > 0){
+      lastSavedDay = DateTime.now();
+      sharedPreference.saveStepsDate();
+      lastSavedSteps = event.steps;
+      sharedPreference.saveSteps(lastSavedSteps);
+    }
+    loginBloc.steps = todaySteps = event.steps - lastSavedSteps;
+    sharedPreference.saveSteps(todaySteps);
+    sharedPreference.saveStepsDate();
+    activityBloc.stepsIn.add([todaySteps, loginBloc.userMap['Steps Goal']]);
+    print('steps repo pedo: $todaySteps');
   }
   onStepCountError(error){
     print('onStepCountError: $error');
@@ -53,7 +66,6 @@ class ActivityRepo{
         _healthDataList.forEach((x) {
           print("$x: ${x.value}");
         });
-        print("Steps: $fitnessBandSteps");
       }
       else{
         sharedPreference.setGFitAccess(false);

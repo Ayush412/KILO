@@ -4,11 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' as prefix0;
 import 'package:vector_math/vector_math_64.dart' as math;
 
-
-class Exercise {
+class Exercise1 {
   final String title, time, difficult, image;
 
-  Exercise({
+  Exercise1({
     @required this.title,
     @required this.time,
     @required this.difficult,
@@ -16,33 +15,56 @@ class Exercise {
   });
 }
 
+/*class Exercise2 {
+  final String title, time, difficult, image;
+  Exercise2({
+    @required this.title,
+    @required this.time,
+    @required this.difficult,
+    @required this.image,
+  });
+}
+class Exercise3 {
+  final String title, time, difficult, image;
+  Exercise3({
+    @required this.title,
+    @required this.time,
+    @required this.difficult,
+    @required this.image,
+  });
+}
+*/
 
 class Programs extends StatelessWidget {
-  final List<Exercise> exercises = [
-    Exercise(
+  final List<Exercise1> exercises1 = [
+    Exercise1(
       image: 'assets/image001.jpg',
-      title: 'Easy Start',
+      title: 'Easy',
       time: '5 min',
       difficult: 'Low',
     ),
-    Exercise(
+  ];
+  /*final List<Exercise2> exercises2 = [
+    Exercise2(
       image: 'assets/image002.jpg',
-      title: 'Medium Start',
+      title: 'Medium',
       time: '10 min',
       difficult: 'Medium',
     ),
-    Exercise(
+  ];
+  final List<Exercise3> exercises3 = [
+    Exercise3(
       image: 'assets/image003.jpg',
-      title: 'Pro Start',
+      title: 'Hard',
       time: '25 min',
       difficult: 'High',
     )
-  ];
+  ];*/
 
   List<Widget> generateList(BuildContext context) {
     List<Widget> list = [];
     int count = 0;
-    exercises.forEach((exercise) {
+    exercises1.forEach((exercise) {
       Widget element = Container(
         margin: EdgeInsets.only(right: 20.0),
         child: GestureDetector(
@@ -56,7 +78,8 @@ class Programs extends StatelessWidget {
               MaterialPageRoute(
                 builder: (_) {
                   return ActivityDetail(
-                    exercise: exercise,
+                    exercise1: exercise,
+                    //exercise2: exercise,
                     tag: 'imageHeader$count',
                   );
                 },
@@ -70,9 +93,6 @@ class Programs extends StatelessWidget {
     });
     return list;
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -90,11 +110,11 @@ class Programs extends StatelessWidget {
                 ),
                 MainCardPrograms(), // MainCard
                 Section(
-                  title: 'Fat burning',
+                  title: 'Weight Loss',
                   horizontalList: this.generateList(context),
                 ),
                 Section(
-                  title: 'Abs Generating',
+                  title: 'Muscle Build',
                   horizontalList: <Widget>[
                     ImageCardWithInternal(
                       image: 'assets/image004.jpg',
@@ -113,7 +133,27 @@ class Programs extends StatelessWidget {
                     ),
                   ],
                 ),
-               ],
+                Section(
+                  title: 'Endurance',
+                  horizontalList: <Widget>[
+                    ImageCardWithInternal(
+                      image: 'assets/image004.jpg',
+                      title: 'Core \nWorkout',
+                      duration: '7 min',
+                    ),
+                    ImageCardWithInternal(
+                      image: 'assets/image004.jpg',
+                      title: 'Core \nWorkout',
+                      duration: '7 min',
+                    ),
+                    ImageCardWithInternal(
+                      image: 'assets/image004.jpg',
+                      title: 'Core \nWorkout',
+                      duration: '7 min',
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         ),
@@ -121,9 +161,6 @@ class Programs extends StatelessWidget {
     );
   }
 }
-
-
-
 
 enum CircularStrokeCap { butt, round, square }
 
@@ -484,7 +521,6 @@ class CirclePainter extends CustomPainter {
   }
 }
 
-
 class UserPhoto extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -519,8 +555,6 @@ class UserPhoto extends StatelessWidget {
     );
   }
 }
-
-
 
 class ImageCardWithInternal extends StatelessWidget {
   final String image, title, duration;
@@ -586,8 +620,6 @@ class ImageCardWithInternal extends StatelessWidget {
   }
 }
 
-
-
 class Section extends StatelessWidget {
   final List<Widget> horizontalList;
   final String title;
@@ -600,13 +632,13 @@ class Section extends StatelessWidget {
       margin: EdgeInsets.only(top: 35.0),
       child: Column(
         children: <Widget>[
-          SectionTitle((this.title != null ) ? this.title : ''),
+          SectionTitle((this.title != null) ? this.title : ''),
           SingleChildScrollView(
             padding: EdgeInsets.only(left: 20.0, top: 10.0),
             scrollDirection: Axis.horizontal,
             child: Row(
-              children: (this.horizontalList != null ) ? this.horizontalList : []
-            ),
+                children:
+                    (this.horizontalList != null) ? this.horizontalList : []),
           )
         ],
       ),
@@ -636,7 +668,6 @@ class SectionTitle extends StatelessWidget {
     );
   }
 }
-
 
 class MainCardPrograms extends StatelessWidget {
   final Map<String, String> cardInfo = {
@@ -711,12 +742,6 @@ class MainCardPrograms extends StatelessWidget {
   }
 }
 
-
-
-
-
-
-
 class Tabs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -727,7 +752,7 @@ class Tabs extends StatelessWidget {
         body: TabBarView(
           children: <Widget>[
             Programs(),
-            ],
+          ],
         ),
         bottomNavigationBar: TabBar(
           tabs: <Widget>[
@@ -750,9 +775,6 @@ class Tabs extends StatelessWidget {
     );
   }
 }
-
-
-
 
 class Header extends StatelessWidget {
   final String title;
@@ -845,10 +867,14 @@ class NextStep extends StatelessWidget {
 
 class ActivityDetail extends StatelessWidget {
   final String tag;
-  final Exercise exercise;
+  final Exercise1 exercise1;
+  // final Exercise2 exercise2;
+  // final Exercise3 exercise3;
 
   ActivityDetail({
-    @required this.exercise,
+    @required this.exercise1,
+    // @required this.exercise2,
+    // @required this.exercise3,
     @required this.tag,
   });
 
@@ -868,7 +894,7 @@ class ActivityDetail extends StatelessWidget {
                     width: MediaQuery.of(context).size.width,
                     height: 270,
                     child: Image.asset(
-                      this.exercise.image,
+                      this.exercise1.image,
                       fit: BoxFit.fitHeight,
                     ),
                   ),
@@ -905,7 +931,7 @@ class ActivityDetail extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        this.exercise.title,
+                        this.exercise1.title,
                         style: TextStyle(
                           fontSize: 22.0,
                           color: Colors.blueGrey,
@@ -935,7 +961,7 @@ class ActivityDetail extends StatelessWidget {
                                         color: Colors.blueGrey[300]),
                                   ),
                                   Text(
-                                    '${this.exercise.time}',
+                                    '${this.exercise1.time}',
                                     style: TextStyle(
                                         fontSize: 18.0,
                                         color: Colors.lightBlue,
@@ -959,7 +985,7 @@ class ActivityDetail extends StatelessWidget {
                                     ),
                                   ),
                                   Text(
-                                    this.exercise.difficult,
+                                    this.exercise1.difficult,
                                     style: TextStyle(
                                       fontSize: 18.0,
                                       color: Colors.lightBlue,
@@ -977,19 +1003,74 @@ class ActivityDetail extends StatelessWidget {
                         child: Column(
                           children: <Widget>[
                             NextStep(
-                              image: 'assets/image005.jpg',
+                              image: 'assets/sit_ups.gif',
+                              title: 'Sit-Ups',
+                              seconds: 30,
+                            ),
+                            NextStep(
+                              image: 'assets/crunches.gif',
+                              title: 'Crunches',
+                              seconds: 30,
+                            ),
+                            NextStep(
+                              image: 'assets/lunges.gif',
+                              title: 'Lunges',
+                              seconds: 30,
+                            ),
+                            NextStep(
+                              image: 'assets/jumping_jacks.gif',
+                              title: 'Jumping Jacks',
+                              seconds: 45,
+                            ),
+                            NextStep(
+                              image: 'assets/skipping.gif',
+                              title: 'Skipping',
+                              seconds: 45,
+                            ),
+                            NextStep(
+                              image: 'assets/running_on_the_spot.gif',
+                              title: 'Running on the Spot',
+                              seconds: 45,
+                            ),
+                            NextStep(
+                              image: 'assets/superman.gif',
+                              title: 'Supermans',
+                              seconds: 30,
+                            ),
+                            NextStep(
+                              image: 'assets/squat.gif',
+                              title: 'Squats',
+                              seconds: 30,
+                            ),
+                            NextStep(
+                              image: 'assets/knee_elbow_kicks.gif',
+                              title: 'Knee to Elbow Kicks',
+                              seconds: 30,
+                            ),
+                            NextStep(
+                              image: 'assets/wall_sit.jpg',
+                              title: 'Wall Sit',
+                              seconds: 30,
+                            ),
+                            NextStep(
+                              image: 'assets/spider_walk.gif',
+                              title: 'Spider Walk',
+                              seconds: 30,
+                            ),
+                            NextStep(
+                              image: 'assets/duck_walk.gif',
+                              title: 'Duck Walk',
+                              seconds: 30,
+                            ),
+                            NextStep(
+                              image: 'assets/plank.gif',
                               title: 'Plank',
-                              seconds: 50,
+                              seconds: 30,
                             ),
                             NextStep(
-                              image: 'assets/image006.jpg',
-                              title: 'Push-ups',
-                              seconds: 50,
-                            ),
-                            NextStep(
-                              image: 'assets/image007.jpg',
-                              title: 'Lateral Raise',
-                              seconds: 50,
+                              image: 'assets/side_plank.gif',
+                              title: 'Side Plank',
+                              seconds: 30,
                             ),
                           ],
                         ),
@@ -1038,8 +1119,6 @@ class ActivityDetail extends StatelessWidget {
     );
   }
 }
-
-
 
 class ActivityTimer extends StatelessWidget {
   final String image =
@@ -1131,7 +1210,7 @@ class Portrait extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 20.0),
                     child: Text(
-                      'Next: Push-ups',
+                      '',
                       style: TextStyle(
                         fontSize: 20.0,
                         fontWeight: FontWeight.w900,
@@ -1322,11 +1401,8 @@ class Landscape extends StatelessWidget {
   }
 }
 
-
-
-
 class ImageCardWithBasicFooter extends StatelessWidget {
-  final Exercise exercise;
+  final Exercise1 exercise;
   final String tag;
   final double imageWidth;
 
