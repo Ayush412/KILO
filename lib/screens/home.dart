@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:kilo/repository/activity_repo.dart';
 import 'package:kilo/screens/dashboard.dart';
 import 'package:kilo/screens/feed.dart';
 import 'package:kilo/screens/record_activity.dart';
 import 'package:kilo/screens/profile.dart';
+import 'package:kilo/sharedpref.dart';
 import 'package:kilo/widgets/show_dialog.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:kilo/screens/programs.dart';
-
-
+import 'package:health/health.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -15,9 +16,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
   final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
   PersistentTabController controller = PersistentTabController(initialIndex: 1);
-
+  
   List<PersistentBottomNavBarItem> navbarItems() {
     return [
       PersistentBottomNavBarItem(
@@ -49,6 +51,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<Widget> screens() {
     return [Feed(), Dashboard(), Programs(), Profile()];
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    activityRepo.getFitData();
   }
 
   @override
