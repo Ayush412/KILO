@@ -47,7 +47,7 @@ class _FeedState extends State<Feed> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: underlineText('Feed', 21, Colors.black), 
+        title: underlineText('Feed', 24, Colors.black), 
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
