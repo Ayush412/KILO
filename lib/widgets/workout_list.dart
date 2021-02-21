@@ -4,7 +4,7 @@ workoutList(List workouts, String difficulty){
   return ListView.builder(
     itemCount: workouts.length,
     itemBuilder: (context, index) {
-      double duration = workouts[index]['$difficulty'].toDouble();
+      int duration = workouts[index]['$difficulty'];
       return Row(
       children: <Widget>[
         Container(
