@@ -24,7 +24,7 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: underlineText('Dashboard', 21, Colors.black), 
+        title: underlineText('Dashboard', 24, Colors.black), 
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.transparent,
