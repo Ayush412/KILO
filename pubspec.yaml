@@ -43,6 +43,8 @@ dev_dependencies:
   date_format:
   health:
   circular_countdown_timer:
+  tflite:
+  charts_flutter:
 
 
 flutter_icons:
@@ -111,3 +113,7 @@ flutter:
     - end1.jpg
     - end2.jpg
     - end3.jpg
+    - yoga.jpg
+    - triangle_pose.jpg
+    - high_lunge.jpg
+    - tree_pose.jpg

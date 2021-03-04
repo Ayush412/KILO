@@ -65,5 +65,15 @@ class UserDataRepo{
     });
   }
 
+  saveUserCals(String date, int steps) async{
+    Map<String, dynamic> map = Map<String, dynamic>();
+    DocumentSnapshot ds = await FirebaseFirestore.instance.collection('users').doc(loginBloc.emailID).get();
+    map = ds.data()['Cals'];
+    map[date] = steps;
+    await FirebaseFirestore.instance.collection('users').doc(loginBloc.emailID).update({
+      'Cals' : map
+    });
+  }
+
 }
 final userDataRepo = UserDataRepo();

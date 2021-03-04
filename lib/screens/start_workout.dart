@@ -20,22 +20,18 @@ class _StartWorkoutState extends State<StartWorkout> {
   bool play = true;
   IconData icon = Icons.pause;
 
-  // ignore: non_constant_identifier_names
-  navigate_function() {
+  navigateFunction() {
     navigate(
       context,
       StartWorkout(
           workouts: widget.workouts, index: widget.index+1, difficulty: widget.difficulty),
-      PageTransitionAnimation.slideRight,
+      PageTransitionAnimation.slideUp,
       false
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    // '${widget.workouts[widget.index]['Image']}'
-    // '${widget.workouts[widget.index][widget.difficulty]}'
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -67,7 +63,7 @@ class _StartWorkoutState extends State<StartWorkout> {
                       context,
                       widget.workouts[widget.index][widget.difficulty],
                       controller,
-                      navigate_function),
+                      navigateFunction),
                 ),
 
                 Padding(
@@ -112,7 +108,7 @@ class _StartWorkoutState extends State<StartWorkout> {
                                 workouts: widget.workouts,
                                 index: widget.index + 1,
                                 difficulty: widget.difficulty),
-                            PageTransitionAnimation.slideRight,
+                            PageTransitionAnimation.slideUp,
                             false
                           );
                         },
@@ -120,7 +116,6 @@ class _StartWorkoutState extends State<StartWorkout> {
                         icon: Icon(Icons.arrow_forward),
                         iconSize: 40,
                       ),
-
                     ],
                   ),
                 ),

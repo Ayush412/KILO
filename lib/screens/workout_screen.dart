@@ -151,7 +151,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                     context,
                     StartWorkout(
                         workouts: widget.workouts, index: 0, difficulty: widget.difficulty),
-                    PageTransitionAnimation.slideRight,
+                    PageTransitionAnimation.fade,
                     false
                   );
                 },

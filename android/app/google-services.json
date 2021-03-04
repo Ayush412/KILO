@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "866793150120",
+    "firebase_url": "https://kilo-a719c-default-rtdb.firebaseio.com",
     "project_id": "kilo-a719c",
     "storage_bucket": "kilo-a719c.appspot.com"
   },
@@ -13,6 +14,46 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "866793150120-76l44f6ml2aat2uh2mk0bpadmteen3fi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kilo",
+            "certificate_hash": "ae4fc4f54c1a489a19e953dc1d8c9bfa82aa873b"
+          }
+        },
+        {
+          "client_id": "866793150120-9ugo5ang8i11mge709tvf9vnl9j1i3j7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kilo",
+            "certificate_hash": "20dd8b058c1f9dee7b7067f9cfe043ce4e1481c9"
+          }
+        },
+        {
+          "client_id": "866793150120-b4qg6i99d20sdp6kk7ah08sjgbmoesa2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kilo",
+            "certificate_hash": "825e6a0416f877fc60ac20a2f9c95c59498930f8"
+          }
+        },
+        {
+          "client_id": "866793150120-kj4nr86slfa6i9ossism8nr6jnr6043i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kilo",
+            "certificate_hash": "74d390847ddd909b58069df28350e9b11f020d5f"
+          }
+        },
+        {
+          "client_id": "866793150120-m99i0qhgmia2so0bsd6f6s95ao0jgqkn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kilo",
+            "certificate_hash": "01695f2b1dad6ae18740a30e959a73134989f853"
+          }
+        },
         {
           "client_id": "866793150120-8iv14mu49b2k7a815jhdm9844nj2erpv.apps.googleusercontent.com",
           "client_type": 3
