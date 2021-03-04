@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kilo/screensize.dart';
 import 'package:kilo/widgets/workout_list.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'start_workout.dart';
+import 'package:kilo/navigate.dart';
 
 class WorkoutScreen extends StatefulWidget {
   final List workouts;
@@ -8,7 +11,8 @@ class WorkoutScreen extends StatefulWidget {
   final String image;
   final String difficulty;
   final String title;
-  WorkoutScreen({this.workouts, this.duration, this.image, this.difficulty, this.title});
+  WorkoutScreen(
+      {this.workouts, this.duration, this.image, this.difficulty, this.title});
   @override
   _WorkoutScreenState createState() => _WorkoutScreenState();
 }
@@ -23,133 +27,135 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
         body: Stack(
           children: [
             Container(
-              child: Column(
-                children: [
-                  Container(
-                    height: screenSize(250, context),
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
+                child: Column(
+              children: [
+                Container(
+                  height: screenSize(250, context),
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage(widget.image),
-                        fit: BoxFit.fill
-                      )
+                          image: AssetImage(widget.image), fit: BoxFit.fill)),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        height: 40,
+                        width: MediaQuery.of(context).size.width,
+                        color: Colors.black.withOpacity(0.5),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 20, top: 5),
+                          child: Text(
+                            '${widget.title}: ${widget.difficulty}',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 26,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 15, right: 15),
+                  child: Container(
+                    padding: EdgeInsets.all(20.0),
+                    margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                    height: 90.0,
+                    decoration: BoxDecoration(
+                      color: Colors.orange[100],
+                      borderRadius: BorderRadius.circular(15.0),
                     ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    child: Row(
                       children: <Widget>[
                         Container(
-                          height: 40,
-                          width: MediaQuery.of(context).size.width,
-                          color: Colors.black.withOpacity(0.5),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 20, top: 5),
-                            child: Text(
-                              '${widget.title}: ${widget.difficulty}',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 26,
-                                fontWeight: FontWeight.w900,
+                          margin: EdgeInsets.only(right: 55.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                'Time',
+                                style: TextStyle(
+                                    fontSize: 14.0, color: Colors.orange),
                               ),
-                            ),
+                              Text(
+                                '${widget.duration} mins',
+                                style: TextStyle(
+                                    fontSize: 18.0,
+                                    color: Colors.orange[600],
+                                    fontWeight: FontWeight.w900),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(right: 45.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                'Intensity',
+                                style: TextStyle(
+                                  fontSize: 14.0,
+                                  color: Colors.orange,
+                                ),
+                              ),
+                              Text(
+                                widget.difficulty,
+                                style: TextStyle(
+                                  fontSize: 18.0,
+                                  color: Colors.orange[600],
+                                  fontWeight: FontWeight.w900,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15, right: 15),
-                    child: Container(
-                      padding: EdgeInsets.all(20.0),
-                      margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                      height: 90.0,
-                      decoration: BoxDecoration(
-                        color: Colors.orange[100],
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                      child: Row(
-                        children: <Widget>[
-                          Container(
-                            margin: EdgeInsets.only(right: 55.0),
-                            child: Column(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  'Time',
-                                  style: TextStyle(
-                                      fontSize: 14.0,
-                                      color: Colors.orange),
-                                ),
-                                Text(
-                                  '${widget.duration} mins',
-                                  style: TextStyle(
-                                      fontSize: 18.0,
-                                      color: Colors.orange[600],
-                                      fontWeight: FontWeight.w900),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(right: 45.0),
-                            child: Column(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  'Intensity',
-                                  style: TextStyle(
-                                    fontSize: 14.0,
-                                    color: Colors.orange,
-                                  ),
-                                ),
-                                Text(
-                                  widget.difficulty,
-                                  style: TextStyle(
-                                    fontSize: 18.0,
-                                    color: Colors.orange[600],
-                                    fontWeight: FontWeight.w900,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Padding(
+                ),
+                Padding(
                     padding: const EdgeInsets.all(10),
                     child: Container(
-                      height: MediaQuery.of(context).size.height/2.5,
-                      child: workoutList(widget.workouts, widget.difficulty)
-                    )
-                  )
-                ],
-              )
-            ),
+                        height: MediaQuery.of(context).size.height / 2.5,
+                        child: workoutList(widget.workouts, widget.difficulty)))
+              ],
+            )),
             Align(
-              alignment: Alignment.topRight,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 30),
-                child: RaisedButton(
-                  color: Colors.orange[400].withOpacity(0.5),
-                  shape: CircleBorder(),
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: Icon(Icons.arrow_back, color: Colors.white,),
-                ),
-              )
-            ),
+                alignment: Alignment.topRight,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 30),
+                  child: RaisedButton(
+                    color: Colors.orange[400].withOpacity(0.5),
+                    shape: CircleBorder(),
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: Icon(
+                      Icons.arrow_back,
+                      color: Colors.white,
+                    ),
+                  ),
+                )),
             Align(
               alignment: Alignment.bottomCenter,
               child: GestureDetector(
-                onTap: (){},
+                onTap: () {
+                  navigate(
+                    context,
+                    StartWorkout(
+                        workouts: widget.workouts, index: 0, difficulty: widget.difficulty),
+                    PageTransitionAnimation.slideRight,
+                    false
+                  );
+                },
                 child: Container(
                   width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.only(left: 30.0, right: 30.0, bottom: 20.0),
+                  margin:
+                      EdgeInsets.only(left: 30.0, right: 30.0, bottom: 20.0),
                   padding: EdgeInsets.all(15.0),
                   decoration: BoxDecoration(
                       color: Colors.orange[400],
