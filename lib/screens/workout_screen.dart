@@ -124,7 +124,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                   Padding(
                     padding: const EdgeInsets.all(10),
                     child: Container(
-                      height: MediaQuery.of(context).size.height/2.5,
+                      height: MediaQuery.of(context).size.height/2.9,
                       child: workoutList(widget.workouts, widget.difficulty)
                     )
                   )

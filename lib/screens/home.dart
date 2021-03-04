@@ -9,6 +9,8 @@ import 'package:kilo/widgets/show_dialog.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:kilo/screens/programs.dart';
+import 'package:kilo/screens/calories/calories.dart';
+import 'package:kilo/screens/calories/calories_section.dart';
 import 'package:health/health.dart';
 
 class HomeScreen extends StatefulWidget {
