@@ -19,7 +19,8 @@ class ActivityRepo{
     //HealthDataType.HEART_RATE,
     HealthDataType.HEIGHT,
     HealthDataType.WEIGHT,
-    //HealthDataType.ACTIVE_ENERGY_BURNED,
+    HealthDataType.ACTIVE_ENERGY_BURNED,
+    HealthDataType.HEART_RATE,
   ];
   List<HealthDataPoint> _healthDataList = [];
   bool accessWasGranted;
