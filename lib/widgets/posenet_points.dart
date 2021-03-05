@@ -85,8 +85,7 @@ class PosenetPoints extends StatelessWidget {
         // print("Input Arr after clear: " + _inputArr.toList().toString());
 
         lists..addAll(list);
-      });
-      print(lists);
+      });;
       return lists;
     }
 
@@ -100,9 +99,9 @@ class PosenetPoints extends StatelessWidget {
             child: Text(
               _label.toString(),
               style: TextStyle(
-                fontSize: 50,
+                fontSize: 30,
                 fontWeight: FontWeight.bold,
-                color: Colors.green,
+                color: _label=='Wrong Pose' ? Colors.orange : Colors.green,
               ),
             ),
           ),
@@ -128,7 +127,7 @@ class PosenetPoints extends StatelessWidget {
   }
 
   Future<void> _getPrediction(List<double> poses) async {
-    print(poses);
+    print('poses" $poses');
     try {
       final double result = await platform.invokeMethod('predictData', {
         "model": pose,

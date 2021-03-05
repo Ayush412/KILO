@@ -14,20 +14,20 @@ class Posedetect extends StatefulWidget {
 }
 
 class _PosedetectState extends State<Posedetect> {
-  List<dynamic> recognitions;
-  int imageHeight = 0;
-  int imageWidth = 0;
+  List<dynamic> _recognitions;
+  int _imageHeight = 0;
+  int _imageWidth = 0;
 
   setRecognitions(recognitions, imageHeight, imageWidth) {
     if (!mounted) {
       return;
     }
     setState(() {
-      recognitions = recognitions;
-      imageHeight = imageHeight;
-      imageWidth = imageWidth;
+      _recognitions = recognitions;
+      _imageHeight = imageHeight;
+      _imageWidth = imageWidth;
     });
-    print(recognitions);
+    print('yeeted $recognitions');
   }
 
    loadModel() async {
@@ -44,21 +44,22 @@ class _PosedetectState extends State<Posedetect> {
 
   @override
   Widget build(BuildContext context) {
+    List text = widget.pose.toUpperCase().split('_');
     Size screen = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
         centerTitle: true,
-        title: Text(widget.pose),
+        title: Text('${text[0]} ${text[1]}'),
       ),
       body: Stack(
         children: [
           Camera(
             cameras: widget.cameras,
             setRecognitions: setRecognitions),
-          PosenetPoints(results: recognitions == null ? [] : recognitions,
-            previewH: math.max(imageHeight, imageWidth),
-            previewW: math.min(imageHeight, imageWidth),
+          PosenetPoints(results: _recognitions == null ? [] : _recognitions,
+            previewH: math.max(_imageHeight, _imageWidth),
+            previewW: math.min(_imageHeight, _imageWidth),
             screenH: screen.height,
             screenW: screen.width,
             pose: widget.pose)
