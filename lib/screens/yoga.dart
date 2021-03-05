@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:kilo/navigate.dart';
+import 'package:kilo/screens/pose_detect.dart';
 import 'package:kilo/screensize.dart';
 import 'package:kilo/widgets/underline_text.dart';
+import 'package:camera/camera.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class Yoga extends StatefulWidget {
   @override
@@ -8,8 +12,23 @@ class Yoga extends StatefulWidget {
 }
 
 class _YogaState extends State<Yoga> {
-
+  List<CameraDescription> cameras;
   List poses = ['high_lunge', 'tree_pose', 'triangle_pose'];
+
+  checkCams() async{
+    try {
+    cameras = await availableCameras();
+  } on CameraException catch (e) {
+    print('Error: $e.code\nError Message: $e.message');
+  }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    checkCams();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -26,7 +45,14 @@ class _YogaState extends State<Yoga> {
             itemBuilder: (context, index){
               List text = (poses[index].toString().toUpperCase()).split('_');
               return GestureDetector(
-                onTap: (){},
+                onTap: (){
+                  navigate(
+                    context, 
+                    Posedetect(pose:poses[index], cameras: cameras), 
+                    PageTransitionAnimation.slideRight, 
+                    false
+                  );
+                },
                 child: Padding(
                   padding: const EdgeInsets.only(top: 30, left: 50, right: 50),
                   child: Container(

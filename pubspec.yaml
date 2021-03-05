@@ -45,6 +45,7 @@ dev_dependencies:
   circular_countdown_timer:
   tflite:
   charts_flutter:
+  camera:
 
 
 flutter_icons:
@@ -117,3 +118,4 @@ flutter:
     - triangle_pose.jpg
     - high_lunge.jpg
     - tree_pose.jpg
+    - assets/models/posenet_mv1_075_float_from_checkpoints.tflite
