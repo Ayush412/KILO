@@ -94,30 +94,25 @@ class PosenetPoints extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.fromLTRB(32.0, 0, 32.0, 16.0),
-            child: Text(
+          Container(
+            height: 70,
+            width: MediaQuery.of(context).size.width,
+            color: Colors.black.withOpacity(0.5),
+            child: Center(
+              child: Text(
               _label.toString(),
               style: TextStyle(
-                fontSize: 30,
+                fontSize: 40,
                 fontWeight: FontWeight.bold,
                 color: _label=='Wrong Pose' ? Colors.orange : Colors.green,
               ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(25.0, 0, 25.0, 25.0),
-            child: LinearPercentIndicator(
-              animation: true,
-              lineHeight: 20.0,
-              animationDuration: 500,
-              animateFromLastPercent: true,
-              percent: _counter,
-              center: Text("${(_counter * 100).toStringAsFixed(1)} %"),
-              linearStrokeCap: LinearStrokeCap.roundAll,
-              progressColor: Colors.green,
             ),
           ),
+          // Padding(
+          //   padding: EdgeInsets.fromLTRB(25.0, 0, 25.0, 25.0),
+          //   child: Container()
+          // ),
         ],
       ),
       Stack(
@@ -127,7 +122,6 @@ class PosenetPoints extends StatelessWidget {
   }
 
   Future<void> _getPrediction(List<double> poses) async {
-    print('poses" $poses');
     try {
       final double result = await platform.invokeMethod('predictData', {
         "model": pose,
@@ -136,7 +130,7 @@ class PosenetPoints extends StatelessWidget {
 
       _percent = result;
       _label =
-          result < 0.5 ? "Wrong Pose" : (result * 100).toStringAsFixed(0) + "%";
+          result < 0.5 ? "Wrong Pose" : "Good";
       updateCounter(_percent);
 
       print("Final Label: " + result.toString());
