@@ -81,16 +81,6 @@ class HeaderInfo extends StatelessWidget {
               Text(sectionTitle, style: TextStyle(fontSize: 24.0),),
             ],
           ),
-          Container(
-            width: 40.0,
-            height: 40.0,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50.0),
-              image: DecorationImage(
-                image: AssetImage('assets/images/serdar.jpg'),
-              ),
-            ),
-          ),
         ],
       ),
     );

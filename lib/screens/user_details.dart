@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kilo/bloc/bloc.dart';
+import 'package:kilo/bloc/login/login_bloc.dart';
 import 'package:kilo/navigate.dart';
+import 'package:kilo/repository/user_data_repo.dart';
 import 'package:kilo/widgets/progress_indicator.dart';
 import 'package:kilo/widgets/show_snack.dart';
 import '../screensize.dart';
@@ -33,6 +35,7 @@ class _UserDetailsState extends State<UserDetails> {
       bloc.loadingStatusIn.add(true);
       await userDetailsBloc.saveUserData();
       bloc.loadingStatusIn.add(false);
+      await userDataRepo.getUserData(loginBloc.emailID);
       navigate(context, HomeScreen(), PageTransitionAnimation.fade, true);
     }
   }

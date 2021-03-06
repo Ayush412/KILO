@@ -64,6 +64,9 @@ class UserRegisterRepo{
   logOut(BuildContext context) async{
     await _googleSignIn.signOut();
     await FirebaseAuth.instance.signOut();
+    sharedPreference.removeData();
+    sharedPreference.resetSteps();
+    sharedPreference.setGFitAccess(null);
     navigate(context, Login(), PageTransitionAnimation.fade, false);
   }
 }
