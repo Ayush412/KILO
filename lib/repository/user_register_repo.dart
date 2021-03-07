@@ -67,6 +67,7 @@ class UserRegisterRepo{
     sharedPreference.removeData();
     sharedPreference.resetSteps();
     sharedPreference.setGFitAccess(null);
+    sharedPreference.resetCals();
     navigate(context, Login(), PageTransitionAnimation.fade, false);
   }
 }

@@ -25,13 +25,21 @@ class SharedPreference{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setInt('steps', 0);
   }
-  saveStepsDate() async{
+  saveActivityDate() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('stepsDate', date);
+    prefs.setString('activityDate', date);
   }
   setGFitAccess(var val) async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('GFit', val);
+  }
+  saveCals(int cals) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('cals', cals);
+  }
+  resetCals() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('cals', 0);
   }
 }
 

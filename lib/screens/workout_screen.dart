@@ -130,19 +130,20 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
               )
             ),
             Align(
-                alignment: Alignment.topRight,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 30),
-                  child: RaisedButton(
-                    color: Colors.orange[400].withOpacity(0.5),
-                    shape: CircleBorder(),
-                    onPressed: () => Navigator.of(context).pop(),
-                    child: Icon(
-                      Icons.arrow_back,
-                      color: Colors.white,
-                    ),
+              alignment: Alignment.topRight,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 30),
+                child: RaisedButton(
+                  color: Colors.orange[400].withOpacity(0.5),
+                  shape: CircleBorder(),
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: Icon(
+                    Icons.arrow_back,
+                    color: Colors.white,
                   ),
-                )),
+                ),
+              )
+            ),
             Align(
               alignment: Alignment.bottomCenter,
               child: GestureDetector(

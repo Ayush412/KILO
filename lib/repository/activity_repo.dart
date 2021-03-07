@@ -15,6 +15,7 @@ class ActivityRepo{
   int lastSavedSteps;
   DateTime lastSavedDay;
   Stream<StepCount> stepsStream;
+  int totalCals;
   DateTime startDate = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, 0,0,0);
   DateTime endDate = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, 23,59,59);
   HealthFactory health = HealthFactory();
@@ -41,13 +42,13 @@ class ActivityRepo{
     }
     if(DateTime.now().difference(lastSavedDay).inDays > 0){
       lastSavedDay = DateTime.now();
-      sharedPreference.saveStepsDate();
+      sharedPreference.saveActivityDate();
       lastSavedSteps = event.steps;
       sharedPreference.saveSteps(lastSavedSteps);
     }
     loginBloc.steps = todaySteps = event.steps - lastSavedSteps;
     sharedPreference.saveSteps(todaySteps);
-    sharedPreference.saveStepsDate();
+    sharedPreference.saveActivityDate();
     activityBloc.stepsIn.add([todaySteps, loginBloc.userMap['Steps Goal']]);
     print('steps repo pedo: $todaySteps');
   }

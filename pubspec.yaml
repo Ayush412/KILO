@@ -46,6 +46,7 @@ dev_dependencies:
   tflite:
   charts_flutter:
   camera:
+  animated_text_kit:
 
 
 flutter_icons:

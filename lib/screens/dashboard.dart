@@ -31,67 +31,71 @@ class _DashboardState extends State<Dashboard> {
     //activityRepo.initialiseSteps();
     //}
     return Scaffold(
-        appBar: AppBar(
-          title: underlineText('Dashboard', 24, Colors.black),
-          centerTitle: true,
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-        ),
-        body: Stack(children: <Widget>[
+      appBar: AppBar(
+        title: underlineText('Dashboard', 24, Colors.black),
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+      ),
+      body: Stack(
+        children: <Widget>[
           Padding(
-              padding: const EdgeInsets.only(bottom: 50.0),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(10.0, 30.0, 10.0, 10.0),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  physics: BouncingScrollPhysics(),
-                  child: Column(
-                    children: <Widget>[
-                      HeaderInfo(
-                        isMain: true,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Sections(
-                            widthFull: _widthFull,
-                            child: SleepSection(),
-                          ),
-                          //Sections(
-                          //widthFull: _widthFull,
-                          //child: stepsIndicator(context),
-                          //),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Sections(
-                            widthFull: _widthFull,
-                            child: InkWell(
-                              onTap: () {
-                                navigate(context, CaloriesPage(),
-                                    PageTransitionAnimation.slideRight, false);
-                              },
-                              child: CaloriesSection(),
-                            ),
-                          ),
-                          InkWell(
+            padding: const EdgeInsets.only(bottom: 50.0),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(10.0, 30.0, 10.0, 10.0),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                physics: BouncingScrollPhysics(),
+                child: Column(
+                  children: <Widget>[
+                    HeaderInfo(
+                      isMain: true,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Sections(
+                          widthFull: _widthFull,
+                          child: SleepSection(),
+                        ),
+                        //Sections(
+                        //widthFull: _widthFull,
+                        //child: stepsIndicator(context),
+                        //),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Sections(
+                          widthFull: _widthFull,
+                          child: InkWell(
                             onTap: () {
-                              navigate(context, HeartRatePage(),
+                              navigate(context, CaloriesPage(),
                                   PageTransitionAnimation.slideRight, false);
                             },
-                            child: Sections(
-                              widthFull: _widthFull,
-                              child: HeartRate(),
-                            ),
+                            child: CaloriesSection(),
                           ),
-                        ],
-                      ),
-                    ],
-                  ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            navigate(context, HeartRatePage(),
+                                PageTransitionAnimation.slideRight, false);
+                          },
+                          child: Sections(
+                            widthFull: _widthFull,
+                            child: HeartRate(),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-              ))
-        ]));
+              ),
+            )
+          )
+        ]
+      )
+    );
   }
 }
