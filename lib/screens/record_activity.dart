@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:kilo/bloc/workouts_bloc.dart';
 import 'package:kilo/navigate.dart';
+import 'package:kilo/screens/test.dart';
 import 'package:kilo/screens/yoga.dart';
 import 'package:kilo/screensize.dart';
 import 'package:kilo/widgets/recommended_card.dart';
@@ -68,7 +69,7 @@ class _RecordState extends State<Record> {
                   Padding(
                     padding: const EdgeInsets.only(top: 10, bottom: 30, left: 20, right: 20),
                     child: GestureDetector(
-                      onTap: () => navigate(context, Yoga(), PageTransitionAnimation.slideRight, false),
+                      onTap: () => navigate(context, TestScreen(), PageTransitionAnimation.slideRight, false),
                       child: Container(
                         height: screenSize(200, context),
                         width: screenSize(350, context),

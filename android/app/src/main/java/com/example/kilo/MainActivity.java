@@ -50,8 +50,8 @@ public class MainActivity extends FlutterActivity {
 			}
 		});
 	}
-
-	// This method interact with our model and makes prediction returning value of
+	
+	//This method interact with our model and makes prediction returning value of
 	float predictData(ArrayList<Double> input_data) {
 		float inputArray[][] = new float[1][input_data.size()];
 		int i = 0;

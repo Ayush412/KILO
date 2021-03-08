@@ -1,0 +1,17 @@
+high_lunge
+lord_of_the_dance_pose
+crane_pose
+side_reclining_leg_lift_pose
+half_moon_pose
+bow_pose
+peacock_pose
+dolphin_plank_pose
+extended_side_angle_pose
+extended_puppy_pose
+camel_pose
+gate_pose
+boat_pose
+cow_pose
+big_toe_pose
+bridge_pose
+cat_pose

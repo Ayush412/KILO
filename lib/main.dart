@@ -8,7 +8,6 @@ import 'package:kilo/repository/user_data_repo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:date_format/date_format.dart';
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'navigate.dart';
 import 'screens/home.dart';
 import 'screens/intro.dart';
@@ -16,6 +15,7 @@ import 'screens/login.dart';
 
 void main(){
   runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
     initialRoute: '/',
     routes: {
       '/': (context) => MyApp(),
@@ -84,7 +84,7 @@ class _KiloState extends State<Kilo> {
     }
     else{
       steps = prefs.getInt('steps');
-      activityDate = prefs.getString('stepsDate');
+      activityDate = prefs.getString('activityDate');
       DateTime stpDate = DateTime.parse(activityDate);
       if(date.difference(stpDate).inDays>0){
         await sharedPreference.saveActivityDate();
@@ -108,33 +108,33 @@ class _KiloState extends State<Kilo> {
       future: Firebase.initializeApp(),
       builder: (context, snapshot) {
         if(snapshot.connectionState == ConnectionState.done)
-      return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
-          body: Container(
-            color: Colors.black,
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset("KILO.png", height: 100),
-                  Padding(
-                    padding: const EdgeInsets.only(top:30),
-                    child: WavyAnimatedTextKit(
-                      text: ['KILO'],
-                      isRepeatingAnimation: false,
-                      textStyle: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold
-                      ),
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: Scaffold(
+            body: Container(
+              color: Colors.black,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset("KILO.png", height: 100),
+                    Padding(
+                      padding: const EdgeInsets.only(top:30),
+                      child: Text(
+                        'KILO',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold
+                        ),
+                      )
                     )
-                  )
-                ],
-              ),
-            )
+                  ],
+                ),
+              )
+            ),
           ),
-        ),
-      );
+        );
       }
     );
   }

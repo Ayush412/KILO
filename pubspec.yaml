@@ -46,7 +46,10 @@ dev_dependencies:
   tflite:
   charts_flutter:
   camera:
-  animated_text_kit:
+  image_picker:
+  image:
+  tflite_flutter:
+  tflite_flutter_helper:
 
 
 flutter_icons:
@@ -120,3 +123,5 @@ flutter:
     - high_lunge.jpg
     - tree_pose.jpg
     - assets/models/posenet_mv1_075_float_from_checkpoints.tflite
+    - assets/models/model.tflite
+    - assets/models/dict.txt
