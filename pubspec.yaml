@@ -124,6 +124,13 @@ flutter:
     - triangle_pose.jpg
     - high_lunge.jpg
     - tree_pose.jpg
+    - caloriesbadge.png
+    - All.png
+    - stepbadge.png
+    - olympic.png
+    - rocket.png
+    - easyworkouts.png
+    - medworkout.png
     - assets/models/posenet_mv1_075_float_from_checkpoints.tflite
     - assets/models/model.tflite
     - assets/models/dict.txt
