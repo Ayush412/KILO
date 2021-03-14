@@ -52,6 +52,7 @@ dev_dependencies:
   tflite_flutter_helper:
   upi_india:
   flutter_credit_card:
+  firebase_ml_vision:
 
 
 flutter_icons:
