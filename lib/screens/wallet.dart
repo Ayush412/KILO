@@ -81,37 +81,29 @@ class _WalletState extends State<Wallet> {
                     )
                   ],
                 ),
-                SizedBox(height: 16.0 * 2),
+                SizedBox(height: 24),
                 _buildTransactionItem(
-                  color: Colors.deepPurpleAccent,
-                  iconData: Icons.photo_size_select_actual,
-                  title: "Electric Bill",
+                  title: "Protein",
                   date: "Today",
-                  amount: 11.5,
+                  amount: 780,
                 ),
                 SizedBox(height: 24),
                 _buildTransactionItem(
-                  color: Colors.green,
-                  iconData: Icons.branding_watermark,
-                  title: "Water Bill",
+                  title: "Gym Subscription",
                   date: "Today",
-                  amount: 15.8,
+                  amount: 9800,
                 ),
                 SizedBox(height: 24),
                 _buildTransactionItem(
-                  color: Colors.orange,
-                  iconData: Icons.music_video,
-                  title: "Spotify",
+                  title: "Energy Bars",
                   date: "Yesterday",
-                  amount: 05.5,
+                  amount: 520,
                 ),
                 SizedBox(height: 24),
                 _buildTransactionItem(
-                  color: Colors.red,
-                  iconData: Icons.wifi,
-                  title: "Internet",
+                  title: "Orange Juice",
                   date: "Yesterday",
-                  amount: 10.0,
+                  amount: 50,
                 ),
               ],
             ),
@@ -356,24 +348,23 @@ class _WalletState extends State<Wallet> {
   }
 
   Row _buildTransactionItem(
-      {Color color,
-      IconData iconData,
-      String date,
-      String title,
-      double amount}) {
-    return Row(
-      children: <Widget>[
+      {
+        String date,
+        String title,
+        double amount,
+      }
+        ) 
+        {
+        return Row(
+        children: <Widget>[
         Container(
-          height: 52,
-          width: 52,
+          height: 10,
+          width: 20,
           decoration: BoxDecoration(
-            color: color,
+            color: Colors.deepOrange,
             borderRadius: BorderRadius.circular(5),
           ),
-          child: Icon(
-            iconData,
-            color: Colors.white,
-          ),
+          
         ),
         SizedBox(width: 16),
         Column(
@@ -399,7 +390,8 @@ class _WalletState extends State<Wallet> {
         ),
         Spacer(),
         Text(
-          "-\$ $amount",
+          "INR $amount",
+          textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
