@@ -49,8 +49,7 @@ class ActivityRepo{
     loginBloc.steps = todaySteps = event.steps - lastSavedSteps;
     sharedPreference.saveSteps(todaySteps);
     sharedPreference.saveActivityDate();
-    activityBloc.stepsIn.add([todaySteps, loginBloc.userMap['Steps Goal']]);
-    print('steps repo pedo: $todaySteps');
+    activityBloc.stepsIn.add(todaySteps);
   }
   onStepCountError(error){
     print('onStepCountError: $error');
@@ -80,43 +79,41 @@ class ActivityRepo{
   }
 
   getChartData(String type, Sink sink) async{
-    List<int> count;
-    List<Data> chartData = List<Data>();
+    print(type);
+    List<double> count = [];
+    List<Data> chartData = [];
     Map<dynamic, dynamic> map = Map<dynamic, dynamic>();
     List<charts.Series<Data, String>> series = List<charts.Series<Data, String>>();
     String date = formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd]);
     var keys = [];
-    List<String> labels = List<String>();
+    List<String> labels = [];
     DocumentSnapshot ds = await FirebaseFirestore.instance.collection('users').doc(loginBloc.emailID).get();
-    if(ds.data()['Steps'] == null){
-      userDataRepo.saveUserSteps(date, 0);
-    }
-    if(ds.data()['Cals'] == null){
-      userDataRepo.saveUserCals(date, 0);
-    }
+    map = ds.data()[type];
+    if(ds.data()[type] == null)
+      map = {date:0};
     keys = map.keys.toList()..sort();
     for (int i = 0; i < keys.length; i++) {
-      count.add((map[keys[i]]));
+      count.add(map[keys[i]].toDouble());
       labels.add(
-          (formatDate(DateTime.parse('${keys[i]} 00:00:00'), [dd, ' ', M, yy]))
-              .toString());
-      sink.add(Data(labels[i], count[i]));
-      series = [
+        (formatDate(DateTime.parse('${keys[i]} 00:00:00'), [dd, ' ', M, ' ', yy])).toString()
+      );
+      chartData.add(Data(labels[i], count[i]));
+    }
+    series = [
       charts.Series(
           id: type,
           colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
           domainFn: (Data count, _) => count.date,
           measureFn: (Data count, _) => count.count,
           data: chartData),
-      ];
-      return [labels, series];
-    }
+    ];
+    return [labels, series];
   }
 }
 final activityRepo = ActivityRepo();
 
 class Data{
   String date;
-  int count;
+  double count;
   Data(this.date, this.count);
 }

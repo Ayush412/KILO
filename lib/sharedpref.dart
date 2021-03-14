@@ -1,3 +1,5 @@
+import 'package:kilo/bloc/activity_bloc.dart';
+import 'package:kilo/bloc/login/login_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:date_format/date_format.dart';
 
@@ -18,10 +20,12 @@ class SharedPreference{
     prefs.setBool('open', true);
   }
   saveSteps(int steps) async{
+    loginBloc.steps = steps;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setInt('steps', steps);
   }
   resetSteps() async{
+    loginBloc.steps = 0;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setInt('steps', 0);
   }
@@ -34,10 +38,12 @@ class SharedPreference{
     prefs.setBool('GFit', val);
   }
   saveCals(double cals) async{
+    activityBloc.totalCals = cals;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setDouble('cals', cals);
   }
   resetCals() async{
+    activityBloc.totalCals = 0;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setDouble('cals', 0);
   }

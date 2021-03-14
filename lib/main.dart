@@ -84,7 +84,7 @@ class _KiloState extends State<Kilo> {
     }
     else{
       steps = prefs.getInt('steps') ?? 0;
-      cals = prefs.getDouble('clas') ?? 0;
+      cals = prefs.getDouble('cals') ?? 0;
       activityDate = prefs.getString('activityDate');
       DateTime stpDate = DateTime.parse(activityDate);
       if(date.difference(stpDate).inDays>0){

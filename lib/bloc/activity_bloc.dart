@@ -3,26 +3,36 @@ import 'package:kilo/repository/activity_repo.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ActivityBloc implements BaseBloc{
-  
+
+  double totalCals = 0;
+
   //CONTROLLERS
-  BehaviorSubject<List<int>> stepsController = BehaviorSubject();
+  BehaviorSubject<int> stepsController = BehaviorSubject();
+  BehaviorSubject<List> stepsChartController = BehaviorSubject();
+  BehaviorSubject<List> calsChartController = BehaviorSubject();
 
   //SINKS
-  Sink<List<int>> get stepsIn => stepsController.sink;
+  Sink<int> get stepsIn => stepsController.sink;
+  Sink<List> get stepsChartIn => stepsChartController.sink;
+  Sink<List> get calsChartIn => calsChartController.sink;
 
   //STREAMS
-  Stream<List<int>> get stepsOut => stepsController.stream;
+  Stream<int> get stepsOut => stepsController.stream;
+  Stream<List> get stepsChartOut => stepsChartController.stream;
+  Stream<List> get calsChartOut => calsChartController.stream;
 
   getChartData(String type, Sink sink) async{
-    sink.add(null);
     List data = List();
     data = await activityRepo.getChartData(type, sink);
+    print('$type $data');
     sink.add(data);
   }
   
   @override
   void dispose() {
     stepsController.close();
+    stepsChartController.close();
+    calsChartController.close();
   }
 }
 

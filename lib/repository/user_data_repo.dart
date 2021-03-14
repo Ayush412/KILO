@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:kilo/bloc/activity_bloc.dart';
 import 'package:kilo/bloc/login/login_bloc.dart';
 import 'package:date_format/date_format.dart';
 import 'package:kilo/sharedpref.dart';
@@ -40,8 +41,8 @@ class UserDataRepo{
           userDataRepo.saveUserCals(date, 0);
         }
         else{
-          int cals = myMap['Cals'][date];
-          sharedPreference.saveSteps(cals);
+          double cals = myMap['Cals'][date];
+          sharedPreference.saveCals(cals);
         }
       }
     }
@@ -58,7 +59,9 @@ class UserDataRepo{
       'Admin': 0,
       'Liked': [],
       'Steps Goal': 10000,
-      'Steps': {formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd]) : 0}
+      'Cals Goal': 1000,
+      'Steps': {formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd]) : 0},
+      'Cals': {formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd]) : 0}
     });
     sharedPreference.saveData(loginBloc.emailID);
   }
@@ -90,6 +93,7 @@ class UserDataRepo{
   }
 
   saveUserCals(String date, double cals) async{
+    activityBloc.totalCals = cals;
     Map<String, dynamic> map = Map<String, dynamic>();
     DocumentSnapshot ds = await FirebaseFirestore.instance.collection('users').doc(loginBloc.emailID).get();
     map = ds.data()['Cals'];

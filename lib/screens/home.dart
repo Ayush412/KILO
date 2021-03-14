@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kilo/bloc/activity_bloc.dart';
+import 'package:kilo/bloc/login/login_bloc.dart';
 import 'package:kilo/repository/activity_repo.dart';
 import 'package:kilo/screens/dashboard.dart';
 import 'package:kilo/screens/feed.dart';
@@ -63,10 +65,18 @@ class _HomeScreenState extends State<HomeScreen> {
     return [Feed(), Dashboard(), Record(), Profile(), Wallet(),];
   }
 
+  getChartData() async{
+    await activityBloc.getChartData('Steps', activityBloc.stepsChartIn);
+    await activityBloc.getChartData('Cals', activityBloc.calsChartIn);
+  }
+
   @override
   void initState() {
     super.initState();
     activityRepo.getFitData();
+    activityRepo.initialiseSteps();
+    activityBloc.stepsIn.add(loginBloc.steps);
+    getChartData();
   }
 
   @override

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kilo/bloc/activity_bloc.dart';
+import 'package:kilo/bloc/login/login_bloc.dart';
 import 'package:kilo/repository/radical_progress.dart';
 
 class CaloriesSection extends StatelessWidget {
@@ -54,7 +56,7 @@ class CaloriesSection extends StatelessWidget {
               height: 130.0,
               child: RadialProgressbar(
                 trackColor: Colors.white.withOpacity(0.6),
-                progressPercent: 0.67,
+                progressPercent: ( activityBloc.totalCals>=loginBloc.calsGoal) ? 1 :  activityBloc.totalCals/loginBloc.calsGoal,
                 progressColor: Colors.white,
                 innerPadding: const EdgeInsets.all(6.0),
                 child: ClipOval(
@@ -67,10 +69,17 @@ class CaloriesSection extends StatelessWidget {
                       child: Column(
                         children: <Widget>[
                           Text(
-                            '3642',
+                            activityBloc.totalCals.toString(),
                             style: TextStyle(
                               fontSize: 36.0,
                               fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                          Text(
+                            'of ${loginBloc.calsGoal}',
+                            style: TextStyle(
+                              fontSize: 15.0,
                               color: Colors.white,
                             ),
                           ),
