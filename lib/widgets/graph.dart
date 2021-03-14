@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:kilo/bloc/bloc.dart';
+import 'package:kilo/bloc/login/login_bloc.dart';
 import 'package:kilo/widgets/progress_indicator.dart';
 
 lineChart(BuildContext context, Stream stream, String type){
@@ -41,6 +42,15 @@ lineChart(BuildContext context, Stream stream, String type){
                 lineStyle: new charts.LineStyleSpec(
                   color: charts.MaterialPalette.white
                 )
+              ),
+              tickProviderSpec: charts.StaticNumericTickProviderSpec(
+                <charts.TickSpec<num>>[
+                  charts.TickSpec(0),
+                  charts.TickSpec(type == 'Steps' ? loginBloc.userMap['Steps Goal']/4 : loginBloc.userMap['Cals Goal']/4),
+                  charts.TickSpec(type == 'Steps' ? loginBloc.userMap['Steps Goal']/2 : loginBloc.userMap['Cals Goal']/2),
+                  charts.TickSpec(type == 'Steps' ? loginBloc.userMap['Steps Goal']/1.33333333 : loginBloc.userMap['Cals Goal']/1.33333333),
+                  charts.TickSpec(type == 'Steps' ? loginBloc.userMap['Steps Goal'] : loginBloc.userMap['Cals Goal'])
+                ]
               )
             ),
             domainAxis: new charts.OrdinalAxisSpec(
