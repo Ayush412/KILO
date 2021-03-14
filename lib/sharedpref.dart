@@ -33,13 +33,13 @@ class SharedPreference{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('GFit', val);
   }
-  saveCals(int cals) async{
+  saveCals(double cals) async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setInt('cals', cals);
+    prefs.setDouble('cals', cals);
   }
   resetCals() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setInt('cals', 0);
+    prefs.setDouble('cals', 0);
   }
 }
 

@@ -35,7 +35,7 @@ class _UserDetailsState extends State<UserDetails> {
       bloc.loadingStatusIn.add(true);
       await userDetailsBloc.saveUserData();
       bloc.loadingStatusIn.add(false);
-      await userDataRepo.getUserData(loginBloc.emailID);
+      await userDataRepo.getUserData(loginBloc.emailID, true);
       navigate(context, HomeScreen(), PageTransitionAnimation.fade, true);
     }
   }

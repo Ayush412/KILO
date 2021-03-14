@@ -66,7 +66,7 @@ class HeaderInfo extends StatelessWidget {
                 ),
               ),
               Text(
-                'Today, ${now.day}nd, $month, ${now.year}',
+                'Today, ${now.day} $month, ${now.year}',
                 style: TextStyle(fontSize: 24.0),
               ),
             ],

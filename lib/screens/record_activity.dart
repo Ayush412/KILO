@@ -69,7 +69,7 @@ class _RecordState extends State<Record> {
                   Padding(
                     padding: const EdgeInsets.only(top: 10, bottom: 30, left: 20, right: 20),
                     child: GestureDetector(
-                      onTap: () => navigate(context, TestScreen(), PageTransitionAnimation.slideRight, false),
+                      onTap: () => navigate(context, Yoga(), PageTransitionAnimation.slideRight, false),
                       child: Container(
                         height: screenSize(200, context),
                         width: screenSize(350, context),

@@ -21,7 +21,7 @@ showDialogBox(BuildContext context, String title, String content, dynamic confir
               () => SystemNavigator.pop() : 
               confirm =='login'?
                 () => userRegisterRepo.logOut(context) :
-                () => confirm
+                () => confirm()
           ),
         FlatButton(child: Text(confirm==1? 'Ok' : 'Cancel'), onPressed: () => Navigator.pop(c, false))
       ],

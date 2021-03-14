@@ -40,7 +40,7 @@ class UserRegisterRepo{
     }
     else{
       loginBloc.emailID = emailID;
-      await userDataRepo.getUserData(emailID);
+      await userDataRepo.getUserData(emailID, true);
       return true;
     }
   }
@@ -58,7 +58,7 @@ class UserRegisterRepo{
     assert(!_user.isAnonymous);
     print("Name: ${_user.displayName}, Email: ${_user.email}");
     loginBloc.emailID = _user.email;
-    await userDataRepo.getUserData(_user.email);
+    await userDataRepo.getUserData(_user.email, true);
   }
 
   logOut(BuildContext context) async{

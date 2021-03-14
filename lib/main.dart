@@ -45,7 +45,7 @@ class _KiloState extends State<Kilo> {
   bool open;
   Timer timer;
   int steps;
-  int cals;
+  double cals;
   DateTime date = DateTime.now();
   String activityDate;
   
@@ -83,7 +83,8 @@ class _KiloState extends State<Kilo> {
       }
     }
     else{
-      steps = prefs.getInt('steps');
+      steps = prefs.getInt('steps') ?? 0;
+      cals = prefs.getDouble('clas') ?? 0;
       activityDate = prefs.getString('activityDate');
       DateTime stpDate = DateTime.parse(activityDate);
       if(date.difference(stpDate).inDays>0){
@@ -93,11 +94,12 @@ class _KiloState extends State<Kilo> {
         userDataRepo.saveUserSteps(formatDate(date, [yyyy, '-', mm, '-', dd]), 0);
         userDataRepo.saveUserCals(formatDate(date, [yyyy, '-', mm, '-', dd]), 0);
       }
-      else
+      else{
         userDataRepo.saveUserSteps(activityDate, steps);
         userDataRepo.saveUserCals(activityDate, cals);
+      }
       loginBloc.steps = prefs.getInt('steps');
-      await userDataRepo.getUserData(email);
+      await userDataRepo.getUserData(email, false);
       navigate(context, HomeScreen(), PageTransitionAnimation.fade, true);
     }
   }

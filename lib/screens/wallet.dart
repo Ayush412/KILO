@@ -14,25 +14,27 @@ class _WalletState extends State<Wallet> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        padding: EdgeInsets.only(top: 64),
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Column(
-                children: <Widget>[
-                  _buildHeader(),
-                  SizedBox(height: 16),
-                  _buildGradientBalanceCard(),
-                  SizedBox(height: 24.0),
-                  _buildCategories(),
-                ],
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.only(top: 64),
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Column(
+                  children: <Widget>[
+                    _buildHeader(),
+                    SizedBox(height: 16),
+                    _buildGradientBalanceCard(),
+                    SizedBox(height: 24.0),
+                    _buildCategories(),
+                  ],
+                ),
               ),
-            ),
-            SizedBox(height: 32),
-            _buildTransactionList(),
-          ],
+              SizedBox(height: 32),
+              _buildTransactionList(),
+            ],
+          ),
         ),
       ),
     );
