@@ -4,6 +4,8 @@ import 'package:kilo/screens/dashboard.dart';
 import 'package:kilo/screens/feed.dart';
 import 'package:kilo/screens/record_activity.dart';
 import 'package:kilo/screens/profile.dart';
+import 'package:kilo/screens/wallet.dart';
+import 'package:kilo/screens/wallet_upi.dart';
 import 'package:kilo/sharedpref.dart';
 import 'package:kilo/widgets/show_dialog.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -48,11 +50,17 @@ class _HomeScreenState extends State<HomeScreen> {
         activeColor: Colors.orange[400],
         inactiveColor: Colors.grey[600],
       ),
+      PersistentBottomNavBarItem(
+        icon: Icon(Icons.wallet_giftcard),
+        title: ("Wallet"),
+        activeColor: Colors.orange[400],
+        inactiveColor: Colors.grey[600],
+      ),
     ];
   }
 
   List<Widget> screens() {
-    return [Feed(), Dashboard(), Record(), Profile()];
+    return [Feed(), Dashboard(), Record(), Profile(), Wallet(),];
   }
 
   @override

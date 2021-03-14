@@ -50,6 +50,8 @@ dev_dependencies:
   image:
   tflite_flutter:
   tflite_flutter_helper:
+  upi_india:
+  flutter_credit_card:
 
 
 flutter_icons:
@@ -125,3 +127,4 @@ flutter:
     - assets/models/posenet_mv1_075_float_from_checkpoints.tflite
     - assets/models/model.tflite
     - assets/models/dict.txt
+    
