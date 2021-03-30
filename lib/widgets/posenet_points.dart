@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
 
 List<dynamic> _inputArr = [];
 String _label = 'Wrong Pose';
@@ -127,7 +126,6 @@ class PosenetPoints extends StatelessWidget {
         "model": pose,
         "arg": poses,
       }); // passing arguments
-
       _percent = result;
       _label =
           result < 0.5 ? "Wrong Pose" : "Good";

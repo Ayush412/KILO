@@ -75,7 +75,6 @@ class _KiloState extends State<Kilo> {
       await sharedPreference.resetCals();
       await sharedPreference.saveActivityDate();
       loginBloc.steps = prefs.getInt('steps');
-      print("Steps ${loginBloc.steps}");
       if(open==null || open==false)
         navigate(context, Intro(), PageTransitionAnimation.fade, false);
       else{
