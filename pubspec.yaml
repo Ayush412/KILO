@@ -53,6 +53,7 @@ dev_dependencies:
   upi_india:
   flutter_credit_card:
   firebase_ml_vision:
+  camera_image_converter:
 
 
 flutter_icons:

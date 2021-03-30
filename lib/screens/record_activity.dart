@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:kilo/bloc/workouts_bloc.dart';
 import 'package:kilo/navigate.dart';
-import 'package:kilo/screens/test.dart';
+import 'package:kilo/screens/test2.dart';
 import 'package:kilo/screens/yoga.dart';
 import 'package:kilo/screensize.dart';
 import 'package:kilo/widgets/recommended_card.dart';
 import 'package:kilo/widgets/underline_text.dart';
 import 'package:kilo/widgets/workout_cards.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+
+import 'package:kilo/screens/test.dart';
+import 'package:camera/camera.dart';
 
 class Record extends StatefulWidget {
   @override
@@ -29,6 +32,16 @@ class _RecordState extends State<Record> {
     );
   }
 
+  List<CameraDescription> cameras;
+
+  checkCams() async{
+    try {
+    cameras = await availableCameras();
+  } on CameraException catch (e) {
+    print('Error: $e.code\nError Message: $e.message');
+  }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -38,6 +51,9 @@ class _RecordState extends State<Record> {
     workoutsBloc.getWL();
     workoutsBloc.getMB();
     workoutsBloc.getEND();
+
+    checkCams();
+
   }
   @override
   Widget build(BuildContext context) {
