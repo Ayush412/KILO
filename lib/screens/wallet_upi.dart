@@ -4,12 +4,12 @@ import 'package:kilo/widgets/underline_text.dart';
 
 
 
-class Wallet_UPI extends StatefulWidget {
+class wallet_UPI extends StatefulWidget {
   @override
-  _Wallet_UPIState createState() => _Wallet_UPIState();
+  _wallet_UPIState createState() => _wallet_UPIState();
 }
 
-class _Wallet_UPIState extends State<Wallet_UPI> {
+class _wallet_UPIState extends State<wallet_UPI> {
   Future<UpiResponse> _transaction;
   UpiIndia _upiIndia = UpiIndia();
   List<UpiApp> apps;

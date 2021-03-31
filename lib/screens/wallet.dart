@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kilo/navigate.dart';
 import 'package:kilo/bloc/login/login_bloc.dart';
+import 'package:kilo/screens/razorpay/razorpay_payment.dart';
 import 'package:kilo/screens/wallet_upi.dart';
 import 'package:kilo/screens/wallet_card_info/wallet_card.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -145,7 +146,7 @@ class _WalletState extends State<Wallet> {
               ],
             ),
             onPressed: () {
-              navigate(context, Wallet_UPI(),
+              navigate(context, wallet_UPI(),
                   PageTransitionAnimation.slideRight, false);
             },
           ),
@@ -225,7 +226,7 @@ class _WalletState extends State<Wallet> {
                 Padding(
                   padding: const EdgeInsets.all(2.0),
                   child: Text(
-                    "Offers",
+                    "RazorPay",
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -235,8 +236,8 @@ class _WalletState extends State<Wallet> {
               ],
             ),
             onPressed: () {
-              // navigate(context, Wallet_UPI(),
-              //     PageTransitionAnimation.slideRight, false);
+              navigate(context, Payment(),
+                  PageTransitionAnimation.slideRight, false);
             },
           ),
         ]);

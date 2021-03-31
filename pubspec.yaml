@@ -54,6 +54,7 @@ dev_dependencies:
   flutter_credit_card:
   firebase_ml_vision:
   camera_image_converter:
+  razorpay_flutter: 1.1.1
 
 
 flutter_icons:
@@ -128,11 +129,11 @@ flutter:
     - tree_pose.jpg
     - caloriesbadge.png
     - All.png
-    - stepbadge.png
-    - Olympic.png
+    # - stepbadge.png
+    # - Olympic.png
     - rocket.png
     - easyworkouts.png
-    - medworkout.png
+    # - medworkout.png
     - assets/models/posenet_mv1_075_float_from_checkpoints.tflite
     - assets/models/model.tflite
     - assets/models/dict.txt
