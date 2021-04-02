@@ -51,7 +51,12 @@ class CommentsRepo{
       'Name': loginBloc.userMap['Name'],
       'Text': text,
       'Date': date,
+      'email': loginBloc.emailID
     });
+  }
+
+  deleteComment(String postID, String commentID) async{
+    await FirebaseFirestore.instance.collection('posts/$postID/comments').doc(commentID).delete();
   }
 }
 

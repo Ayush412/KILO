@@ -45,6 +45,10 @@ class PostsRepo{
     postBloc.postsIn.add(posts);
   }
 
+  deletePost(String postID) async{
+    await FirebaseFirestore.instance.collection('posts').doc(postID).delete();
+  }
+
   addPost(String text, dynamic file) async{
     String url;
     if(file!=null)
@@ -55,7 +59,8 @@ class PostsRepo{
       'Name': loginBloc.userMap['Name'],
       'Text': text,
       'Date': date,
-      'Image': url
+      'Image': url,
+      'email': loginBloc.emailID
     });
   }
 

@@ -30,14 +30,22 @@ class _PostState extends State<Post> {
       print('empty');
     }
     else{
-      refresh(textController.text);
+      addComment(textController.text);
     }
     textController.text='';
   }
 
-  refresh(String text) async{
+  addComment(String text) async{
     bloc.loadingStatusIn.add(true);
     await commentsBloc.postComment(text, widget.post.id);
+    await commentsBloc.getComments(widget.post.id);
+    bloc.loadingStatusIn.add(false); 
+  }
+
+  deleteComment(String commentID) async{
+    print(commentID);
+    bloc.loadingStatusIn.add(true);
+    await commentsBloc.deleteComment(widget.post.id, commentID);
     await commentsBloc.getComments(widget.post.id);
     bloc.loadingStatusIn.add(false); 
   }
@@ -201,7 +209,7 @@ class _PostState extends State<Post> {
                         ),
                       ),
                       Divider(),
-                      comments(controller)
+                      comments(controller, deleteComment)
                     ],
                   ),
                 ),

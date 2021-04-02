@@ -22,6 +22,10 @@ class PostsBloc implements BaseBloc{
     postsRepo.getNextPosts();
   }
 
+  deletePost(String postID) async{
+    await postsRepo.deletePost(postID);
+  }
+
   @override
   void dispose() {
     postsController.close();

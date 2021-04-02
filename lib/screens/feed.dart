@@ -30,6 +30,13 @@ class _FeedState extends State<Feed> {
     bloc.loadingStatusIn.add(false);
   }
 
+  deletePost(String postID) async{
+    bloc.loadingStatusIn.add(true);
+    await postBloc.deletePost(postID);
+    await postBloc.getPosts();
+    bloc.loadingStatusIn.add(false);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -102,20 +109,33 @@ class _FeedState extends State<Feed> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Row(
-                                      children: [
-                                        Icon(Icons.account_circle, color: Colors.grey[800], size: 40,),
-                                        Padding(
-                                          padding: const EdgeInsets.only(left: 5),
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                    Container(
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
                                             children: [
-                                              Text(posts.data[index].data()['Name'], style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-                                              Text(posts.data[index].data()['Date'], style: TextStyle(color: Colors.grey,fontSize: 14)), 
+                                              Icon(Icons.account_circle, color: Colors.grey[800], size: 40,),
+                                              Padding(
+                                                padding: const EdgeInsets.only(left: 5),
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(posts.data[index].data()['Name'], style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                                                    Text(posts.data[index].data()['Date'], style: TextStyle(color: Colors.grey,fontSize: 14)), 
+                                                  ]
+                                                ),
+                                              ),
                                             ]
                                           ),
-                                        ),
-                                      ]
+                                          loginBloc.emailID == posts.data[index].data()['email']?
+                                            IconButton(
+                                              onPressed: () => deletePost(posts.data[index].id),
+                                              icon: Icon(Icons.delete, color: Colors.grey,),
+                                            ):
+                                            Container()
+                                        ]
+                                      ),
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),

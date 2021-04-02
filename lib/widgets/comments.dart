@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kilo/bloc/comments_bloc.dart';
+import 'package:kilo/bloc/login/login_bloc.dart';
 
-comments(ScrollController controller){
+comments(ScrollController controller, dynamic delete){
   return StreamBuilder(
     stream: commentsBloc.commentsOut,
     builder: (context, snap) {
@@ -18,15 +19,29 @@ comments(ScrollController controller){
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 15),
-                    child: Row(
-                      children: [
-                        Icon(Icons.account_circle, color: Colors.orange[400], size: 28,),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 15, bottom: 15, left: 15, right: 15),
-                          child: Text(snap.data[index].data()['Name'], style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500)),
-                        ),
-                      ],
+                    padding: const EdgeInsets.only(left: 15, right:15),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Icon(Icons.account_circle, color: Colors.orange[400], size: 28,),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 15, bottom: 15, left: 15, right: 15),
+                                child: Text(snap.data[index].data()['Name'], style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500)),
+                              ),
+                            ],
+                          ),
+                          loginBloc.emailID == snap.data[index].data()['email']?
+                            IconButton(
+                              onPressed: () => delete(snap.data[index].id),
+                              icon: Icon(Icons.delete, color: Colors.grey,),
+                            ):
+                            Container()
+                        ]
+                      ),
                     ),
                   ), 
                   Padding(
