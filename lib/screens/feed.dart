@@ -6,6 +6,7 @@ import 'package:kilo/bloc/posts_bloc.dart';
 import 'package:kilo/bloc/user_details/user_details_bloc.dart';
 import 'package:kilo/navigate.dart';
 import 'package:kilo/repository/likes_repo.dart';
+import 'package:kilo/screens/new_feed.dart';
 import 'package:kilo/screens/post.dart';
 import 'package:kilo/screensize.dart';
 import 'package:kilo/widgets/progress_indicator.dart';
@@ -21,7 +22,7 @@ class Feed extends StatefulWidget {
 class _FeedState extends State<Feed> {
 
   ScrollController controller = ScrollController();
-
+  
   onRefresh() async{
     bloc.loadingStatusIn.add(true);
     await Future.delayed(Duration(seconds: 3));
@@ -54,7 +55,7 @@ class _FeedState extends State<Feed> {
         actions: [
           IconButton(
             icon: Icon(Icons.add_circle_outline_outlined), 
-            onPressed: (){}, 
+            onPressed: ()=> navigate(context, NewFeed(refresh: onRefresh), PageTransitionAnimation.slideUp, false), 
             color: Colors.grey[800],
             splashColor: Colors.orange[400],
             splashRadius: 15
@@ -99,6 +100,7 @@ class _FeedState extends State<Feed> {
                                 padding: const EdgeInsets.all(20),
                                 color: Colors.white,
                                 child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Row(
                                       children: [

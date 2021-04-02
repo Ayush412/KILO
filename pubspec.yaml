@@ -21,6 +21,7 @@ dev_dependencies:
     sdk: flutter
   firebase_core:
   firebase_auth:
+  firebase_storage:
   cloud_firestore:
   firebase_database:
   firebase_messaging: 
@@ -55,6 +56,9 @@ dev_dependencies:
   firebase_ml_vision:
   camera_image_converter:
   razorpay_flutter: 1.1.1
+  simple_image_crop:
+    git:
+      url: "https://github.com/Ayush412/flutter_simple_image_crop.git"
 
 
 flutter_icons:
@@ -66,6 +70,7 @@ flutter_icons:
 flutter:
   uses-material-design: true
   assets:
+    - assets/
     - KILO_Logo.jpg
     - KILO.png
     - activity.png
@@ -127,14 +132,7 @@ flutter:
     - triangle_pose.jpg
     - high_lunge.jpg
     - tree_pose.jpg
-    - caloriesbadge.png
-    - All.png
-    # - stepbadge.png
-    # - Olympic.png
-    - rocket.png
     - easyworkouts.png
-    # - medworkout.png
     - assets/models/posenet_mv1_075_float_from_checkpoints.tflite
     - assets/models/model.tflite
     - assets/models/dict.txt
-    

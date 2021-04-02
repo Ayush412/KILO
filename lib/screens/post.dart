@@ -60,6 +60,7 @@ class _PostState extends State<Post> {
               child: SingleChildScrollView(
                 controller: controller,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(left: 15),

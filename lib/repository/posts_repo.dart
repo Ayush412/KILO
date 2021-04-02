@@ -1,11 +1,17 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:math';
+
+import 'package:kilo/bloc/login/login_bloc.dart';
 import 'package:kilo/bloc/posts_bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:date_format/date_format.dart';
+import 'package:firebase_storage/firebase_storage.dart' as storage;
 
 class PostsRepo{
   List<DocumentSnapshot> posts = [];
   DocumentSnapshot lastDoc;
   bool moreLoading = false;
   bool moreDocsLeft = true;
+  String date = formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd]);
 
   getPosts() async{
     QuerySnapshot qs = await FirebaseFirestore.instance.collection('posts')
@@ -38,6 +44,34 @@ class PostsRepo{
     lastDoc = qs.docs[qs.docs.length-1];
     moreLoading = false;
     postBloc.postsIn.add(posts);
+  }
+
+  addPost(String text, dynamic file) async{
+    String url;
+    if(file!=null)
+      url = await putImage(file);
+    await FirebaseFirestore.instance.collection('posts').doc().set({
+      'Comments': 0,
+      'Likes': 0,
+      'Name': loginBloc.userMap['Name'],
+      'Text': text,
+      'Date': date,
+      'Image': url
+    });
+  }
+
+  putImage(dynamic file) async{
+    String url;
+    storage.Reference ref = storage.FirebaseStorage.instance
+    .ref()
+    .child('Posts')
+    .child('/${loginBloc.emailID}-${Random().nextInt(10000)}-${Random().nextInt(10000)}-$date.jpg');
+    storage.UploadTask upload = ref.putFile(file);
+    await upload.whenComplete(()async{
+      url = await ref.getDownloadURL();
+    });
+    print(url);
+    return url;
   }
 }
 final postsRepo = PostsRepo();

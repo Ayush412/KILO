@@ -58,14 +58,6 @@ class HeaderInfo extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                'Week 7, Day 2',
-                style: TextStyle(
-                  color: Color(0xFFA5A5A5),
-                  fontSize: 16.0,
-                  fontFamily: 'JosefinSans',
-                ),
-              ),
-              Text(
                 'Today, ${now.day} $month, ${now.year}',
                 style: TextStyle(fontSize: 24.0),
               ),
