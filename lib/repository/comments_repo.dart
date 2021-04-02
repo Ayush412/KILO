@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:kilo/bloc/comments_bloc.dart';
+import 'package:date_format/date_format.dart';
+import 'package:kilo/bloc/login/login_bloc.dart';
 
 class CommentsRepo{
 
@@ -7,6 +9,7 @@ class CommentsRepo{
   DocumentSnapshot lastDoc;
   bool moreLoading = false;
   bool moreDocsLeft = true;
+  String date = formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd]);
 
   getComments(String docID) async{
     comments = [];
@@ -43,6 +46,13 @@ class CommentsRepo{
     commentsBloc.commentsIn.add(comments);
   }
 
+  postComment(String text, String docID) async{
+    await FirebaseFirestore.instance.collection('posts/$docID/comments').doc().set({
+      'Name': loginBloc.userMap['Name'],
+      'Text': text,
+      'Date': date,
+    });
+  }
 }
 
 final commentsRepo = CommentsRepo();

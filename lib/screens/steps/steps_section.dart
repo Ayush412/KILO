@@ -52,7 +52,6 @@ class StepsSection extends StatelessWidget {
           StreamBuilder(
             stream: activityBloc.stepsOut,
             builder: (context, steps) {
-              print('stre ${steps.data}');
               return Padding(
                 padding: const EdgeInsets.only(top: 8.0),
                 child: Container(

@@ -22,6 +22,10 @@ class CommentsBloc implements BaseBloc{
     commentsRepo.getNextComments(docID);
   }
 
+  postComment(String text, String docID) async{
+    await commentsRepo.postComment(text, docID);
+  }
+
   @override
   void dispose() {
     commentsController.close();

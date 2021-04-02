@@ -5,8 +5,6 @@ import 'package:kilo/bloc/bloc.dart';
 import 'package:kilo/navigate.dart';
 import 'package:kilo/repository/posts_repo.dart';
 import 'package:kilo/screens/crop_imaged.dart';
-import 'package:kilo/widgets/circular_progress.dart';
-import 'package:kilo/widgets/progress_indicator.dart';
 import 'package:kilo/widgets/show_dialog.dart';
 import 'package:kilo/widgets/show_snack.dart';
 import 'package:kilo/widgets/underline_text.dart';
@@ -56,7 +54,7 @@ class _NewFeedState extends State<NewFeed> {
   post() async{
     var conn = await (Connectivity().checkConnectivity());
     String text = controller.text;
-    text.replaceAll(' ', '');
+    text = text.replaceAll(' ', '');
     if(controller.text==null || controller.text=='' || text.length==0)
       scaffoldKey.currentState.showSnackBar(showSnack('Content can not be blank.', Colors.black, Colors.orange[400]));
     else{
@@ -64,7 +62,7 @@ class _NewFeedState extends State<NewFeed> {
         scaffoldKey.currentState.showSnackBar(showSnack('No internet connection!', Colors.white, Colors.red[700]));
       else{
         bloc.loadingStatusIn.add(true);
-        await postsRepo.addPost(text, image);
+        await postsRepo.addPost(controller.text, image);
         bloc.loadingStatusIn.add(false);
         widget.refresh();
         Navigator.of(context).pop();
