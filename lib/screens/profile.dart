@@ -28,7 +28,7 @@ class _ProfileState extends State<Profile> {
                     colors: [Colors.orangeAccent, Colors.deepOrange])),
             child: Container(
               width: double.infinity,
-              height: 350.0,
+              height: 240.0,
               child: Center(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -51,123 +51,8 @@ class _ProfileState extends State<Profile> {
                       ),
                     ),
                     SizedBox(
-                      height: 10.0,
+                      height: 5.0,
                     ),
-                    Card(
-                      margin:
-                          EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
-                      clipBehavior: Clip.antiAlias,
-                      color: Colors.white,
-                      elevation: 5.0,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8.0, vertical: 22.0),
-                        child: Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: Column(
-                                children: <Widget>[
-                                  Text(
-                                    "Age",
-                                    style: TextStyle(
-                                      color: Colors.deepOrangeAccent[700],
-                                      fontSize: 22.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 5.0,
-                                  ),
-                                  Text(
-                                    "${loginBloc.userMap['Age']}​​",
-                                    style: TextStyle(
-                                      fontSize: 20.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.deepOrange,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Expanded(
-                              child: Column(
-                                children: <Widget>[
-                                  Text(
-                                    "Weight",
-                                    style: TextStyle(
-                                      color: Colors.deepOrangeAccent[700],
-                                      fontSize: 22.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 5.0,
-                                  ),
-                                  Text(
-                                    "${loginBloc.userMap['Weight']}",
-                                    style: TextStyle(
-                                      fontSize: 20.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.deepOrange,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Expanded(
-                              child: Column(
-                                children: <Widget>[
-                                  Text(
-                                    "Height",
-                                    style: TextStyle(
-                                      color: Colors.deepOrangeAccent[700],
-                                      fontSize: 22.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 5.0,
-                                  ),
-                                  Text(
-                                    "${loginBloc.userMap['Height']}",
-                                    style: TextStyle(
-                                      fontSize: 20.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.deepOrange,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Expanded(
-                              child: Column(
-                                children: <Widget>[
-                                  Text(
-                                    "BMI",
-                                    style: TextStyle(
-                                      color: Colors.deepOrangeAccent[700],
-                                      fontSize: 22.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 5.0,
-                                  ),
-                                  Text(
-                                    "${loginBloc.userMap['BMI']}​​",
-                                    style: TextStyle(
-                                      fontSize: 20.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.deepOrange,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
                   ],
                 ),
               ),
@@ -188,7 +73,7 @@ class _ProfileState extends State<Profile> {
                     child: Column(
                       children: <Widget>[
                         Text(
-                          "Steps",
+                          "Age",
                           style: TextStyle(
                             color: Colors.deepOrangeAccent[700],
                             fontSize: 22.0,
@@ -196,10 +81,10 @@ class _ProfileState extends State<Profile> {
                           ),
                         ),
                         SizedBox(
-                          height: 5.0,
+                          height: 2.0,
                         ),
                         Text(
-                          "8770 / 10000​​",
+                          "${loginBloc.userMap['Age']}​​",
                           style: TextStyle(
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold,
@@ -226,7 +111,7 @@ class _ProfileState extends State<Profile> {
                     child: Column(
                       children: <Widget>[
                         Text(
-                          "Distance",
+                          "Weight (kg)",
                           style: TextStyle(
                             color: Colors.deepOrangeAccent[700],
                             fontSize: 22.0,
@@ -234,10 +119,10 @@ class _ProfileState extends State<Profile> {
                           ),
                         ),
                         SizedBox(
-                          height: 5.0,
+                          height: 2.0,
                         ),
                         Text(
-                          "6.68" ' km',
+                          "${loginBloc.userMap['Weight']}",
                           style: TextStyle(
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold,
@@ -264,7 +149,7 @@ class _ProfileState extends State<Profile> {
                     child: Column(
                       children: <Widget>[
                         Text(
-                          "Calories",
+                          "Height (cm)",
                           style: TextStyle(
                             color: Colors.deepOrangeAccent[700],
                             fontSize: 22.0,
@@ -272,10 +157,48 @@ class _ProfileState extends State<Profile> {
                           ),
                         ),
                         SizedBox(
-                          height: 5.0,
+                          height: 2.0,
                         ),
                         Text(
-                          "247​​",
+                          "${loginBloc.userMap['Height']}",
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.deepOrange,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ]))),
+        SizedBox(
+          height: 10.0,
+        ),
+        Card(
+            margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+            clipBehavior: Clip.antiAlias,
+            color: Colors.white,
+            elevation: 5.0,
+            child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 22.0),
+                child: Row(children: <Widget>[
+                  Expanded(
+                    child: Column(
+                      children: <Widget>[
+                        Text(
+                          "BMI",
+                          style: TextStyle(
+                            color: Colors.deepOrangeAccent[700],
+                            fontSize: 22.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 2.0,
+                        ),
+                        Text(
+                          "${loginBloc.userMap['BMI']}",
                           style: TextStyle(
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold,
