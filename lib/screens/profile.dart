@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kilo/bloc/badges_bloc.dart';
 import 'package:kilo/repository/user_register_repo.dart';
 import 'package:kilo/screensize.dart';
 import 'package:kilo/widgets/badges.dart';
@@ -14,7 +15,11 @@ class _ProfileState extends State<Profile> {
   logOut() async {
     await userRegisterRepo.logOut(context);
   }
-
+  @override
+  void initState() { 
+    super.initState();
+    badgesBloc.getBadgeData();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,12 +51,16 @@ class _ProfileState extends State<Profile> {
                               height: 70,
                             ),
                           ),
-                          Text(
-                            "${loginBloc.userMap['Name']}​​",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 22.0,
-                              fontWeight: FontWeight.bold,
+                          SizedBox(height: 20),
+                          Expanded(
+                            child: Text(
+                              "${loginBloc.userMap['Name']}​​",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 22.0,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                           SizedBox(height:30),
@@ -94,7 +103,7 @@ class _ProfileState extends State<Profile> {
                 ),
                 // Padding(
                 //   padding: const EdgeInsets.only(top: 20),
-                //   child: badgeRow('First Exercise', img1, stream1, text2, img2, stream2),
+                //   child: badgeRow('First Exercise', 'medal_badge.png', stream1, text2, img2, stream2),
                 // ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 80),

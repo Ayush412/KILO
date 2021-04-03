@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kilo/navigate.dart';
+import 'package:kilo/repository/activity_repo.dart';
 import 'package:kilo/repository/user_data_repo.dart';
 import 'package:kilo/screens/workout_stats.dart';
-import 'package:kilo/screensize.dart';
 import 'package:kilo/sharedpref.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:kilo/widgets/show_dialog.dart';
@@ -15,7 +15,8 @@ class StartWorkout extends StatefulWidget {
   final List workouts;
   final int index;
   final String difficulty;
-  StartWorkout({this.workouts, this.index, this.difficulty});
+  final String title;
+  StartWorkout({this.workouts, this.index, this.difficulty, this.title});
 
   @override
   _StartWorkoutState createState() => _StartWorkoutState();
@@ -38,7 +39,7 @@ class _StartWorkoutState extends State<StartWorkout> {
       navigate(
         context,
         StartWorkout(
-            workouts: widget.workouts, index: widget.index+1, difficulty: widget.difficulty),
+          workouts: widget.workouts, index: widget.index+1, difficulty: widget.difficulty, title: widget.title),
         PageTransitionAnimation.slideUp,
         false
       );
@@ -58,6 +59,8 @@ class _StartWorkoutState extends State<StartWorkout> {
     sharedPreference.saveActivityDate();
     sharedPreference.saveCals(totCals);
     userDataRepo.saveUserCals(formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd]), totCals);
+    if(widget.index == widget.workouts.length-1)
+      await activityRepo.updateWorkoutCount('${widget.title} ${widget.difficulty}');
     navigate(
       context, 
       WorkoutStats(totCals: totCals, index: widget.index, workouts: widget.workouts, difficulty: widget.difficulty,), 

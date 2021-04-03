@@ -1,5 +1,5 @@
+import 'package:kilo/bloc/badges_bloc.dart';
 import 'package:kilo/bloc/login/login_bloc.dart';
-import 'package:kilo/repository/user_data_repo.dart';
 import 'package:kilo/sharedpref.dart';
 import 'package:kilo/bloc/activity_bloc.dart';
 import 'package:pedometer/pedometer.dart';
@@ -108,6 +108,19 @@ class ActivityRepo{
           data: chartData),
     ];
     return [labels, series];
+  }
+
+  updateWorkoutCount(String workout) async{
+    Map<String, dynamic> map = Map<String, dynamic>();
+    DocumentSnapshot ds = await FirebaseFirestore.instance.collection('users').doc(loginBloc.emailID).get();
+    map = ds.data()['Workouts'];
+    map[workout] += 1; 
+    await FirebaseFirestore.instance.collection('users').doc(loginBloc.emailID).update(
+      {
+        'Workouts': map
+      }
+    );
+    await badgesBloc.getBadgeData();
   }
 }
 final activityRepo = ActivityRepo();

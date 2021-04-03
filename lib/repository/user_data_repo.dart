@@ -61,7 +61,18 @@ class UserDataRepo{
       'Steps Goal': 10000,
       'Cals Goal': 1000,
       'Steps': {formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd]) : 0},
-      'Cals': {formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd]) : 0}
+      'Cals': {formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd]) : 0},
+      'Workouts': {
+        'Endurace Easy': 0, 
+        'Endurance Hard': 0,
+        'Endurance Medium': 0,
+        'Muscle Build Easy': 0,
+        'Muscle Build Hard': 0,
+        'Muscle Build Medium': 0,
+        'Weight Loss Easy': 0,
+        'Weight Loss Hard': 0,
+        'Weight Loss Medium': 0
+      }
     });
     sharedPreference.saveData(loginBloc.emailID);
   }
