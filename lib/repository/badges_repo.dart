@@ -18,7 +18,7 @@ class BadgesRepo{
       'Muscle Build Hard',
       'Muscle Build Medium',
       'Weight Loss Easy',
-      'Weight Loss Hard'
+      'Weight Loss Hard',
       'Weight Loss Medium'
     ];
     Map<dynamic, dynamic> map = Map<dynamic, dynamic>();

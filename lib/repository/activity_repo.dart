@@ -79,7 +79,6 @@ class ActivityRepo{
   }
 
   getChartData(String type, Sink sink) async{
-    print(type);
     List<double> count = [];
     List<Data> chartData = [];
     Map<dynamic, dynamic> map = Map<dynamic, dynamic>();

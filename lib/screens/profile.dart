@@ -3,7 +3,6 @@ import 'package:kilo/bloc/badges_bloc.dart';
 import 'package:kilo/repository/user_register_repo.dart';
 import 'package:kilo/screensize.dart';
 import 'package:kilo/widgets/badges.dart';
-import 'package:kilo/widgets/underline_text.dart';
 import 'package:kilo/bloc/login/login_bloc.dart';
 
 class Profile extends StatefulWidget {
@@ -52,15 +51,13 @@ class _ProfileState extends State<Profile> {
                             ),
                           ),
                           SizedBox(height: 20),
-                          Expanded(
-                            child: Text(
-                              "${loginBloc.userMap['Name']}​​",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 22.0,
-                                fontWeight: FontWeight.bold,
-                              ),
+                          Text(
+                            "${loginBloc.userMap['Name']}​​",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 22.0,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                           SizedBox(height:30),
@@ -101,10 +98,27 @@ class _ProfileState extends State<Profile> {
                   padding: const EdgeInsets.all(20),
                   child: Text("Badges Earned", style: TextStyle(fontSize: 25, color: Colors.white, fontWeight: FontWeight.w500)),
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.only(top: 20),
-                //   child: badgeRow('First Exercise', 'medal_badge.png', stream1, text2, img2, stream2),
-                // ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: badgeRow(
+                    'All Star', 'Complete All Workouts', 'award_badge.png', badgesBloc.all3Out, 
+                    'Mad Walker', 'Reach 100k Steps', 'steps_badge.png', badgesBloc.stepsOut
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: badgeRow(
+                    'Baby Steps', 'Complete Your 1st Workout', 'winner_badge.png', badgesBloc.firstOut, 
+                    'Fitneek', 'Complete All Weight Loss Workouts', 'medal_badge.png', badgesBloc.wlOut
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: badgeRow(
+                    'Hulk', 'Complete All Muscle Build Workouts', 'trophy_badge.png', badgesBloc.mbOut, 
+                    'Tenacity', 'Complete All Endurance Workouts', 'mountain_badge.png', badgesBloc.endOut
+                  ),
+                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 80),
                   child: Container(

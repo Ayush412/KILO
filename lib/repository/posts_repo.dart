@@ -74,7 +74,6 @@ class PostsRepo{
     await upload.whenComplete(()async{
       url = await ref.getDownloadURL();
     });
-    print(url);
     return url;
   }
 }

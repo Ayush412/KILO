@@ -27,7 +27,6 @@ class _PosedetectState extends State<Posedetect> {
       _imageHeight = imageHeight;
       _imageWidth = imageWidth;
     });
-    print('yeeted $recognitions');
   }
 
    loadModel() async {

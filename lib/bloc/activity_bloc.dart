@@ -24,7 +24,6 @@ class ActivityBloc implements BaseBloc{
   getChartData(String type, Sink sink) async{
     List data = List();
     data = await activityRepo.getChartData(type, sink);
-    print('$type $data');
     sink.add(data);
   }
   
