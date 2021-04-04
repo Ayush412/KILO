@@ -11,9 +11,11 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  
   logOut() async {
     await userRegisterRepo.logOut(context);
   }
+
   @override
   void initState() { 
     super.initState();
@@ -100,27 +102,27 @@ class _ProfileState extends State<Profile> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 20),
-                  child: badgeRow(
+                  child: badgeRow(context,
                     'All Star', 'Complete All Workouts', 'award_badge.png', badgesBloc.all3Out, 
                     'Mad Walker', 'Reach 100k Steps', 'steps_badge.png', badgesBloc.stepsOut
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 20),
-                  child: badgeRow(
+                  child: badgeRow(context,
                     'Baby Steps', 'Complete Your 1st Workout', 'winner_badge.png', badgesBloc.firstOut, 
                     'Fitneek', 'Complete All Weight Loss Workouts', 'medal_badge.png', badgesBloc.wlOut
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 20),
-                  child: badgeRow(
+                  child: badgeRow(context,
                     'Hulk', 'Complete All Muscle Build Workouts', 'trophy_badge.png', badgesBloc.mbOut, 
                     'Tenacity', 'Complete All Endurance Workouts', 'mountain_badge.png', badgesBloc.endOut
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 80),
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 50),
                   child: Container(
                     height: 50,
                     width: screenSize(150, context),

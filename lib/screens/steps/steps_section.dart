@@ -28,11 +28,14 @@ class StepsSection extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text(
-                  'Steps',
-                  style: TextStyle(
-                    fontSize: 26.0,
-                    color: Colors.white,
+                FittedBox(
+                  fit: BoxFit.fitWidth,
+                  child: Text(
+                    'Steps',
+                    style: TextStyle(
+                      fontSize: 26.0,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
                 Padding(

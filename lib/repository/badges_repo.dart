@@ -11,7 +11,7 @@ class BadgesRepo{
     int count = 0;
     var keys = [];
     List workouts = [
-      'Endurace Easy',
+      'Endurance Easy',
       'Endurance Hard',
       'Endurance Medium',
       'Muscle Build Easy',
@@ -32,7 +32,7 @@ class BadgesRepo{
     keys = map.keys.toList()..sort();
     for (int i = 0; i<keys.length; i++)
       count = count + map[keys[i]];
-    badgesBloc.stepsIn.add(count);
+    badgesBloc.stepsIn.add([count, 100000]);
 
     keys = [];
     map = ds.data()['Workouts'];
@@ -43,41 +43,44 @@ class BadgesRepo{
     for (int i = 0; i<keys.length; i++)
       count = count + map[keys[i]];
     if(count>0)
-      badgesBloc.firstIn.add(1);
+      badgesBloc.firstIn.add([1,1]);
     else
-      badgesBloc.firstIn.add(0);
+      badgesBloc.firstIn.add([0,1]);
 
     //All Workouts Completed
     count = 0;
     for (int i = 0; i<keys.length; i++){
-      if(map[keys[i]]>1)
+      if(map[keys[i]]>0)
         count = count + 1;
     }
-    badgesBloc.all3In.add(count);
+    badgesBloc.all3In.add([count,9]);
 
     //All Endurance
     count = 0;
     for (int i = 0; i<3; i++){
-      if(map[workouts[i]]>1)
+      if(map[workouts[i]]>0)
         count = count + 1;
     }
-    badgesBloc.endIn.add(count);
+    print('End: $count');
+    badgesBloc.endIn.add([count,3]);
 
     //All Muscle Build
     count = 0;
     for (int i = 3; i<6; i++){
-      if(map[workouts[i]]>1)
+      if(map[workouts[i]]>0)
         count = count + 1;
     }
-    badgesBloc.mbIn.add(count);
+    print('mb: $count');
+    badgesBloc.mbIn.add([count,3]);
 
     //All Weight Loss
     count = 0;
     for (int i = 6; i<9; i++){
-      if(map[workouts[i]]>1)
+      if(map[workouts[i]]>0)
         count = count + 1;
     }
-    badgesBloc.wlIn.add(count);
+    print('wl: $count');
+    badgesBloc.wlIn.add([count,3]);
   }
 }
 final badgesRepo = BadgesRepo();

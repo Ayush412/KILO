@@ -58,22 +58,25 @@ class CaloriesSection extends StatelessWidget {
                 trackColor: Colors.white.withOpacity(0.6),
                 progressPercent: ( activityBloc.totalCals>=loginBloc.calsGoal) ? 1 :  activityBloc.totalCals/loginBloc.calsGoal,
                 progressColor: Colors.white,
-                innerPadding: const EdgeInsets.all(6.0),
+                innerPadding: const EdgeInsets.all(8),
                 child: ClipOval(
                   clipper: CircleClipper(),
                   child: Container(
                     width: 120.0,
                     height: 120.0,
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 16.0),
+                      padding: const EdgeInsets.only(top: 16.0, left: 8, right: 8),
                       child: Column(
                         children: <Widget>[
-                          Text(
-                            activityBloc.totalCals.toString(),
-                            style: TextStyle(
-                              fontSize: 36.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                          FittedBox(
+                            fit: BoxFit.fitWidth,
+                            child: Text(
+                              activityBloc.totalCals.toString(),
+                              style: TextStyle(
+                                fontSize: 36.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                           Text(

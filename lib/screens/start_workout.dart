@@ -43,13 +43,15 @@ class _StartWorkoutState extends State<StartWorkout> {
         PageTransitionAnimation.slideUp,
         false
       );
-    else
+    else{
+      await activityRepo.updateWorkoutCount('${widget.title} ${widget.difficulty}');
       navigate(
         context, 
         WorkoutStats(totCals: totCals, index: widget.index, workouts: widget.workouts, difficulty: widget.difficulty,), 
         PageTransitionAnimation.slideUp, 
         false
       );
+    }
   }
 
   end() async{

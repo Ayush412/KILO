@@ -5,28 +5,28 @@ import 'package:rxdart/rxdart.dart';
 class BadgesBloc implements BaseBloc{
 
   //CONTROLLERS
-  BehaviorSubject<int> firstBadgeController = BehaviorSubject();
-  BehaviorSubject<int> stepsBadgeController = BehaviorSubject();
-  BehaviorSubject<int> all3BadgeController = BehaviorSubject();
-  BehaviorSubject<int> wlBadgeController = BehaviorSubject();
-  BehaviorSubject<int> mbBadgeController = BehaviorSubject();
-  BehaviorSubject<int> endBadgeController = BehaviorSubject();
+  BehaviorSubject<List> firstBadgeController = BehaviorSubject();
+  BehaviorSubject<List> stepsBadgeController = BehaviorSubject();
+  BehaviorSubject<List> all3BadgeController = BehaviorSubject();
+  BehaviorSubject<List> wlBadgeController = BehaviorSubject();
+  BehaviorSubject<List> mbBadgeController = BehaviorSubject();
+  BehaviorSubject<List> endBadgeController = BehaviorSubject();
 
   //SINKS
-  Sink<int> get firstIn => firstBadgeController.sink;
-  Sink<int> get stepsIn => stepsBadgeController.sink;
-  Sink<int> get all3In => all3BadgeController.sink;
-  Sink<int> get wlIn => wlBadgeController.sink;
-  Sink<int> get mbIn => mbBadgeController.sink;
-  Sink<int> get endIn => endBadgeController.sink;
+  Sink<List> get firstIn => firstBadgeController.sink;
+  Sink<List> get stepsIn => stepsBadgeController.sink;
+  Sink<List> get all3In => all3BadgeController.sink;
+  Sink<List> get wlIn => wlBadgeController.sink;
+  Sink<List> get mbIn => mbBadgeController.sink;
+  Sink<List> get endIn => endBadgeController.sink;
   
   //STREAMS
-  Stream<int> get firstOut => firstBadgeController.stream;
-  Stream<int> get stepsOut => stepsBadgeController.stream;
-  Stream<int> get all3Out => all3BadgeController.stream;
-  Stream<int> get wlOut => wlBadgeController.stream;
-  Stream<int> get mbOut => mbBadgeController.stream;
-  Stream<int> get endOut => endBadgeController.stream;
+  Stream<List> get firstOut => firstBadgeController.stream;
+  Stream<List> get stepsOut => stepsBadgeController.stream;
+  Stream<List> get all3Out => all3BadgeController.stream;
+  Stream<List> get wlOut => wlBadgeController.stream;
+  Stream<List> get mbOut => mbBadgeController.stream;
+  Stream<List> get endOut => endBadgeController.stream;
 
   getBadgeData() async{
     await badgesRepo.getBadgeData();
