@@ -63,7 +63,7 @@ class UserDataRepo{
       'Steps': {formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd]) : 0},
       'Cals': {formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd]) : 0},
       'Workouts': {
-        'Endurace Easy': 0, 
+        'Endurance Easy': 0, 
         'Endurance Hard': 0,
         'Endurance Medium': 0,
         'Muscle Build Easy': 0,
