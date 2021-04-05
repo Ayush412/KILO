@@ -5,10 +5,9 @@ import 'package:date_format/date_format.dart';
 
 class BadgesRepo{
 
-  Map<dynamic, dynamic> myMap = Map<dynamic, dynamic>();
-
   getBadgeData() async{
     int count = 0;
+    int total = 0;
     var keys = [];
     List workouts = [
       'Endurance Easy',
@@ -33,6 +32,20 @@ class BadgesRepo{
     for (int i = 0; i<keys.length; i++)
       count = count + map[keys[i]];
     badgesBloc.stepsIn.add([count, 100000]);
+    if(count>=100000)
+      total += 1;
+
+    //Total Cals
+    count = 0;
+    map = ds.data()['Cals'];
+    if(ds.data()['Steps'] == null)
+      map = {date:0};
+    keys = map.keys.toList()..sort();
+    for (int i = 0; i<keys.length; i++)
+      count = count + (map[keys[i]]).round();
+    badgesBloc.calsIn.add([count, 10000]);
+    if(count>=10000)
+      total += 1;
 
     keys = [];
     map = ds.data()['Workouts'];
@@ -42,8 +55,10 @@ class BadgesRepo{
     keys = map.keys.toList()..sort();
     for (int i = 0; i<keys.length; i++)
       count = count + map[keys[i]];
-    if(count>0)
+    if(count>0){
       badgesBloc.firstIn.add([1,1]);
+      total += 1;
+    }
     else
       badgesBloc.firstIn.add([0,1]);
 
@@ -54,6 +69,8 @@ class BadgesRepo{
         count = count + 1;
     }
     badgesBloc.all3In.add([count,9]);
+    if(count == 9)
+      total += 1;
 
     //All Endurance
     count = 0;
@@ -63,6 +80,8 @@ class BadgesRepo{
     }
     print('End: $count');
     badgesBloc.endIn.add([count,3]);
+    if(count == 3)
+      total += 1;
 
     //All Muscle Build
     count = 0;
@@ -72,6 +91,8 @@ class BadgesRepo{
     }
     print('mb: $count');
     badgesBloc.mbIn.add([count,3]);
+    if(count == 3)
+      total += 1;
 
     //All Weight Loss
     count = 0;
@@ -81,6 +102,10 @@ class BadgesRepo{
     }
     print('wl: $count');
     badgesBloc.wlIn.add([count,3]);
+    if(count == 9)
+      total += 1;
+
+    badgesBloc.allBadgesIn.add([total, 7]);
   }
 }
 final badgesRepo = BadgesRepo();

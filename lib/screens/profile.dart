@@ -103,8 +103,8 @@ class _ProfileState extends State<Profile> {
                 Padding(
                   padding: const EdgeInsets.only(top: 20),
                   child: badgeRow(context,
-                    'All Star', 'Complete All Workouts', 'award_badge.png', badgesBloc.all3Out, 
-                    'Mad Walker', 'Reach 100k Steps', 'steps_badge.png', badgesBloc.stepsOut
+                    'Gym Rat', 'Burn 10k Calories', 'olympic_badge.png', badgesBloc.calsOut, 
+                    'Machine', 'Reach 100k Steps', 'steps_badge.png', badgesBloc.stepsOut
                   ),
                 ),
                 Padding(
@@ -119,6 +119,13 @@ class _ProfileState extends State<Profile> {
                   child: badgeRow(context,
                     'Hulk', 'Complete All Muscle Build Workouts', 'trophy_badge.png', badgesBloc.mbOut, 
                     'Tenacity', 'Complete All Endurance Workouts', 'mountain_badge.png', badgesBloc.endOut
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: badgeRow(context,
+                    'All Star', 'Complete All Workouts', 'award_badge.png', badgesBloc.all3Out,
+                    'Mad Lad', 'Unlock All Badges', 'finish_badge.png', badgesBloc.allBadgesOut, 
                   ),
                 ),
                 Padding(
