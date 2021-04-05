@@ -151,7 +151,7 @@ class _FeedState extends State<Feed> {
                                           borderRadius: BorderRadius.circular(15),
                                           image: DecorationImage(
                                             image: NetworkImage(posts.data[index].data()['Image']),
-                                            fit: BoxFit.fill
+                                            fit: BoxFit.contain
                                           )
                                         ),
                                       )
