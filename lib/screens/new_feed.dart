@@ -173,7 +173,7 @@ class _NewFeedState extends State<NewFeed> {
                           decoration: BoxDecoration(
                             image: DecorationImage(
                               image: FileImage(image),
-                              fit: BoxFit.fill
+                              fit: BoxFit.contain
                             ),
                             borderRadius: BorderRadius.circular(15)
                           ),
