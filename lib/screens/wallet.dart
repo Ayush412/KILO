@@ -16,6 +16,12 @@ class Wallet extends StatefulWidget {
 }
 
 class _WalletState extends State<Wallet> {
+
+  @override
+  void initState() {
+    super.initState();
+    ordersBloc.getOrders();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,33 +45,35 @@ class _WalletState extends State<Wallet> {
               SizedBox(height: 32),
               //_buildTransactionList(),
               Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 300,
-                  child: StreamBuilder(
-                      stream: ordersBloc.ordersOut,
-                      builder: (context, AsyncSnapshot<QuerySnapshot> orders) {
-                        if (!orders.hasData)
-                          return Center(child: CircularProgressIndicator());
-                        else {
-                          if (orders.data.docs.length == 0)
-                            return Center(
-                                child: Column(
-                              children: [
-                                Image.asset('assets/search.png'),
-                                Text("No Transaction Found"),
-                              ],
-                            ));
-                          else {
-                            return ListView.builder(
-                                itemCount: orders.data.docs.length,
-                                itemBuilder: (_, index) {
-                                  return ordersCard(
-                                      context, orders.data.docs[index]);
-                                });
+                width: MediaQuery.of(context).size.width,
+                height: 300,
+                child: StreamBuilder(
+                  stream: ordersBloc.ordersOut,
+                  builder: (context, AsyncSnapshot<QuerySnapshot> orders) {
+                    if (!orders.hasData)
+                      return Center(child: CircularProgressIndicator());
+                    else {
+                      if (orders.data.docs.length == 0)
+                        return Center(
+                          child: Column(
+                            children: [
+                              Image.asset('assets/search.png'),
+                              Text("No Transaction Found"),
+                            ]
+                          )
+                        );
+                      else 
+                        return ListView.builder(
+                          itemCount: orders.data.docs.length,
+                          itemBuilder: (_, index) {
+                            return ordersCard(
+                              context, orders.data.docs[index]);
                           }
-                          ;
-                        }
-                      }))
+                        );
+                    }
+                  }
+                )
+              )
             ],
           ),
         ),
