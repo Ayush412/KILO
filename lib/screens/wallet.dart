@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kilo/navigate.dart';
 import 'package:kilo/bloc/login/login_bloc.dart';
+import 'package:kilo/screens/add_money.dart';
 import 'package:kilo/screens/razorpay/razorpay_payment.dart';
 import 'package:kilo/screens/wallet_upi.dart';
 import 'package:kilo/screens/wallet_card_info/wallet_card.dart';
@@ -300,6 +301,36 @@ class _WalletState extends State<Wallet> {
                 fontSize: 18,
               ),
             ),
+            RaisedButton(
+            color: Colors.black,
+            padding: EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Icon(
+                    Icons.payment,
+                    color: Colors.deepOrange,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: Text(
+                    "Add Money",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            onPressed: () {
+              navigate(context, AddMoney(),
+                  PageTransitionAnimation.slideRight, false);
+            },
+          ),
           ],
         ),
       ),
