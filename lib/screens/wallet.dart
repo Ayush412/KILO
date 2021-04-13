@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:kilo/bloc/bloc.dart';
 import 'package:kilo/navigate.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:kilo/bloc/login/login_bloc.dart';
 import 'package:kilo/bloc/ordersBloc.dart';
+import 'package:kilo/widgets/circular_progress.dart';
 import 'package:kilo/widgets/ordersCard.dart';
 import 'package:kilo/screens/add_money.dart';
 import 'package:kilo/screens/razorpay/razorpay_payment.dart';
 import 'package:kilo/screens/wallet_upi.dart';
 import 'package:kilo/screens/wallet_card_info/wallet_card.dart';
+import 'package:kilo/widgets/underline_text.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class Wallet extends StatefulWidget {
@@ -17,6 +20,12 @@ class Wallet extends StatefulWidget {
 
 class _WalletState extends State<Wallet> {
 
+  onRefresh() async{
+    bloc.loadingStatusIn.add(true);
+    ordersBloc.getOrders();
+    bloc.loadingStatusIn.add(false);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -25,57 +34,80 @@ class _WalletState extends State<Wallet> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: underlineText('Feed', 24, Colors.black), 
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        elevation: 0,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.refresh), 
+            onPressed: ()=> onRefresh(), 
+            color: Colors.grey[800],
+            splashColor: Colors.orange[400],
+            splashRadius: 15
+          )
+        ],
+      ),
       body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.only(top: 64),
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Column(
-                  children: <Widget>[
-                    _buildHeader(),
-                    SizedBox(height: 16),
-                    _buildGradientBalanceCard(),
-                    SizedBox(height: 24.0),
-                    _buildCategories(),
-                  ],
-                ),
+        child: Stack(
+          children:[
+            Container(
+              padding: EdgeInsets.only(top: 64),
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Column(
+                      children: <Widget>[
+                        _buildHeader(),
+                        SizedBox(height: 16),
+                        _buildGradientBalanceCard(),
+                        SizedBox(height: 24.0),
+                        _buildCategories(),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 32),
+                  //_buildTransactionList(),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 300,
+                    child: StreamBuilder(
+                      stream: ordersBloc.ordersOut,
+                      builder: (context, AsyncSnapshot<QuerySnapshot> orders) {
+                        if (!orders.hasData)
+                          return Center(child: CircularProgressIndicator());
+                        else {
+                          if (orders.data.docs.length == 0)
+                            return Center(
+                              child: Column(
+                                children: [
+                                  Image.asset('assets/search.png'),
+                                  Text("No Transaction Found"),
+                                ]
+                              )
+                            );
+                          else 
+                            return ListView.builder(
+                              itemCount: orders.data.docs.length,
+                              itemBuilder: (_, index) {
+                                return ordersCard(
+                                  context, orders.data.docs[index]);
+                              }
+                            );
+                        }
+                      }
+                    )
+                  )
+                ],
               ),
-              SizedBox(height: 32),
-              //_buildTransactionList(),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: 300,
-                child: StreamBuilder(
-                  stream: ordersBloc.ordersOut,
-                  builder: (context, AsyncSnapshot<QuerySnapshot> orders) {
-                    if (!orders.hasData)
-                      return Center(child: CircularProgressIndicator());
-                    else {
-                      if (orders.data.docs.length == 0)
-                        return Center(
-                          child: Column(
-                            children: [
-                              Image.asset('assets/search.png'),
-                              Text("No Transaction Found"),
-                            ]
-                          )
-                        );
-                      else 
-                        return ListView.builder(
-                          itemCount: orders.data.docs.length,
-                          itemBuilder: (_, index) {
-                            return ordersCard(
-                              context, orders.data.docs[index]);
-                          }
-                        );
-                    }
-                  }
-                )
-              )
-            ],
-          ),
+            ),
+            Align(
+              alignment: Alignment.topRight,
+              child: circularProgressIndicator(context)
+            )
+          ]
         ),
       ),
     );
