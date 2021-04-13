@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kilo/navigate.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:kilo/bloc/login/login_bloc.dart';
+import 'package:kilo/bloc/ordersBloc.dart';
+import 'package:kilo/widgets/ordersCard.dart';
 import 'package:kilo/screens/razorpay/razorpay_payment.dart';
 import 'package:kilo/screens/wallet_upi.dart';
 import 'package:kilo/screens/wallet_card_info/wallet_card.dart';
@@ -33,7 +36,35 @@ class _WalletState extends State<Wallet> {
                 ),
               ),
               SizedBox(height: 32),
-              _buildTransactionList(),
+              //_buildTransactionList(),
+              Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 300,
+                  child: StreamBuilder(
+                      stream: ordersBloc.ordersOut,
+                      builder: (context, AsyncSnapshot<QuerySnapshot> orders) {
+                        if (!orders.hasData)
+                          return Center(child: CircularProgressIndicator());
+                        else {
+                          if (orders.data.docs.length == 0)
+                            return Center(
+                                child: Column(
+                              children: [
+                                Image.asset('assets/search.png'),
+                                Text("No Transaction Found"),
+                              ],
+                            ));
+                          else {
+                            return ListView.builder(
+                                itemCount: orders.data.docs.length,
+                                itemBuilder: (_, index) {
+                                  return ordersCard(
+                                      context, orders.data.docs[index]);
+                                });
+                          }
+                          ;
+                        }
+                      }))
             ],
           ),
         ),
@@ -85,29 +116,6 @@ class _WalletState extends State<Wallet> {
                   ],
                 ),
                 SizedBox(height: 24),
-                _buildTransactionItem(
-                  title: "Protein",
-                  date: "Today",
-                  amount: 780,
-                ),
-                SizedBox(height: 24),
-                _buildTransactionItem(
-                  title: "Gym Subscription",
-                  date: "Today",
-                  amount: 9800,
-                ),
-                SizedBox(height: 24),
-                _buildTransactionItem(
-                  title: "Energy Bars",
-                  date: "Yesterday",
-                  amount: 520,
-                ),
-                SizedBox(height: 24),
-                _buildTransactionItem(
-                  title: "Orange Juice",
-                  date: "Yesterday",
-                  amount: 50,
-                ),
               ],
             ),
           ),
@@ -117,130 +125,129 @@ class _WalletState extends State<Wallet> {
   }
 
   Row _buildCategories() {
-    return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          RaisedButton(
-            color: Colors.black,
-            padding: EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: Icon(
-                    Icons.send,
-                    color: Colors.deepOrange,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(2.0),
-                  child: Text(
-                    "UPI",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: <
+        Widget>[
+      RaisedButton(
+        color: Colors.black,
+        padding: EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Icon(
+                Icons.send,
+                color: Colors.deepOrange,
+              ),
             ),
-            onPressed: () {
-              navigate(context, wallet_UPI(),
-                  PageTransitionAnimation.slideRight, false);
-            },
-          ),
-          RaisedButton(
-            color: Colors.black,
-            padding: EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: Icon(
-                    Icons.payment,
-                    color: Colors.deepOrange,
-                  ),
+            Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: Text(
+                "UPI",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(2.0),
-                  child: Text(
-                    "Card",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
-            onPressed: () {
-              navigate(context, WalletCard(),
-                  PageTransitionAnimation.slideRight, false);
-            },
-          ),
-          RaisedButton(
-            color: Colors.black,
-            padding: EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: Icon(
-                    Icons.trending_up,
-                    color: Colors.deepOrange,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(2.0),
-                  child: Text(
-                    "History",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
+          ],
+        ),
+        onPressed: () {
+          navigate(
+              context, wallet_UPI(), PageTransitionAnimation.slideRight, false);
+        },
+      ),
+      RaisedButton(
+        color: Colors.black,
+        padding: EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Icon(
+                Icons.payment,
+                color: Colors.deepOrange,
+              ),
             ),
-            onPressed: () {
-              // navigate(context, Wallet_UPI(),
-              //     PageTransitionAnimation.slideRight, false);
-            },
-          ),
-          RaisedButton(
-            color: Colors.black,
-            padding: EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: Icon(
-                    Icons.local_offer,
-                    color: Colors.deepOrange,
-                  ),
+            Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: Text(
+                "Card",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(2.0),
-                  child: Text(
-                    "RazorPay",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
-            onPressed: () {
-              navigate(context, Payment(),
-                  PageTransitionAnimation.slideRight, false);
-            },
-          ),
-        ]);
+          ],
+        ),
+        onPressed: () {
+          navigate(
+              context, WalletCard(), PageTransitionAnimation.slideRight, false);
+        },
+      ),
+      RaisedButton(
+        color: Colors.black,
+        padding: EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Icon(
+                Icons.trending_up,
+                color: Colors.deepOrange,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: Text(
+                "History",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        ),
+        onPressed: () {
+          // navigate(context, Wallet_UPI(),
+          //     PageTransitionAnimation.slideRight, false);
+        },
+      ),
+      RaisedButton(
+        color: Colors.black,
+        padding: EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Icon(
+                Icons.local_offer,
+                color: Colors.deepOrange,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: Text(
+                "RazorPay",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        ),
+        onPressed: () {
+          navigate(
+              context, Payment(), PageTransitionAnimation.slideRight, false);
+        },
+      ),
+    ]);
     // _buildCategoryCard(
     //   bgColor: Colors.black,
     //   iconColor: Colors.deepOrange,
@@ -350,16 +357,13 @@ class _WalletState extends State<Wallet> {
     );
   }
 
-  Row _buildTransactionItem(
-      {
-        String date,
-        String title,
-        double amount,
-      }
-        ) 
-        {
-        return Row(
-        children: <Widget>[
+  Row _buildTransactionItem({
+    String date,
+    String title,
+    double amount,
+  }) {
+    return Row(
+      children: <Widget>[
         Container(
           height: 10,
           width: 20,
@@ -367,7 +371,6 @@ class _WalletState extends State<Wallet> {
             color: Colors.deepOrange,
             borderRadius: BorderRadius.circular(5),
           ),
-          
         ),
         SizedBox(width: 16),
         Column(
