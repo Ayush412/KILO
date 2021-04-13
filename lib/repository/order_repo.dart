@@ -4,7 +4,7 @@ import 'package:kilo/bloc/login/login_bloc.dart';
 class OrdersRepo{
 
   getOrders() async{
-    QuerySnapshot qs = await Firestore.instance.collection('users/${loginBloc.userMap['emailID']}/Orders').orderBy('Date', descending: true).getDocuments();
+    QuerySnapshot qs = await FirebaseFirestore.instance.collection('users/${loginBloc.userMap['emailID']}/Orders').orderBy('Date', descending: true).get();
     return qs;
   }
 
