@@ -33,8 +33,10 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                   height: screenSize(250, context),
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage(widget.image), fit: BoxFit.fill)),
+                    image: DecorationImage(
+                      image: AssetImage(widget.image), fit: BoxFit.fill
+                    )
+                  ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -151,7 +153,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                   navigate(
                     context,
                     StartWorkout(
-                        workouts: widget.workouts, index: 0, difficulty: widget.difficulty, title: widget.title),
+                        completed: 0, workouts: widget.workouts, index: 0, difficulty: widget.difficulty, title: widget.title),
                     PageTransitionAnimation.fade,
                     false
                   );

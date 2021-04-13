@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 
-countdown(BuildContext context, int duration, CountDownController controller, dynamic navigate){
+countdown(BuildContext context, int duration, CountDownController controller, dynamic navigate, dynamic completedExercise){
   return CircularCountDownTimer(
     duration: duration,
     initialDuration: 0,
@@ -17,7 +17,8 @@ countdown(BuildContext context, int duration, CountDownController controller, dy
     strokeWidth: 20.0,
     strokeCap: StrokeCap.round,
     textStyle: TextStyle(
-        fontSize: 33.0, color: Colors.white, fontWeight: FontWeight.bold),
+      fontSize: 33.0, color: Colors.white, fontWeight: FontWeight.bold
+    ),
     textFormat: CountdownTextFormat.S,
     isReverse: false,
     isReverseAnimation: false,
@@ -27,6 +28,7 @@ countdown(BuildContext context, int duration, CountDownController controller, dy
       print('Timer Started');
     },
     onComplete: () {
+      completedExercise();
       navigate();
     },
   );

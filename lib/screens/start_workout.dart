@@ -12,12 +12,12 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:date_format/date_format.dart';
 
 class StartWorkout extends StatefulWidget {
+  final int completed;
   final List workouts;
   final int index;
   final String difficulty;
   final String title;
-  StartWorkout({this.workouts, this.index, this.difficulty, this.title});
-
+  StartWorkout({this.completed, this.workouts, this.index, this.difficulty, this.title});
   @override
   _StartWorkoutState createState() => _StartWorkoutState();
 }
@@ -27,6 +27,7 @@ class _StartWorkoutState extends State<StartWorkout> {
   bool play = false;
   IconData icon = Icons.pause;
   double totCals;
+  int completed;
 
   navigateFunction() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -39,12 +40,13 @@ class _StartWorkoutState extends State<StartWorkout> {
       navigate(
         context,
         StartWorkout(
-          workouts: widget.workouts, index: widget.index+1, difficulty: widget.difficulty, title: widget.title),
+          completed: completed, workouts: widget.workouts, index: widget.index+1, difficulty: widget.difficulty, title: widget.title),
         PageTransitionAnimation.slideUp,
         false
       );
     else{
-      await activityRepo.updateWorkoutCount('${widget.title} ${widget.difficulty}');
+      if(completed == widget.workouts.length)
+        await activityRepo.updateWorkoutCount('${widget.title} ${widget.difficulty}');
       navigate(
         context, 
         WorkoutStats(totCals: totCals, index: widget.index, workouts: widget.workouts, difficulty: widget.difficulty,), 
@@ -54,6 +56,10 @@ class _StartWorkoutState extends State<StartWorkout> {
     }
   }
 
+  completedExercise(){
+    completed += 1;
+  }
+
   end() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     double cals = prefs.getDouble('cals');
@@ -61,7 +67,7 @@ class _StartWorkoutState extends State<StartWorkout> {
     sharedPreference.saveActivityDate();
     sharedPreference.saveCals(totCals);
     userDataRepo.saveUserCals(formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd]), totCals);
-    if(widget.index == widget.workouts.length-1)
+    if(widget.index == widget.workouts.length-1 && completed == widget.workouts.length)
       await activityRepo.updateWorkoutCount('${widget.title} ${widget.difficulty}');
     navigate(
       context, 
@@ -73,6 +79,12 @@ class _StartWorkoutState extends State<StartWorkout> {
 
   endWorkout(BuildContext context){
     showDialogBox(context, '', 'End Workout?', end);
+  }
+
+  @override
+  void initState() { 
+    super.initState();
+    completed = widget.completed;
   }
 
   @override
@@ -93,7 +105,6 @@ class _StartWorkoutState extends State<StartWorkout> {
                       child: Text(widget.workouts[widget.index]['Name'], 
                       style: TextStyle(color: Colors.white, fontSize: 24) ),
                     ),
-
                     Container(
                       height: MediaQuery.of(context).size.height/3,
                       width: MediaQuery.of(context).size.width/1.5,
@@ -116,9 +127,9 @@ class _StartWorkoutState extends State<StartWorkout> {
                         widget.workouts[widget.index][widget.difficulty],
                         controller,
                         navigateFunction,
+                        completedExercise,
                       ),
                     ),
-
                     Padding(
                       padding: const EdgeInsets.only(bottom: 30),
                       child: Row(
@@ -151,7 +162,6 @@ class _StartWorkoutState extends State<StartWorkout> {
                             icon: Icon(play ? Icons.pause : Icons.play_arrow),
                             iconSize: 40,
                           ),
-                          
                           IconButton(
                             onPressed: () {
                               navigateFunction();
