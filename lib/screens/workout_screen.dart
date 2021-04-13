@@ -153,7 +153,14 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                   navigate(
                     context,
                     StartWorkout(
-                        completed: 0, workouts: widget.workouts, index: 0, difficulty: widget.difficulty, title: widget.title),
+                      completed: 0, 
+                      duration: 0,
+                      workoutCals: 0,
+                      workouts: widget.workouts, 
+                      index: 0, 
+                      difficulty: widget.difficulty, 
+                      title: widget.title
+                    ),
                     PageTransitionAnimation.fade,
                     false
                   );

@@ -85,7 +85,7 @@ class StepsSection extends StatelessWidget {
                               Text(
                                 'of ${loginBloc.userMap['Steps Goal']}',
                                 style: TextStyle(
-                                  fontSize: 15.0,
+                                  fontSize: 13.0,
                                   color: Colors.white,
                                 ),
                               ),

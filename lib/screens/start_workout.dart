@@ -13,11 +13,13 @@ import 'package:date_format/date_format.dart';
 
 class StartWorkout extends StatefulWidget {
   final int completed;
+  final double workoutCals;
+  final int duration;
   final List workouts;
   final int index;
   final String difficulty;
   final String title;
-  StartWorkout({this.completed, this.workouts, this.index, this.difficulty, this.title});
+  StartWorkout({this.workoutCals, this.duration, this.completed, this.workouts, this.index, this.difficulty, this.title});
   @override
   _StartWorkoutState createState() => _StartWorkoutState();
 }
@@ -28,11 +30,13 @@ class _StartWorkoutState extends State<StartWorkout> {
   IconData icon = Icons.pause;
   double totCals;
   int completed;
+  int duration;
+  double workoutCals;
 
   navigateFunction() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     double cals = prefs.getDouble('cals');
-    totCals = cals + (widget.workouts[widget.index]['${widget.difficulty} Calories']).toDouble();
+    totCals = cals + workoutCals;
     sharedPreference.saveActivityDate();
     sharedPreference.saveCals(totCals);
     userDataRepo.saveUserCals(formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd]), totCals);
@@ -40,7 +44,14 @@ class _StartWorkoutState extends State<StartWorkout> {
       navigate(
         context,
         StartWorkout(
-          completed: completed, workouts: widget.workouts, index: widget.index+1, difficulty: widget.difficulty, title: widget.title),
+          duration: duration, 
+          completed: completed, 
+          workoutCals: workoutCals,
+          workouts: widget.workouts, 
+          index: widget.index+1, 
+          difficulty: widget.difficulty, 
+          title: widget.title
+        ),
         PageTransitionAnimation.slideUp,
         false
       );
@@ -49,7 +60,14 @@ class _StartWorkoutState extends State<StartWorkout> {
         await activityRepo.updateWorkoutCount('${widget.title} ${widget.difficulty}');
       navigate(
         context, 
-        WorkoutStats(totCals: totCals, index: widget.index, workouts: widget.workouts, difficulty: widget.difficulty,), 
+        WorkoutStats(
+          totCals: totCals, 
+          workouts: widget.workouts, 
+          difficulty: widget.difficulty, 
+          completed: completed, 
+          duration: duration,
+          workoutCals: workoutCals,
+        ), 
         PageTransitionAnimation.slideUp, 
         false
       );
@@ -58,12 +76,14 @@ class _StartWorkoutState extends State<StartWorkout> {
 
   completedExercise(){
     completed += 1;
+    duration += widget.workouts[widget.index][widget.difficulty];
+    workoutCals += widget.workouts[widget.index]['${widget.difficulty} Calories'];
   }
 
   end() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     double cals = prefs.getDouble('cals');
-    totCals = cals + widget.workouts[widget.index]['${widget.difficulty} Calories'];
+    totCals = cals + workoutCals;
     sharedPreference.saveActivityDate();
     sharedPreference.saveCals(totCals);
     userDataRepo.saveUserCals(formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd]), totCals);
@@ -71,7 +91,14 @@ class _StartWorkoutState extends State<StartWorkout> {
       await activityRepo.updateWorkoutCount('${widget.title} ${widget.difficulty}');
     navigate(
       context, 
-      WorkoutStats(totCals: totCals, index: widget.index, workouts: widget.workouts, difficulty: widget.difficulty,), 
+      WorkoutStats(
+        totCals: totCals, 
+        workouts: widget.workouts, 
+        difficulty: widget.difficulty, 
+        completed: completed, 
+        duration: duration,
+        workoutCals: workoutCals,
+      ),
       PageTransitionAnimation.slideUp, 
       false
     );
@@ -85,6 +112,8 @@ class _StartWorkoutState extends State<StartWorkout> {
   void initState() { 
     super.initState();
     completed = widget.completed;
+    duration = widget.duration;
+    workoutCals = widget.workoutCals;
   }
 
   @override

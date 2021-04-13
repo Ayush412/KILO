@@ -82,14 +82,14 @@ class CaloriesSection extends StatelessWidget {
                           Text(
                             'of ${loginBloc.calsGoal}',
                             style: TextStyle(
-                              fontSize: 15.0,
+                              fontSize: 13.0,
                               color: Colors.white,
                             ),
                           ),
                           Text('kcal',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 20.0,
+                                fontSize: 16.0,
                               )),
                         ],
                       ),

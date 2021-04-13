@@ -9,9 +9,11 @@ import 'home.dart';
 class WorkoutStats extends StatefulWidget {
   final String difficulty;
   final List workouts;
-  final int index;
   final double totCals;
-  WorkoutStats({this.difficulty, this.workouts, this.index, this.totCals});
+  final int completed;
+  final int duration;
+  final double workoutCals;
+  WorkoutStats({this.difficulty, this.workouts, this.totCals, this.completed, this.duration, this.workoutCals});
 
   @override
   _WorkoutStatsState createState() => _WorkoutStatsState();
@@ -19,18 +21,12 @@ class WorkoutStats extends StatefulWidget {
 
 class _WorkoutStatsState extends State<WorkoutStats> {
   
-  double cals = 0;
   int mins = 0;
-  int secs = 0;
 
   @override
   void initState() { 
     super.initState();
-    for (int i=0; i<=widget.index; i++){
-      cals+=widget.workouts[i]['${widget.difficulty} Calories'];
-      secs+=widget.workouts[i][widget.difficulty];
-    }
-    mins = Duration(seconds: secs).inMinutes;
+    mins = Duration(seconds: widget.duration).inMinutes;
   }
 
   @override
@@ -62,7 +58,7 @@ class _WorkoutStatsState extends State<WorkoutStats> {
                           Text('Exercises Completed', style: TextStyle(color: Colors.orange[400], fontSize: 20, fontWeight: FontWeight.bold)),
                           Padding(
                             padding: const EdgeInsets.only(top: 20),
-                            child: Text('${widget.index+1}/${widget.workouts.length}',style: TextStyle(color: Colors.green, fontSize: 40)),
+                            child: Text('${widget.completed}/${widget.workouts.length}',style: TextStyle(color: Colors.green, fontSize: 40)),
                           )
                         ],
                       ),
@@ -82,7 +78,7 @@ class _WorkoutStatsState extends State<WorkoutStats> {
                           Text('Duration', style: TextStyle(color: Colors.orange[400], fontSize: 20, fontWeight: FontWeight.bold)),
                           Padding(
                             padding: const EdgeInsets.only(top: 20),
-                            child: Text(secs <=60? '$secs sec' :'$mins mins',style: TextStyle(color: Colors.green, fontSize: 40)),
+                            child: Text(widget.duration <=60? '${widget.duration} sec' :'$mins mins',style: TextStyle(color: Colors.green, fontSize: 40)),
                           )
                         ],
                       ),
@@ -102,7 +98,7 @@ class _WorkoutStatsState extends State<WorkoutStats> {
                           Text('Calories Burnt', style: TextStyle(color: Colors.orange[400], fontSize: 20, fontWeight: FontWeight.bold)),
                           Padding(
                             padding: const EdgeInsets.only(top: 20),
-                            child: Text(cals.toString(),style: TextStyle(color: Colors.green, fontSize: 40)),
+                            child: Text(widget.workoutCals.toString(),style: TextStyle(color: Colors.green, fontSize: 40)),
                           )
                         ],
                       ),
