@@ -34,10 +34,10 @@ class _PaymentState extends State<Payment> {
 
   getPayment() {
     var option = {
-      'key' : 'rzp_test_S6CC9BT4pj4BOK',
-      'amount' : double.parse(controller.text.trim()) * 100,
-      'name' : 'Purav',
-      'prefill' : {'contact' : '1234567890', 'email' : 'xyz@kilo.com'},
+      'key': 'rzp_test_S6CC9BT4pj4BOK',
+      'amount': double.parse(controller.text.trim()) * 100,
+      'name': 'Purav',
+      'prefill': {'contact': '1234567890', 'email': 'xyz@kilo.com'},
     };
     try {
       razorpay.open(option);
@@ -45,7 +45,7 @@ class _PaymentState extends State<Payment> {
       print('error is $e');
     }
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +60,7 @@ class _PaymentState extends State<Payment> {
             ),
             RaisedButton(
               child: Text('Pay'),
-              onPressed: ()=>getPayment(),
+              onPressed: () => getPayment(),
             ),
           ]),
     );
