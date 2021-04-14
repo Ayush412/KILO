@@ -17,7 +17,7 @@ class WalletDataRepo {
       .collection('users')
       .doc(loginBloc.emailID)
       .update({'Balance': FieldValue.increment(amount)});
-    createTransaction(amount, 'Add', null, null);
+    await createTransaction(amount, 'Add', null, null);
   }
 
   spendMoney(double amount, String item, String image) async{
@@ -25,7 +25,7 @@ class WalletDataRepo {
       .collection('users')
       .doc(loginBloc.emailID)
       .update({'Balance': FieldValue.increment(-amount)});
-    createTransaction(amount, 'Spend', item, image);
+    await createTransaction(amount, 'Spend', item, image);
   }
 
   createTransaction(double amount, String type, String item, String image) async{
