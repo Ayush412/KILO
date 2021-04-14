@@ -4,6 +4,7 @@ import 'package:kilo/navigate.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:kilo/bloc/login/login_bloc.dart';
 import 'package:kilo/bloc/ordersBloc.dart';
+import 'package:kilo/screens/purchase.dart';
 import 'package:kilo/widgets/circular_progress.dart';
 import 'package:kilo/widgets/ordersCard.dart';
 import 'package:kilo/screens/add_money.dart';
@@ -19,8 +20,7 @@ class Wallet extends StatefulWidget {
 }
 
 class _WalletState extends State<Wallet> {
-
-  onRefresh() async{
+  onRefresh() async {
     bloc.loadingStatusIn.add(true);
     ordersBloc.getOrders();
     bloc.loadingStatusIn.add(false);
@@ -31,84 +31,107 @@ class _WalletState extends State<Wallet> {
     super.initState();
     ordersBloc.getOrders();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: underlineText('Feed', 24, Colors.black), 
+        title: underlineText('Wallet', 24, Colors.black),
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
         actions: [
           IconButton(
-            icon: Icon(Icons.refresh), 
-            onPressed: ()=> onRefresh(), 
-            color: Colors.grey[800],
-            splashColor: Colors.orange[400],
-            splashRadius: 15
-          )
+              icon: Icon(Icons.refresh),
+              onPressed: () => onRefresh(),
+              color: Colors.grey[800],
+              splashColor: Colors.orange[400],
+              splashRadius: 15)
         ],
       ),
       body: SingleChildScrollView(
-        child: Stack(
-          children:[
-            Container(
-              padding: EdgeInsets.only(top: 64),
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Column(
-                      children: <Widget>[
-                        _buildHeader(),
-                        SizedBox(height: 16),
-                        _buildGradientBalanceCard(),
-                        SizedBox(height: 24.0),
-                        _buildCategories(),
-                      ],
-                    ),
+        child: Stack(children: [
+          Container(
+            padding: EdgeInsets.only(top: 20),
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Column(
+                    children: <Widget>[
+                      _buildHeader(),
+                      SizedBox(height: 16),
+                      _buildGradientBalanceCard(),
+                      SizedBox(height: 24.0),
+                      _buildCategories(),
+                      SizedBox(height: 24.0),
+                      RaisedButton(
+                        color: Colors.black,
+                        padding: EdgeInsets.all(8.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Icon(
+                                Icons.add_shopping_cart_outlined,
+                                color: Colors.orange[400],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: Text(
+                                "Store",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        onPressed: () {
+                          navigate(context, PurchaseItem(),
+                              PageTransitionAnimation.slideRight, false);
+                        },
+                      ),
+                    ],
                   ),
-                  SizedBox(height: 32),
-                  //_buildTransactionList(),
-                  Container(
+                ),
+                SizedBox(height: 32),
+                //_buildTransactionList(),
+                Container(
                     width: MediaQuery.of(context).size.width,
                     height: 300,
                     child: StreamBuilder(
-                      stream: ordersBloc.ordersOut,
-                      builder: (context, AsyncSnapshot<QuerySnapshot> orders) {
-                        if (!orders.hasData)
-                          return Center(child: CircularProgressIndicator());
-                        else {
-                          if (orders.data.docs.length == 0)
-                            return Center(
-                              child: Column(
-                                children: [
-                                  Image.asset('assets/search.png'),
-                                  Text("No Transaction Found"),
-                                ]
-                              )
-                            );
-                          else 
-                            return ListView.builder(
-                              itemCount: orders.data.docs.length,
-                              itemBuilder: (_, index) {
-                                return ordersCard(
-                                  context, orders.data.docs[index]);
-                              }
-                            );
-                        }
-                      }
-                    )
-                  )
-                ],
-              ),
+                        stream: ordersBloc.ordersOut,
+                        builder:
+                            (context, AsyncSnapshot<QuerySnapshot> orders) {
+                          if (!orders.hasData)
+                            return Center(child: CircularProgressIndicator());
+                          else {
+                            if (orders.data.docs.length == 0)
+                              return Center(
+                                  child: Column(children: [
+                                Image.asset('assets/search.png'),
+                                Text("No Transaction Found"),
+                              ]));
+                            else
+                              return ListView.builder(
+                                  itemCount: orders.data.docs.length,
+                                  itemBuilder: (_, index) {
+                                    return ordersCard(
+                                        context, orders.data.docs[index]);
+                                  });
+                          }
+                        }))
+              ],
             ),
-            Align(
+          ),
+          Align(
               alignment: Alignment.topRight,
-              child: circularProgressIndicator(context)
-            )
-          ]
-        ),
+              child: circularProgressIndicator(context))
+        ]),
       ),
     );
   }
@@ -178,7 +201,7 @@ class _WalletState extends State<Wallet> {
               padding: const EdgeInsets.all(4.0),
               child: Icon(
                 Icons.send,
-                color: Colors.deepOrange,
+                color: Colors.orange[400],
               ),
             ),
             Padding(
@@ -208,7 +231,7 @@ class _WalletState extends State<Wallet> {
               padding: const EdgeInsets.all(4.0),
               child: Icon(
                 Icons.payment,
-                color: Colors.deepOrange,
+                color: Colors.orange[400],
               ),
             ),
             Padding(
@@ -238,7 +261,7 @@ class _WalletState extends State<Wallet> {
               padding: const EdgeInsets.all(4.0),
               child: Icon(
                 Icons.trending_up,
-                color: Colors.deepOrange,
+                color: Colors.orange[400],
               ),
             ),
             Padding(
@@ -268,7 +291,7 @@ class _WalletState extends State<Wallet> {
               padding: const EdgeInsets.all(4.0),
               child: Icon(
                 Icons.local_offer,
-                color: Colors.deepOrange,
+                color: Colors.orange[400],
               ),
             ),
             Padding(
@@ -291,19 +314,19 @@ class _WalletState extends State<Wallet> {
     ]);
     // _buildCategoryCard(
     //   bgColor: Colors.black,
-    //   iconColor: Colors.deepOrange,
+    //   iconColor: Colors.orange[400],
     //   iconData: Icons.work,
     //   text: "Activities",
     // ),
     // _buildCategoryCard(
     //   bgColor: Colors.black,
-    //   iconColor: Colors.deepOrange,
+    //   iconColor: Colors.orange[400],
     //   iconData: Icons.trending_up,
     //   text: "Stats",
     // ),
     // _buildCategoryCard(
     //   bgColor: Colors.black,
-    //   iconColor: Colors.deepOrange,
+    //   iconColor: Colors.orange[400],
     //   iconData: Icons.payment,
     //   text: "History",
     // ),
@@ -322,15 +345,15 @@ class _WalletState extends State<Wallet> {
           end: Alignment.bottomRight,
           colors: [
             Colors.orangeAccent.withOpacity(0.9),
-            Colors.deepOrange,
+            Colors.orange[400],
           ],
         ),
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 32.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text(
               "INR 0.00",
@@ -340,44 +363,49 @@ class _WalletState extends State<Wallet> {
                 fontSize: 28,
               ),
             ),
-            SizedBox(height: 4),
-            Text(
-              "Total Balance",
-              style: TextStyle(
-                color: Colors.white.withOpacity(0.9),
-                fontSize: 18,
-              ),
-            ),
+            // Expanded(
+
+            // child: Padding(
+            //   padding: EdgeInsets.symmetric(),
+            //   child: Text(
+            //   "Total Balance",
+            //   style: TextStyle(
+            //     color: Colors.white.withOpacity(0.9),
+            //     fontSize: 18,
+            //   ),
+            // ),),),
             RaisedButton(
-            color: Colors.black,
-            padding: EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: Icon(
-                    Icons.payment,
-                    color: Colors.deepOrange,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(2.0),
-                  child: Text(
-                    "Add Money",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
+              color: Colors.black,
+              padding: EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Icon(
+                      Icons.add,
+                      size: 50,
+                      color: Colors.orange[400],
                     ),
                   ),
-                ),
-              ],
+                  Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: Text(
+                      "ADD MONEY",
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              onPressed: () {
+                navigate(context, AddMoney(),
+                    PageTransitionAnimation.slideRight, false);
+              },
             ),
-            onPressed: () {
-              navigate(context, AddMoney(),
-                  PageTransitionAnimation.slideRight, false);
-            },
-          ),
           ],
         ),
       ),
@@ -394,18 +422,18 @@ class _WalletState extends State<Wallet> {
             Text(
               greeting(),
               style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey,
-                fontWeight: FontWeight.w500,
+                fontSize: 20,
+                color: Colors.black,
+                fontWeight: FontWeight.w900,
               ),
             ),
             SizedBox(height: 8),
             Text(
               "${loginBloc.userMap['Name']}",
               style: TextStyle(
-                fontSize: 20,
+                fontSize: 25,
                 color: Colors.black,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w900,
               ),
             ),
           ],
@@ -418,7 +446,7 @@ class _WalletState extends State<Wallet> {
             image: DecorationImage(
               image: AssetImage("assets/KILO_Logo.jpg"),
               colorFilter: ColorFilter.mode(
-                Colors.deepPurple[100],
+                Colors.orange[400],
                 BlendMode.darken,
               ),
             ),
@@ -439,7 +467,7 @@ class _WalletState extends State<Wallet> {
           height: 10,
           width: 20,
           decoration: BoxDecoration(
-            color: Colors.deepOrange,
+            color: Colors.orange[400],
             borderRadius: BorderRadius.circular(5),
           ),
         ),
