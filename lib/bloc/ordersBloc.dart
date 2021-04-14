@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:kilo/bloc/bloc.dart';
-import 'package:kilo/repository/order_repo.dart';
+import 'package:kilo/repository/transactions_repo.dart';
 import 'package:rxdart/rxdart.dart';
 
 class OrdersBloc implements BaseBloc{
@@ -16,7 +16,7 @@ class OrdersBloc implements BaseBloc{
 
   getOrders() async{
     ordersIn.add(null);
-    ordersIn.add(await ordersRepo.getOrders());
+    ordersIn.add(await transactionsRepo.getTransactions());
   }
 
   @override

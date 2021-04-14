@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_format/date_format.dart';
 import 'package:kilo/bloc/login/login_bloc.dart';
+import 'package:kilo/repository/transactions_repo.dart';
 
 class WalletDataRepo {
   String date = formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd]);
@@ -18,6 +19,7 @@ class WalletDataRepo {
       .doc(loginBloc.emailID)
       .update({'Balance': FieldValue.increment(amount)});
     await createTransaction(amount, 'Add', null, null);
+    await transactionsRepo.getTransactions();
   }
 
   spendMoney(double amount, String item, String image) async{
@@ -26,6 +28,7 @@ class WalletDataRepo {
       .doc(loginBloc.emailID)
       .update({'Balance': FieldValue.increment(-amount)});
     await createTransaction(amount, 'Spend', item, image);
+    await transactionsRepo.getTransactions();
   }
 
   createTransaction(double amount, String type, String item, String image) async{

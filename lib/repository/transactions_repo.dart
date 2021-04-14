@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:kilo/bloc/login/login_bloc.dart';
 
-class OrdersRepo{
+class TransactionsRepo{
 
-  getOrders() async{
+  getTransactions() async{
     QuerySnapshot qs = await FirebaseFirestore.instance
       .collection('users/${loginBloc.emailID}/Transactions')
       .orderBy('Date', descending: true)
@@ -13,4 +13,4 @@ class OrdersRepo{
   
 }
 
-final OrdersRepo ordersRepo = OrdersRepo();
+final TransactionsRepo transactionsRepo = TransactionsRepo();
