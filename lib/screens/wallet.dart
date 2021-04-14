@@ -30,6 +30,7 @@ class _WalletState extends State<Wallet> {
   @override
   void initState() {
     super.initState();
+    walletBloc.getBalance();
     walletBloc.getOrders();
   }
 
