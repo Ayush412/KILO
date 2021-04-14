@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:kilo/bloc/wallet_bloc.dart';
-import 'package:kilo/screens/wallet.dart';
-import 'package:kilo/bloc/login/login_bloc.dart';
 import 'package:kilo/repository/wallet_repo.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:kilo/widgets/show_snack.dart';
 import 'package:kilo/widgets/show_dialog.dart';
 import 'package:kilo/bloc/bloc.dart';
-import 'package:kilo/bloc/login/login_bloc.dart';
-import 'package:kilo/bloc/register/register_bloc.dart';
 
 class AddMoney extends StatefulWidget {
   @override
@@ -96,38 +92,34 @@ class _AddMoneyState extends State<AddMoney> {
               ),
             ),
           ),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-              child: TextField(
-                textAlign: TextAlign.center,
-                textAlignVertical: TextAlignVertical.center,
-                style: TextStyle(
-                  fontSize: 35,
-                  fontWeight: FontWeight.bold,
-                ),
-                cursorColor: Colors.orange[400],
-                controller: controller,
-                keyboardType: TextInputType.number,
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+            child: TextField(
+              textAlign: TextAlign.center,
+              textAlignVertical: TextAlignVertical.center,
+              style: TextStyle(
+                fontSize: 35,
+                fontWeight: FontWeight.bold,
               ),
+              cursorColor: Colors.orange[400],
+              controller: controller,
+              keyboardType: TextInputType.number,
             ),
           ),
-          Expanded(
-            flex: 1,
-            child: Padding(
-                padding: EdgeInsets.all(125),
-                child: RaisedButton(
-                  child: Text(
-                    'Add Money',
-                    style: TextStyle(
-                      fontSize: 23,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  textColor: Colors.white,
-                  color: Colors.orange[400],
-                  onPressed: () => money(),
-                )),
+          Padding(
+            padding: EdgeInsets.only(top: 30),
+            child: RaisedButton(
+              child: Text(
+                'Add Money',
+                style: TextStyle(
+                  fontSize: 23,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              textColor: Colors.white,
+              color: Colors.orange[400],
+              onPressed: () => money(),
+            )
           ),
         ],
       ),
@@ -145,7 +137,7 @@ class _AddMoneyState extends State<AddMoney> {
         scaffoldKey.currentState.showSnackBar(
             showSnack('Cannot be blank', Colors.white, Colors.red[700]));
       } else
-        showDialogBox(context, 'Proceed', 'Confirm Transaction', addfunds);
+        showDialogBox(context, 'Proceed?', 'Confirm Transaction', addfunds);
     }
   }
 

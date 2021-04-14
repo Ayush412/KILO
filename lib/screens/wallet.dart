@@ -37,6 +37,7 @@ class _WalletState extends State<Wallet> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: underlineText('Wallet', 24, Colors.black),
         centerTitle: true,
@@ -56,6 +57,7 @@ class _WalletState extends State<Wallet> {
           Container(
             padding: EdgeInsets.only(top: 20),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -102,6 +104,10 @@ class _WalletState extends State<Wallet> {
                 ),
                 SizedBox(height: 32),
                 //_buildTransactionList(),
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Text("Transaction History:", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                ),
                 Container(
                     width: MediaQuery.of(context).size.width,
                     height: 300,
@@ -115,8 +121,8 @@ class _WalletState extends State<Wallet> {
                             if (orders.data.docs.length == 0)
                               return Center(
                                   child: Column(children: [
-                                Image.asset('assets/search.png'),
-                                Text("No Transaction Found"),
+                                Image.asset('assets/search.png', height: 80),
+                                Text("No Transactions"),
                               ]));
                             else
                               return ListView.builder(
@@ -453,10 +459,6 @@ class _WalletState extends State<Wallet> {
             borderRadius: BorderRadius.circular(10.0),
             image: DecorationImage(
               image: AssetImage("assets/KILO_Logo.jpg"),
-              colorFilter: ColorFilter.mode(
-                Colors.orange[400],
-                BlendMode.darken,
-              ),
             ),
           ),
         ),

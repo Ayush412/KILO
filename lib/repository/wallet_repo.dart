@@ -1,11 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:date_format/date_format.dart';
 import 'package:kilo/bloc/login/login_bloc.dart';
 import 'package:kilo/bloc/wallet_bloc.dart';
 
 class WalletDataRepo {
-  String date = formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd]);
-
 
   getTransactions() async{
     QuerySnapshot qs = await FirebaseFirestore.instance
@@ -45,7 +42,7 @@ class WalletDataRepo {
 
   createTransaction(double amount, String type, String item, String image) async{
     Map<String, dynamic> map = {
-      'Date': date,
+      'Date': DateTime.now(),
       'Amount': amount,
       'Type': type
     };

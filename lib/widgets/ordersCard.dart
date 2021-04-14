@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:date_format/date_format.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 ordersCard(BuildContext context, DocumentSnapshot order){
@@ -38,7 +39,10 @@ ordersCard(BuildContext context, DocumentSnapshot order){
               children: [
               Text('Date :', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.black),),
               Padding(padding: const EdgeInsets.only(left: 10),
-              child: Text(order.data()['Date'], style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.grey))
+              child: Text(
+                formatDate(order.data()['Date'].toDate(), [dd, ' ', MM, ' ', yyyy]), 
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.grey)
+              )
               ),
             ]),
           ),

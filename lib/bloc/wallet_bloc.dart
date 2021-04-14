@@ -22,7 +22,7 @@ class WalletBloc implements BaseBloc{
   }
 
   getBalance() async{
-    balanceIn.add(await walletRepo.getbalance());
+    balanceIn.add((await walletRepo.getbalance()).toDouble());
   }
 
   @override
