@@ -17,15 +17,31 @@ class WalletDataRepo {
       .collection('users')
       .doc(loginBloc.emailID)
       .update({'Balance': FieldValue.increment(amount)});
+    createTransaction(amount, 'Add', null, null);
   }
 
-  spendMoney(double amount) async{
+  spendMoney(double amount, String item, String image) async{
     await FirebaseFirestore.instance
       .collection('users')
       .doc(loginBloc.emailID)
       .update({'Balance': FieldValue.increment(-amount)});
+    createTransaction(amount, 'Spend', item, image);
   }
 
+  createTransaction(double amount, String type, String item, String image) async{
+    Map<String, dynamic> map = {
+      'Date': date,
+      'Amount': amount,
+      'Type': type
+    };
+    if(item != null)
+      map['Item'] = item;
+      map['Image'] = image;
+    await FirebaseFirestore.instance
+      .collection('users/${loginBloc.emailID}/Transactions')
+      .doc()
+      .set(map);
+  }
 }
 
 final walletRepo = WalletDataRepo();
