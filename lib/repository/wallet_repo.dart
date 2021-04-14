@@ -34,9 +34,10 @@ class WalletDataRepo {
       'Amount': amount,
       'Type': type
     };
-    if(item != null)
+    if(item != null){
       map['Item'] = item;
       map['Image'] = image;
+    }
     await FirebaseFirestore.instance
       .collection('users/${loginBloc.emailID}/Transactions')
       .doc()
