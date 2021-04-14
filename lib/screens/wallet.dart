@@ -422,16 +422,16 @@ class _WalletState extends State<Wallet> {
             Text(
               greeting(),
               style: TextStyle(
-                fontSize: 20,
-                color: Colors.black,
-                fontWeight: FontWeight.w900,
+                fontSize: 18,
+                color: Colors.grey[600],
+                fontWeight: FontWeight.w700,
               ),
             ),
             SizedBox(height: 8),
             Text(
               "${loginBloc.userMap['Name']}",
               style: TextStyle(
-                fontSize: 25,
+                fontSize: 23,
                 color: Colors.black,
                 fontWeight: FontWeight.w900,
               ),
