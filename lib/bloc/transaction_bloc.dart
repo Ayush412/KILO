@@ -15,7 +15,6 @@ class TransactionsBloc implements BaseBloc{
   Stream<QuerySnapshot> get transactionsOut => transactionsController.stream;
 
   getOrders() async{
-    transactionsIn.add(null);
     transactionsIn.add(await transactionsRepo.getTransactions());
   }
 
