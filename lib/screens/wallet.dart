@@ -22,7 +22,7 @@ class Wallet extends StatefulWidget {
 class _WalletState extends State<Wallet> {
   onRefresh() async {
     bloc.loadingStatusIn.add(true);
-    await 
+    await walletBloc.getBalance();
     await walletBloc.getOrders();
     bloc.loadingStatusIn.add(false);
   }
