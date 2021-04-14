@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:kilo/screens/wallet.dart';
+import 'package:kilo/bloc/login/login_bloc.dart';
+import 'package:kilo/repository/wallet_repo.dart';
+import 'package:connectivity/connectivity.dart';
+import 'package:kilo/widgets/show_snack.dart';
+import 'package:kilo/widgets/show_dialog.dart';
+import 'package:kilo/bloc/bloc.dart';
+import 'package:kilo/bloc/login/login_bloc.dart';
+import 'package:kilo/bloc/register/register_bloc.dart';
 
 class AddMoney extends StatefulWidget {
   @override
@@ -8,18 +16,17 @@ class AddMoney extends StatefulWidget {
 
 class _AddMoneyState extends State<AddMoney> {
   TextEditingController controller = TextEditingController();
+  final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
   Widget build(BuildContext context) {
     return Scaffold(
-      
       backgroundColor: Colors.white,
-      
-      body: 
-      Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-             Align(
+      key: scaffoldKey,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        children: <Widget>[
+          Align(
               alignment: Alignment.topLeft,
               child: Padding(
                 padding: const EdgeInsets.only(top: 30),
@@ -32,22 +39,21 @@ class _AddMoneyState extends State<AddMoney> {
                     color: Colors.white,
                   ),
                 ),
-              )
+              )),
+          Container(
+            height: 200,
+            width: 400,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Colors.orangeAccent.withOpacity(0.9),
+                  Colors.orange[400],
+                ],
+              ),
             ),
-            Container(
-              height: 200,
-              width: 400,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    Colors.orangeAccent.withOpacity(0.9),
-                    Colors.orange[400],
-          ],
-        ),
-      ),
             child: Padding(
               padding: const EdgeInsets.symmetric(),
               child: Column(
@@ -71,86 +77,75 @@ class _AddMoneyState extends State<AddMoney> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                
+
                   // Expanded(
-                  //   child: new Padding(padding: const EdgeInsets.all(10.0), 
+                  //   child: new Padding(padding: const EdgeInsets.all(10.0),
                   //   child: Icon(
                   //   Icons.account_balance_wallet_outlined,
                   //   size: 100,
-                    
-                  // ))),
-                  
-                  
-                
-                  
-                ],
-                ),
 
+                  // ))),
+                ],
+              ),
+            ),
           ),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+              child: TextField(
+                textAlign: TextAlign.center,
+                textAlignVertical: TextAlignVertical.center,
+                style: TextStyle(
+                  fontSize: 35,
+                  fontWeight: FontWeight.bold,
+                ),
+                cursorColor: Colors.orange[400],
+                controller: controller,
+                keyboardType: TextInputType.number,
+              ),
+            ),
           ),
-                  
-                  
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-                      child: TextField(
-                      textAlign: TextAlign.center,
-                      textAlignVertical: TextAlignVertical.center,
-                      style: 
-                        TextStyle(
-                          fontSize: 35,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        
-                        cursorColor: Colors.orange[400],
-                        controller: controller,
-                        keyboardType: TextInputType.number,
+          Expanded(
+            flex: 1,
+            child: Padding(
+                padding: EdgeInsets.all(125),
+                child: RaisedButton(
+                  child: Text(
+                    'Add Money',
+                    style: TextStyle(
+                      fontSize: 23,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                  ),),
-                  
-                  Expanded(
-                    flex: 1,
-                    child: Padding(
-                      padding: EdgeInsets.all(125),
-                      child: RaisedButton(
-                        child: Text('Add Money',
-                          style: TextStyle(
-                            fontSize: 23,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        textColor: Colors.white,
-                        color: Colors.orange[400],
-                        onPressed: () => addMoney(),
-                    )            
-                    
-                  ),
-                  ),
-          ],
+                  textColor: Colors.white,
+                  color: Colors.orange[400],
+                  onPressed: () => money(),
+                )),
           ),
-          );
+        ],
+      ),
+    );
   }
 
-  addMoney() {
-    return showDialog(
-      barrierColor: Colors.grey,
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          backgroundColor: Colors.orange[400],
-          // Retrieve the text the that user has entered by using the
-          // TextEditingController.
-          content: Text(
-              "Added INR " + controller.text + " to Wallet\n\nNew Amount = ",
-              style: TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            
-                            
-                          ),),
-        );
-      },
-    );
+  Future money() async {
+    var conn = await (Connectivity().checkConnectivity());
+    if (conn == ConnectivityResult.none)
+      scaffoldKey.currentState.showSnackBar(
+          showSnack('No internet connection!', Colors.white, Colors.red[700]));
+    else {
+      // user = await registerBloc.createLogin();
+      if (controller.text == '' || controller.text == ' ') {
+        scaffoldKey.currentState.showSnackBar(
+            showSnack('Cannot be blank', Colors.white, Colors.red[700]));
+      } else
+        showDialogBox(context, 'Proceed', 'Confirm Transaction', addfunds);
+    }
+  }
+
+  addfunds() async {
+    Navigator.of(context).pop();
+    bloc.loadingStatusIn.add(true);
+    await walletRepo.addMoney(double.parse(controller.text));
+    bloc.loadingStatusIn.add(false);
   }
 }

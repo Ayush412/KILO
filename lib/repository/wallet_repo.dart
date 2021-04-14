@@ -28,4 +28,4 @@ class WalletDataRepo {
 
 }
 
-final commentsRepo = WalletDataRepo();
+final walletRepo = WalletDataRepo();

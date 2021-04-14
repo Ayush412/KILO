@@ -49,17 +49,48 @@ class _PaymentState extends State<Payment> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
+            Align(
+                alignment: Alignment.topLeft,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 30),
+                  child: RaisedButton(
+                    color: Colors.orange[400].withOpacity(0.5),
+                    shape: CircleBorder(),
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: Icon(
+                      Icons.arrow_back,
+                      color: Colors.white,
+                    ),
+                  ),
+                )),
+            SizedBox(height: 50),
             TextField(
               controller: controller,
+              cursorColor: Colors.orange[400],
+              textAlign: TextAlign.center,
+              textAlignVertical: TextAlignVertical.center,
+              style: TextStyle(
+                fontSize: 35,
+                fontWeight: FontWeight.bold,
+              ),
               keyboardType: TextInputType.number,
             ),
             RaisedButton(
-              child: Text('Pay'),
+              child: Text(
+                'Pay',
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              textColor: Colors.white,
+              color: Colors.orange[400],
               onPressed: () => getPayment(),
             ),
           ]),
