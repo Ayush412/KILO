@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kilo/bloc/wallet_bloc.dart';
 import 'package:kilo/screens/wallet.dart';
 import 'package:kilo/bloc/login/login_bloc.dart';
 import 'package:kilo/repository/wallet_repo.dart';
@@ -60,14 +61,20 @@ class _AddMoneyState extends State<AddMoney> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    "INR 0.00",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w900,
-                      fontSize: 55,
-                    ),
+                  StreamBuilder<Object>(
+              stream: walletBloc.balanceOut,
+              builder: (context, balance) {
+                return Text(
+                  balance.data==null?
+                  "INR 0.00" : "INR ${balance.data}",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w900,
+                    fontSize: 55,
                   ),
+                );
+              }
+            ),
                   SizedBox(height: 4),
                   Text(
                     "Total Balance",
