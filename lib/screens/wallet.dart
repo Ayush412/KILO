@@ -3,7 +3,7 @@ import 'package:kilo/bloc/bloc.dart';
 import 'package:kilo/navigate.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:kilo/bloc/login/login_bloc.dart';
-import 'package:kilo/bloc/transaction_bloc.dart';
+import 'package:kilo/bloc/wallet_bloc.dart';
 import 'package:kilo/screens/purchase.dart';
 import 'package:kilo/widgets/circular_progress.dart';
 import 'package:kilo/widgets/ordersCard.dart';
@@ -22,15 +22,15 @@ class Wallet extends StatefulWidget {
 class _WalletState extends State<Wallet> {
   onRefresh() async {
     bloc.loadingStatusIn.add(true);
-    await transactionsBloc.getOrders();
+    await 
+    await walletBloc.getOrders();
     bloc.loadingStatusIn.add(false);
   }
 
   @override
   void initState() {
     super.initState();
-    transactionsBloc.transactionsIn.add(null);
-    transactionsBloc.getOrders();
+    walletBloc.getOrders();
   }
 
   @override
@@ -105,7 +105,7 @@ class _WalletState extends State<Wallet> {
                     width: MediaQuery.of(context).size.width,
                     height: 300,
                     child: StreamBuilder(
-                        stream: transactionsBloc.transactionsOut,
+                        stream: walletBloc.transactionsOut,
                         builder:
                             (context, AsyncSnapshot<QuerySnapshot> orders) {
                           if (!orders.hasData)
@@ -356,13 +356,19 @@ class _WalletState extends State<Wallet> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Text(
-              "INR 0.00",
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w500,
-                fontSize: 28,
-              ),
+            StreamBuilder<Object>(
+              stream: walletBloc.balanceOut,
+              builder: (context, balance) {
+                return Text(
+                  balance.data==null?
+                  "INR 0.00" : "INR ${balance.data}",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 28,
+                  ),
+                );
+              }
             ),
             // Expanded(
 

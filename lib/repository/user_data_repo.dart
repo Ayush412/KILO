@@ -60,6 +60,7 @@ class UserDataRepo{
       'Liked': [],
       'Steps Goal': 10000,
       'Cals Goal': 1000,
+      'Balance': 0,
       'Steps': {formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd]) : 0},
       'Cals': {formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd]) : 0},
       'Workouts': {
