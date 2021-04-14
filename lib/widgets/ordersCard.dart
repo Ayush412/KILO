@@ -20,9 +20,15 @@ ordersCard(BuildContext context, DocumentSnapshot order){
           Padding(
             padding: const EdgeInsets.only(top: 15),
             child: Row(children: [
-              Text('Amount :', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.black),),
-              Padding(padding: const EdgeInsets.only(left: 10),
-              child: Text('INR. ${order.data()['Amount']}', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.grey))
+              Text('Amount (INR):', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.black),),
+              Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: Text(order.data()['Type'] == 'Add' ? '+${order.data()['Amount']}' : '${order.data()['Amount']}', 
+                  style: TextStyle(fontSize: 18, 
+                    fontWeight: FontWeight.bold,
+                    color: order.data()['Type'] == 'Add' ? Colors.green : Colors.grey
+                  )
+                )
               )
             ]),
           ),
