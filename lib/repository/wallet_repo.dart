@@ -29,6 +29,7 @@ class WalletDataRepo {
       .doc(loginBloc.emailID)
       .update({'Balance': FieldValue.increment(amount)});
     await createTransaction(amount, 'Add', null, null);
+    await walletBloc.getBalance();
     await walletBloc.getOrders();
   }
 
@@ -38,6 +39,7 @@ class WalletDataRepo {
       .doc(loginBloc.emailID)
       .update({'Balance': FieldValue.increment(-amount)});
     await createTransaction(amount, 'Spend', item, image);
+    await walletBloc.getBalance();
     await walletBloc.getOrders();
   }
 
