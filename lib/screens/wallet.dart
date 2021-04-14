@@ -3,7 +3,7 @@ import 'package:kilo/bloc/bloc.dart';
 import 'package:kilo/navigate.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:kilo/bloc/login/login_bloc.dart';
-import 'package:kilo/bloc/ordersBloc.dart';
+import 'package:kilo/bloc/transaction_bloc.dart';
 import 'package:kilo/screens/purchase.dart';
 import 'package:kilo/widgets/circular_progress.dart';
 import 'package:kilo/widgets/ordersCard.dart';
@@ -22,14 +22,14 @@ class Wallet extends StatefulWidget {
 class _WalletState extends State<Wallet> {
   onRefresh() async {
     bloc.loadingStatusIn.add(true);
-    ordersBloc.getOrders();
+    await transactionsBloc.getOrders();
     bloc.loadingStatusIn.add(false);
   }
 
   @override
   void initState() {
     super.initState();
-    ordersBloc.getOrders();
+    transactionsBloc.getOrders();
   }
 
   @override
@@ -104,7 +104,7 @@ class _WalletState extends State<Wallet> {
                     width: MediaQuery.of(context).size.width,
                     height: 300,
                     child: StreamBuilder(
-                        stream: ordersBloc.ordersOut,
+                        stream: transactionsBloc.transactionsOut,
                         builder:
                             (context, AsyncSnapshot<QuerySnapshot> orders) {
                           if (!orders.hasData)

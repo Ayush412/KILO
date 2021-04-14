@@ -10,7 +10,6 @@ class TransactionsRepo{
       .get();
     return qs;
   }
-  
 }
 
 final TransactionsRepo transactionsRepo = TransactionsRepo();
