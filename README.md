@@ -31,7 +31,7 @@ The following Firebase services were used in this app:
 
 <img src="screenshots/Intro.gif" height="400"> 
 
-###Login and Registration
+### Login and Registration
 
 <img src="screenshots/Login.png" height="400">  <img src="screenshots/Register_1.png" height="400"> <img src="screenshots/Register_2.png" height="400">
 
