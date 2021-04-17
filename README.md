@@ -47,11 +47,11 @@ The following Firebase services were used in this app:
 
 <img src="screenshots/Workouts_1.png" height="400"> <img src="screenshots/Workouts_2.png" height="400"> <img src="screenshots/Workouts_3.png" height="400"> <img src="screenshots/Workouts_4.png" height="400">
 
-#### Yoga
+### Yoga
 
 <img src="screenshots/Yoga_1.png" height="400">
 
-#### Profile
+### Profile
 
 <img src="screenshots/Profile_1.png" height="400"> <img src="screenshots/Profile_2.png" height="400">
 
