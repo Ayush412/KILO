@@ -41,7 +41,7 @@ class UserDataRepo{
           userDataRepo.saveUserCals(date, 0);
         }
         else{
-          double cals = myMap['Cals'][date];
+          double cals = (myMap['Cals'][date]).toDouble();
           sharedPreference.saveCals(cals);
         }
       }

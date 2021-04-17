@@ -39,7 +39,7 @@ class _DashboardState extends State<Dashboard> {
       body: Stack(
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.only(bottom: 50.0),
+            padding: const EdgeInsets.only(bottom: 0),
             child: Padding(
               padding: const EdgeInsets.fromLTRB(10.0, 30.0, 10.0, 10.0),
               child: SingleChildScrollView(
