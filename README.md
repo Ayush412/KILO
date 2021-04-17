@@ -1,5 +1,4 @@
-# KILO <img src="assets/KILO.png" width="50"> 
-
+# <img src="assets/KILO.png" width="50"> KILO
 A fitness app developed as part of our final year project. The app aims to provide users with a set of workouts that the users can choose from and track their progress to promote physical health. KILO will keep reward its users with achievement badges which can be unlocked by working out with the app and allow users to share their thougths and images with a dedicated social media section. KILO was developed to be used as an extension of a gym allowing uses to pay and avail discounts towards membership fees based on their workout activity.
 
 Features:
