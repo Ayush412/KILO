@@ -11,9 +11,9 @@ Features:
 - Post content and images as well as comment on other users' posts
 - Delete your posts and comments on other posts
 - Perform Yoga with the help of machine learning to track your posture
-- E-wallet to pay for gym subscriptions and services
 - View graphs based on your daily steps and calories burnt
 - Earn special badges upon completion of workouts
+- E-wallet to pay for gym subscriptions and services (under development)
 
 ## Tools Used
 
@@ -51,4 +51,10 @@ The following Firebase services were used in this app:
 
 <img src="screenshots/Yoga_1.png" height="400">
 
-#### 
+#### Profile
+
+<img src="screenshots/Profile_1.png" height="400"> <img src="screenshots/Profile_2.png" height="400">
+
+### E-Wallet (Under Development)
+
+<img src="screenshots/Wallet_1.png" height="400"> <img src="screenshots/Wallet_2.png" height="400">
