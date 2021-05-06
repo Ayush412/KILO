@@ -4,7 +4,6 @@ import 'package:kilo/bloc/bloc.dart';
 import 'package:kilo/bloc/comments_bloc.dart';
 import 'package:kilo/bloc/login/login_bloc.dart';
 import 'package:kilo/bloc/user_details/user_details_bloc.dart';
-import 'package:kilo/repository/comments_repo.dart';
 import 'package:kilo/repository/likes_repo.dart';
 import 'package:kilo/screensize.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

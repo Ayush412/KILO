@@ -13,6 +13,8 @@ import 'screens/home.dart';
 import 'screens/intro.dart';
 import 'screens/login.dart';
 
+import 'package:dcdg/dcdg.dart';
+
 void main(){
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,

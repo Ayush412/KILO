@@ -7,14 +7,9 @@ import 'package:kilo/screens/feed.dart';
 import 'package:kilo/screens/record_activity.dart';
 import 'package:kilo/screens/profile.dart';
 import 'package:kilo/screens/wallet.dart';
-import 'package:kilo/screens/wallet_upi.dart';
-import 'package:kilo/sharedpref.dart';
 import 'package:kilo/widgets/show_dialog.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-import 'package:kilo/screens/calories/calories.dart';
-import 'package:kilo/screens/calories/calories_section.dart';
-import 'package:health/health.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
