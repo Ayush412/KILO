@@ -31,6 +31,9 @@ class WalletDataRepo {
   }
 
   spendMoney(double amount, String item, String image) async{
+    print(amount);
+    print(item);
+    print(image);
     await FirebaseFirestore.instance
       .collection('users')
       .doc(loginBloc.emailID)

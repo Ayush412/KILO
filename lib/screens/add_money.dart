@@ -132,7 +132,6 @@ class _AddMoneyState extends State<AddMoney> {
       scaffoldKey.currentState.showSnackBar(
           showSnack('No internet connection!', Colors.white, Colors.red[700]));
     else {
-      // user = await registerBloc.createLogin();
       if (controller.text == '' || controller.text == ' ') {
         scaffoldKey.currentState.showSnackBar(
             showSnack('Cannot be blank', Colors.white, Colors.red[700]));

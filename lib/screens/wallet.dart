@@ -20,6 +20,7 @@ class Wallet extends StatefulWidget {
 }
 
 class _WalletState extends State<Wallet> {
+  
   onRefresh() async {
     bloc.loadingStatusIn.add(true);
     await walletBloc.getBalance();
@@ -32,6 +33,53 @@ class _WalletState extends State<Wallet> {
     super.initState();
     walletBloc.getBalance();
     walletBloc.getOrders();
+  }
+
+  infoDialog(DocumentSnapshot order){
+    showDialog(
+      context: context,
+      builder: (c) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
+        content: Column(
+          children: [
+            Row(children: [
+              Text('Order No :', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.black),),
+              Padding(padding: const EdgeInsets.only(left: 10),
+              child: Text(order.id, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.grey[600]),),
+              )
+            ]),
+            Padding(
+              padding: const EdgeInsets.only(top: 15),
+              child: Row(children: [
+                Text('Amount (INR):', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.black),),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10),
+                  child: Text(order.data()['Type'] == 'Add' ? '+${order.data()['Amount']}' : '${order.data()['Amount']}', 
+                    style: TextStyle(fontSize: 18, 
+                      fontWeight: FontWeight.bold,
+                      color: order.data()['Type'] == 'Add' ? Colors.green : Colors.grey
+                    )
+                  )
+                )
+              ]),
+            ),
+            order.data()['Item'] != null ?
+            Padding(
+              padding: const EdgeInsets.only(top: 15),
+              child: Row(
+                children: [
+                  //put item info here
+                ],
+              ),
+            )
+            : Container()
+          ]
+        ),
+        actions: [
+          FlatButton(child: Text('Ok'), onPressed: () => Navigator.pop(c, false))
+        ],
+      )
+    );
   }
 
   @override
@@ -96,14 +144,13 @@ class _WalletState extends State<Wallet> {
                         ),
                         onPressed: () {
                           navigate(context, PurchaseItem(),
-                              PageTransitionAnimation.slideRight, false);
+                              PageTransitionAnimation.fade, false);
                         },
                       ),
                     ],
                   ),
                 ),
-                SizedBox(height: 32),
-                //_buildTransactionList(),
+                
                 Padding(
                   padding: const EdgeInsets.all(10),
                   child: Text("Transaction History:", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
@@ -129,7 +176,7 @@ class _WalletState extends State<Wallet> {
                                   itemCount: orders.data.docs.length,
                                   itemBuilder: (_, index) {
                                     return ordersCard(
-                                        context, orders.data.docs[index]);
+                                        context, orders.data.docs[index], infoDialog);
                                   });
                           }
                         }))
@@ -140,58 +187,6 @@ class _WalletState extends State<Wallet> {
               alignment: Alignment.topRight,
               child: circularProgressIndicator(context))
         ]),
-      ),
-    );
-  }
-
-  Container _buildTransactionList() {
-    return Container(
-      height: 400,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(40),
-          topRight: Radius.circular(40),
-        ),
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 5,
-            color: Colors.grey.withOpacity(0.1),
-            offset: Offset(0, -10),
-          ),
-        ],
-      ),
-      child: ListView(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0 * 3),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      "Transaction",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      "See All",
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 16,
-                      ),
-                    )
-                  ],
-                ),
-                SizedBox(height: 24),
-              ],
-            ),
-          ),
-        ],
       ),
     );
   }
