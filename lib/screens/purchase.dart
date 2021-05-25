@@ -90,7 +90,7 @@ class _PurchaseItemState extends State<PurchaseItem> {
                   itemCount: products.data.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    childAspectRatio: screenSize(180, context)/screenSize(250, context)
+                    childAspectRatio: screenSize(180, context)/screenSize(300, context)
                   ),
                   itemBuilder: (context, index) => Card(
                     elevation: 0,

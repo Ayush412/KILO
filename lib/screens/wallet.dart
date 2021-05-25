@@ -12,6 +12,7 @@ import 'package:kilo/screens/razorpay/razorpay_payment.dart';
 import 'package:kilo/screens/wallet_upi.dart';
 import 'package:kilo/screens/wallet_card_info/wallet_card.dart';
 import 'package:kilo/widgets/underline_text.dart';
+import 'package:date_format/date_format.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class Wallet extends StatefulWidget {
@@ -41,17 +42,15 @@ class _WalletState extends State<Wallet> {
       builder: (c) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
         content: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(children: [
-              Text('Order No :', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.black),),
-              Padding(padding: const EdgeInsets.only(left: 10),
-              child: Text(order.id, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.grey[600]),),
-              )
-            ]),
+            Text('Order No :', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),),
+            SizedBox(height: 10),
+            Text(order.id, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey[600]),),
             Padding(
-              padding: const EdgeInsets.only(top: 15),
+              padding: const EdgeInsets.only(top: 25),
               child: Row(children: [
-                Text('Amount (INR):', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.black),),
+                Text('Amount (INR):', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),),
                 Padding(
                   padding: const EdgeInsets.only(left: 10),
                   child: Text(order.data()['Type'] == 'Add' ? '+${order.data()['Amount']}' : '${order.data()['Amount']}', 
@@ -63,12 +62,28 @@ class _WalletState extends State<Wallet> {
                 )
               ]),
             ),
+            SizedBox(height: 25),
+            Text('Date :', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),),
+            SizedBox(height: 10),
+            Text(formatDate(order.data()['Date'].toDate(), [dd, ' ', MM, ' ', yyyy]), style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey[600]),),
+             SizedBox(height: 25),
+            Text('Transaction :', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),),
+            SizedBox(height: 10),
+            Text(order.data()['Type'], style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey[600]),),
             order.data()['Item'] != null ?
             Padding(
-              padding: const EdgeInsets.only(top: 15),
-              child: Row(
+              padding: const EdgeInsets.only(top: 25),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  //put item info here
+                  Text('Item :', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),),
+                  SizedBox(height: 10),
+                  Image.network(order.data()['Image'], height: 100, width: 100),
+                  SizedBox(height: 10),
+                  Text(order.data()['Item'],
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.grey[600]),
+                    )
+                  
                 ],
               ),
             )

@@ -6,7 +6,7 @@ ordersCard(BuildContext context, DocumentSnapshot order, dynamic info){
   return Padding(
     padding: const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 10),
     child: GestureDetector(
-      onTap: () => null,//info(order),
+      onTap: () => info(order),
           child: Card(
         elevation: 2,
         child: Padding(
