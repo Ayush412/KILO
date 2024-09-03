@@ -1,6 +1,6 @@
 # <img src="assets/KILO.png" width="50"> KILO
 #### Developed by: [Ayush Rajguru](https://github.com/Ayush412), [Dhir Thacker](https://github.com/dhirthacker7), [Mark Angelo](https://github.com/Markieee19), [Purav Patel](https://github.com/puravpatel99)
-A fitness app developed as part of our final year project. The app aims to provide users with a set of workouts that the users can choose from and track their progress to promote physical health. KILO will keep reward its users with achievement badges which can be unlocked by working out with the app and allow users to share their thougths and images with a dedicated social media section. KILO was developed to be used as an extension of a gym allowing uses to pay and avail discounts towards membership fees based on their workout activity.
+A fitness app developed as part of our final year project. The app aims to provide users with a set of workouts that the users can choose from and track their progress to promote physical health. KILO rewards its users with achievement badges which can be unlocked by working out with the app and allows users to share their thougths and images with a dedicated social media section. KILO was developed to be used as an extension of a gym allowing users to pay and avail discounts towards membership fees based on their workout activity.
 
 Features:
 
